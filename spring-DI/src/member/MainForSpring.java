@@ -1,14 +1,16 @@
-package memeber;
+package member;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class MainForAssembler {
-	private static Assembler assembler = new Assembler();
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
-	// private static MemberRegisterService registerService=
-	// assembler.getRegistService();
+public class MainForSpring {
+	//private static Assembler assembler = new Assembler();
+	// 스프링 컨테이너 생성 : 조립기 설정파일 appCtx1.xml
+	private static ApplicationContext ctx= new GenericXmlApplicationContext("classpath:appCtx8.xml");
 
 	public static void main(String[] args) throws IOException {
 
@@ -42,7 +44,7 @@ public class MainForAssembler {
 			printHelp();
 			return;
 		}
-		MemberRegisterService service = assembler.getRegistService();
+		MemberRegisterService service = ctx.getBean("registService", MemberRegisterService.class);
 		RegisterRequest request = new RegisterRequest();
 		request.setEmail(args[1]);
 		request.setName(args[2]);
@@ -66,7 +68,7 @@ public class MainForAssembler {
 			printHelp();
 			return;
 		}
-		ChangePasswordService service= assembler.getPwService();
+		ChangePasswordService service= ctx.getBean("changeService",ChangePasswordService.class );
 		
 		try {
 			service.changePassord(args[1], args[2], args[3]);
