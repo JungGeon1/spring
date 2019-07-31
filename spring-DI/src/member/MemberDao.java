@@ -6,8 +6,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-@Component
-public class MemberDao  {
+//내가 이거떄매....
+@Repository("member123")
+public class MemberDao implements Dao {
 	
 	private static long nextId=0;
 	private Map<String, Member> map= new HashMap<String, Member>();
