@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.bitcamp.mvc" />
-	
+	<!-- <context:component-scan base-package="com.bitcamp.mvc.member"/> -->
 	
 	
 </beans:beans>
