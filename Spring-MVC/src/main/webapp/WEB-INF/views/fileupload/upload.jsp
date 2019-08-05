@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,8 @@
 	<h3>
 	학번: ${report.sno}<br>
 	리포트: ${report.fileName}(${report.fileSize}byte)
-	
+	사진:<br>
+	<img src="<c:url value="/uploadfile" />/${report.fileName}" style="width: 500px;">
 	
 	</h3>
 </body>

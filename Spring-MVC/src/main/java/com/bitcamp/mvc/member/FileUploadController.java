@@ -71,7 +71,8 @@ public class FileUploadController {
 	//커맨드객체이용
 	@RequestMapping(value = "/fileupload/upload3" ,method = RequestMethod.POST)
 	public String upload1(Report report,
-			  HttpServletRequest request) {
+			  HttpServletRequest request,
+			  Model model) {
 		
 		String path="/uploadfile";
 		String dir= request.getSession().getServletContext().getRealPath(path);
@@ -80,6 +81,7 @@ public class FileUploadController {
 		if(!file.isEmpty()&&file.getSize()>0) {
 			try {
 				file.transferTo(new File(dir,file.getOriginalFilename()));
+				model.addAttribute("photo",dir+"\\"+file.getOriginalFilename());
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,7 +92,7 @@ public class FileUploadController {
 			
 			
 		}
-		System.out.println(report.getSno());
+		System.out.println(dir+"\\"+file.getOriginalFilename());
 		
 		return "fileupload/upload";
 	}
