@@ -35,11 +35,11 @@
 	</servlet-mapping>
 
 
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>DBCPInit</servlet-name>
 		<servlet-class>com.bitcamp.guest.jdbc.DBCPInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter

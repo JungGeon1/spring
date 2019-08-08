@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
+import com.bitcamp.guest.dao.MessageJdbcTempletDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
 
 @Service("writeService")
 public class WriteMessageService implements GuestBookService {
+//	@Autowired
+//	private MessageDao dao;
+
 	@Autowired
-	private MessageDao dao;
+	private MessageJdbcTempletDao templetDao;
 
 	public int write(Message message) {
 
@@ -27,17 +31,18 @@ public class WriteMessageService implements GuestBookService {
 		// 2. dao 생성
 		// 3. insert 메서드 실행
 
-		Connection conn = null;
+		// Connection conn = null;
 
-		try {
-			conn = ConnectionProvider.getConnection();
+		// try {
+		// conn = ConnectionProvider.getConnection();
 
-			rCnt = dao.insert(conn, message);
+		// rCnt = dao.insert(conn, message);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		rCnt = templetDao.insert(message);
+		// } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
 		return rCnt;
 	}
