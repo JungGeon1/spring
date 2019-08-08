@@ -227,13 +227,75 @@ public class MemberDao {
 		return memberList;
 	}
 
-	public int deleteMessage(Connection conn, int messageId) {
+
+
+	public MemberInfo selectMemberByIdx(Connection conn, int id) {
+
+		MemberInfo memberInfo = null;
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		System.out.println("dao : memberId -> " + id);
+		
+		String sql = "select * from project.userinfo where idx=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,id);
+			rs = pstmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				System.out.println("check ::::::::::::::::::::::::");
+				memberInfo = new MemberInfo(
+					rs.getInt("idx"), 
+					rs.getString("mid"), 
+					rs.getString("mpw"), 
+					rs.getString("mname"), 
+					rs.getString("mphoto"), 
+					new Date(rs.getTimestamp("regdate").getTime()));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		
+		return memberInfo;
+	}
+
+	public int memberUpdate(Connection conn, MemberInfo memberInfo) {
+		
+		System.out.println(">>>>>>>>>>>"+memberInfo);
+		int rCnt = 0;
+		PreparedStatement pstmt = null;
+		String sql = "update project.userinfo set mname=?, mpw=?, mphoto=? where idx=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberInfo.getuName());
+			pstmt.setString(2, memberInfo.getuPW());
+			pstmt.setString(3, memberInfo.getuPhoto());
+			pstmt.setInt(4, memberInfo.getIdx());
+			rCnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return rCnt;
+		
+	}
+	
+	public int memberDelete(Connection conn, int messageId) {
 
 		int resultCnt = 0;
 
 		PreparedStatement pstmt = null;
 
-		String sql = "delete from project.UserInfo where mId =?";
+		String sql = "delete from project.UserInfo where idx =?";
 
 		try {
 			try {
@@ -254,5 +316,29 @@ public class MemberDao {
 		return resultCnt;
 
 	}
+	/*
+	 * public int upda(Connection conn, MemberInfo memberInfo) {
+	 * 
+	 * int rCnt=0;
+	 * 
+	 * 
+	 * PreparedStatement pstmt= null; String
+	 * sql="update project.userinfo set mname=?, mpw=?, mphoto=? where idx=?";
+	 * 
+	 * try { pstmt= conn.prepareStatement(sql); pstmt.setString(1,
+	 * memberInfo.getuName()); pstmt.setString(2, memberInfo.getuPW());
+	 * pstmt.setString(3, memberInfo.getuPhoto()); pstmt.setInt(4,
+	 * memberInfo.getIdx());
+	 * 
+	 * rCnt=pstmt.executeUpdate(); } catch (SQLException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * 
+	 * return rCnt;
+	 * 
+	 * }
+	 */
+	
 
 }

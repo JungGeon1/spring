@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +95,8 @@
 			<td>
 				<fmt:formatDate value="${memberInfo.regDate}" pattern="yyyy.MM.dd"/>
 			</td>
-			<td><a href="#">수정</a>/<a href="<c:url value="/member/delete?id=${memberInfo.uId}"/>">삭제</a></td>
+			<td><a href="memberEdit?memberId=${memberInfo.idx}">수정</a> /
+			<a href="#" onclick="delMember(${memberInfo.idx})">삭제</a></td>
 		</tr>
 		</c:forEach>
 	
@@ -105,8 +108,8 @@
 		</c:forEach>
 		
 	</div>
-	</c:if>
 	
+</c:if>
 </div>
 <!-- 컨텐츠 끝 -->
 
@@ -121,6 +124,16 @@
 
 
 
+<script>
+	
+		function delMember(idx) {
+			if(confirm("삭제하시겠습니까?")){
+			location.href="memberdelete?memberId="+idx;
+		
+			}
+		}
+	
+</script>
 
 
 </body>
