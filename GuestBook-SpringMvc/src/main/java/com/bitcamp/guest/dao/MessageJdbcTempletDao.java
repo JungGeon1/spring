@@ -25,7 +25,7 @@ public class MessageJdbcTempletDao {
 
 	// JdbcTemplete버전
 	public int insert(Message message) {
-		String sql = "INSERT INTO GUESTBOOK_MESSAGE " + " (GUEST_NAME, PASSWORD, MESSAGE) " + " values (?,?,?)";
+		String sql = "insert INTO guestbook_message(message_id,guest_name, password,message)VALUES(gm_mid_seq.nextval,?,?,?)";
 
 		return template.update(sql, message.getGuestName(), message.getPassword(), message.getMessage());
 
