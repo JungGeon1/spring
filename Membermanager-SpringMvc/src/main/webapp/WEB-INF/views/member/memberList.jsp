@@ -119,11 +119,6 @@
 <!-- 푸터 끝 -->
 
 
-
-
-
-
-
 <script>
 	
 		function delMember(idx) {

@@ -34,7 +34,7 @@
 
 <!-- 컨텐츠 시작 -->
 <div id="contents">
-	<h3>회원가입 페이지</h3>
+	<h3>수정페이지</h3>
 	<hr>
 	<form id="regform" method="post" enctype="multipart/form-data">
 		<table>

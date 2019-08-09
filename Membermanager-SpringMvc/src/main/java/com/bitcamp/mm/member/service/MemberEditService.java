@@ -12,27 +12,27 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
+import com.bitcamp.mm.member.dao.MemberJdbcTempleteDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberEdit;
 
 @Service("editService")
 public class MemberEditService {
 
+	
+	
 	@Autowired
-	private MemberDao dao;	
+	private MemberJdbcTempleteDao templeteDao;
 	
 	public MemberInfo getEditFormData(int id) {
 		
-		Connection conn = null;
+	
 		MemberInfo memberInfo = null;
 		
-		try {
-			conn= ConnectionProvider.getConnection();
-			memberInfo = dao.selectMemberByIdx(conn, id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		
+		memberInfo = templeteDao.selectMemberByIdx(id);
+	
 		
 		System.out.println("service : " + memberInfo);
 		
@@ -49,7 +49,7 @@ public class MemberEditService {
 		String path = "/uploadfile/userphoto";
 		String dir = request.getSession().getServletContext().getRealPath(path);
 		
-		Connection conn = null;
+
 		
 		
 		// 신규 파일 체크
@@ -78,14 +78,10 @@ public class MemberEditService {
 			memberInfo.setuPhoto(oldFileName);
 		}
 		
-		try {
-			conn = ConnectionProvider.getConnection();
-			rCnt = dao.memberUpdate(conn, memberInfo);
+	
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			rCnt = templeteDao.memberUpdate(memberInfo);
+			
 		
 		return rCnt;
 	}

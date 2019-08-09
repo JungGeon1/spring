@@ -20,58 +20,66 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
+import com.bitcamp.mm.member.dao.MemberJdbcTempleteDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberRegist;
 
-
 @Service("regsitService")
 public class MemberRegService implements MemberService {
-	
+
 	@Autowired
-	private MemberDao dao;
-	
+	private MemberJdbcTempleteDao templeteDao;
+
 	public int memberInsert(HttpServletRequest request, RequestMemberRegist regist) {
-		//서버경로
-		String path="/uploadfile/userphoto";
-		//절대경로
-		String dir=request.getSession().getServletContext().getRealPath(path);
-		
-		MemberInfo memberInfo =regist.toMemInfo();
-		
-		//새로운 파일을 생성
-		String newFileName = memberInfo.getuId()+"_"+regist.getuPhoto().getOriginalFilename();
-		
-		int resultCnt=0;
-		Connection conn= null;
+		// 서버경로
+		String path = "/uploadfile/userphoto";
+		// 절대경로
+		String dir = request.getSession().getServletContext().getRealPath(path);
+
+		MemberInfo memberInfo = regist.toMemInfo();
+
+		// 새로운 파일을 생성
+		String newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
+
+		int resultCnt = 0;
+
 		try {
-			
-			conn=ConnectionProvider.getConnection();
-			//파일을 서버의 지정 경로에 저장
+
+			// 파일을 서버의 지정 경로에 저장
 			System.out.println(dir);
-			regist.getuPhoto().transferTo(new File(dir,newFileName));
-			
-			//데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
+			regist.getuPhoto().transferTo(new File(dir, newFileName));
+
+			// 데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
 			memberInfo.setuPhoto(newFileName);
-			
-			resultCnt=dao.insertMember(conn, memberInfo);
-			
+
+			resultCnt = templeteDao.insertMember(memberInfo);
+
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("오류확인");
-			new File(dir,newFileName).delete();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("구아악");
+			System.out.println("구아악 이곳은 !!회워가입사진!");
 		}
 		return resultCnt;
 	}
+
+	public char idCheck(String id) {
+
+		char chk = templeteDao.selectMemberById(id) == null ? 'Y' : 'N';
+
+		return chk;
+	}
 	
-	
+	public String idCheck1(String id) {
+		
+		String chk = templeteDao.selectMemberById2(id)==null?"Y":"N" ;
+		
+		
+		return chk;
+	}
+
 }
