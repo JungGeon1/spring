@@ -81,9 +81,6 @@ public class DeleteMessageService implements GuestBookService{
 //	}
 	
 	@Autowired
-	
-	
-	
 	private SqlSessionTemplate template;
 	
 	private MessageSessionDao dao;

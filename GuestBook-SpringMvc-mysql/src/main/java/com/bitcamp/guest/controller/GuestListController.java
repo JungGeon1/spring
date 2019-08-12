@@ -35,18 +35,33 @@ public class GuestListController {
 	
 	
 	/*--json으로 바로 반환하기위해--*/
-	@RequestMapping(value = "/guest/listj")
-	@ResponseBody
-	public MessageListView getListJson(@RequestParam(value = "page", defaultValue = "1") int pageNumber) {
-		
-		MessageListView view = listService.getMessageListView(pageNumber);
-		
-		return view;
-	}
+	/*
+	 * @RequestMapping(value = "/guest/listj")
+	 * 
+	 * @ResponseBody public MessageListView getListJson(@RequestParam(value =
+	 * "page", defaultValue = "1") int pageNumber) {
+	 * 
+	 * MessageListView view = listService.getMessageListView(pageNumber);
+	 * 
+	 * return view; }
+	 * 
+	 * @RequestMapping(value = "/guest/list_j") public String getList() {
+	 * 
+	 * return "guest/list_j"; }
+	 */
 	
-	@RequestMapping(value = "/guest/list_j")
-	public String getList() {
+	@RequestMapping("/guest/listj")
+	@ResponseBody
+	public MessageListView getListJson(
+			@RequestParam(
+					value = "page", 
+					defaultValue = "1") int pageNumber,
+			Model model
+			) {
 		
-		return "guest/list_j";
+		MessageListView listView = 
+				listService.getMessageListView(pageNumber);
+		
+		return listView;
 	}
 }

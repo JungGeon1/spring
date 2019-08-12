@@ -18,12 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from project.guestbook_message order by id desc limit #{firstRow},#{cntPerPage}
 	</select>
 	
-	
-	<select id="select" resultType="com.bitcamp.guest.domain.Message">
+	                                     
+	<select id="select" resultType="com.bitcamp.guest.domain.Message" parameterType="int">
 		SELECT * FROM PROJECT.GUESTBOOK_MESSAGE WHERE ID=#{id}
 	</select>
-	
-	<delete id="deleteMessage">
+	<!-- parameterType은 생략가능하다 -->
+	<delete id="deleteMessage" parameterType="int">
 		delete from project.guestbook_message where ID=#{id}
 	</delete>
 	
