@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 필수 속성이다 :dao를 식별하기위한 이름 -->
+<mapper namespace="com.bitcamp.guest.mapper.mybatis.guestMapper">
+
+	<insert id="insertMessage" parameterType="com.bitcamp.guest.domain.Message">
+		insert into PROJECT.GUESTBOOK_MESSAGE (GUESTNAME, PASSWORD, MESSAGE) values (#{guestName},#{password},#{message}) 
+	</insert>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from PROJECT.GUESTBOOK_MESSAGE;
+	</select>
+	
+	<select id="selectList" resultType="com.bitcamp.guest.domain.Message" parameterType="map">
+		select * from project.guestbook_message order by id desc limit #{firstRow},#{cntPerPage}
+	</select>
+	
+	
+	<select id="select" resultType="com.bitcamp.guest.domain.Message">
+		SELECT * FROM PROJECT.GUESTBOOK_MESSAGE WHERE ID=#{id}
+	</select>
+	
+	<delete id="deleteMessage">
+		delete from project.guestbook_message where ID=#{id}
+	</delete>
+	
+</mapper>
