@@ -1,5 +1,6 @@
 /.metadata/
 <<<<<<< HEAD
+<<<<<<< HEAD
 Servers/.project
 Servers/.settings/org.eclipse.wst.server.core.prefs
 Servers/Pivotal tc Server Developer Edition v4.0-config/catalina.policy
@@ -122,3 +123,5 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/windows,eclipse,java-web
 >>>>>>> 6c99f5fe989366181537fce2faac51fbb266303a
+=======
+>>>>>>> dcc3c8635ef2830756d78eec91758a77d084ff0f
