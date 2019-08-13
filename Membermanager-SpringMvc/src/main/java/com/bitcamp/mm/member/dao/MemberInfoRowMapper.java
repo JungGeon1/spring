@@ -16,10 +16,10 @@ public class MemberInfoRowMapper implements RowMapper<MemberInfo> {
 		
 	MemberInfo	memberInfo = new MemberInfo(
 				rs.getInt("idx"), 
-				rs.getString("mid"), 
-				rs.getString("mpw"),
-				rs.getString("mname"), 
-				rs.getString("mphoto"), 
+				rs.getString("uid"), 
+				rs.getString("upw"),
+				rs.getString("uname"), 
+				rs.getString("uphoto"), 
 				new Date(rs.getTimestamp("regdate").getTime()));
 		
 		return memberInfo;

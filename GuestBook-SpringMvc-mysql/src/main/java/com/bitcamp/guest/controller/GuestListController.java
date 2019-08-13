@@ -30,7 +30,7 @@ public class GuestListController {
 		
 		model.addAttribute("viewData", view);
 		
-		return "guest/list";
+		return "guest/list_j";
 	}
 	
 	

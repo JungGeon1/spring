@@ -53,9 +53,23 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+<!-- mybatis설정 : datasource,mapper 경로 -->
+	<beans:bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations"
+			value="classpath:com/bitcamp/mm/mapper/mybatis/*.xml"></beans:property>
+	</beans:bean>
+
+	<beans:bean 
+		id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>
 	<context:component-scan
 		base-package="com.bitcamp.mm" />
 
-
+	
+	
 
 </beans:beans>

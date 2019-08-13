@@ -7,12 +7,14 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
 import com.bitcamp.mm.member.dao.MemberJdbcTempleteDao;
+import com.bitcamp.mm.member.dao.memberSessionDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberEdit;
 
@@ -21,17 +23,21 @@ public class MemberEditService {
 
 	
 	
+	//@Autowired
+	//private MemberJdbcTempleteDao templeteDao;
 	@Autowired
-	private MemberJdbcTempleteDao templeteDao;
+	private SqlSessionTemplate sessionTemplate;
+	private memberSessionDao sessionDao;
+	
 	
 	public MemberInfo getEditFormData(int id) {
-		
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
 	
 		MemberInfo memberInfo = null;
 		
 	
 		
-		memberInfo = templeteDao.selectMemberByIdx(id);
+		memberInfo = sessionDao.selectMemberByIdx(id);
 	
 		
 		System.out.println("service : " + memberInfo);
@@ -41,7 +47,7 @@ public class MemberEditService {
 	}
 
 	public int edit(RequestMemberEdit edit, String oldFileName, HttpServletRequest request) {
-	
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
 		
 		int rCnt = 0;
 		MemberInfo memberInfo = edit.toMemberInfo();
@@ -80,7 +86,7 @@ public class MemberEditService {
 		
 	
 			
-			rCnt = templeteDao.memberUpdate(memberInfo);
+			rCnt = sessionDao.memberUpdate(memberInfo);
 			
 		
 		return rCnt;

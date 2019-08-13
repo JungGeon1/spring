@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+						
+	<mapper namespace="com.bitcamp.mm.member.dao.memberSessionDao">
+		
+		
+		
+		<!-- select 결과 메핑을 위한 resultMap 설정 -->
+<!-- 	<resultMap id="resultMemberInfo"
+		type="com.bitcamp.mm.member.domain.MemberInfo">
+		<id property="idx" column="idx" />
+		<result property="uId" column="uid" />
+		<result property="uPW" column="upw" />
+		<result property="uName" column="uname" />
+		<result property="uPhoto" column="uphoto" />
+		<result property="regDate" column="date" />
+	</resultMap> -->
+		
+		
+		<insert id="insertMember" parameterType="com.bitcamp.mm.member.domain.MemberInfo">
+			insert into project.userinfo(uid,upw,uname,uphoto) values(#{uId},#{uPW},#{uName},#{uPhoto})
+		</insert>
+		
+		<select id="selectMemberById" resultType="com.bitcamp.mm.member.domain.MemberInfo" parameterType="String">
+			select * from project.userinfo where uid=#{id}
+		</select>
+		
+		<select id="selectMemberById2" resultType="com.bitcamp.mm.member.domain.MemberInfo" parameterType="String">
+			select * from project.userinfo where uid=#{id}
+		</select>
+		
+		
+		<select id="selectMemberByIdx" resultType="com.bitcamp.mm.member.domain.MemberInfo" parameterType="int">
+			select * from project.userinfo where idx=#{id}
+		</select>
+		
+		<update id="memberUpdate" parameterType="com.bitcamp.mm.member.domain.MemberInfo" >
+			update project.userinfo set uname=#{uName}, upw=#{uPW}, uphoto=#{uPhoto} where idx=#{idx}
+		</update>
+		
+		<update id="memberDelete" parameterType="int" >
+			delete from project.UserInfo where idx=#{idx}
+		</update>
+		
+		
+		
+		<select id="selectTotalCount"
+		parameterType="com.bitcamp.mm.member.domain.SearchParam"
+		resultType="int">
+		select count(*) from project.UserInfo
+
+		<where>
+
+			<if test="stype != null">
+				<if test="stype == 'both'">
+					uid LIKE CONCAT('%', #{keyword}, '%') or uname LIKE
+					CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'id'">
+					uid LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'name'">
+					uname LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+
+			</if>
+
+
+		</where>
+
+	</select>
+
+	<select id="selectList" parameterType="map"
+		resultType="com.bitcamp.mm.member.domain.MemberInfo">
+		SELECT * FROM project.UserInfo
+		<where>
+			<if test="search != null">
+				<if test="search.stype == 'both'">
+					<include refid="whereId"/>
+					<include refid="whereName"/>
+					<!-- uid LIKE CONCAT('%', #{search.keyword}, '%') or uname LIKE CONCAT('%', #{search.keyword}, '%') -->
+				</if>
+				<if test="search.stype == 'id'">				
+					<include refid="whereId"/>
+				</if>
+				<if test="search.stype == 'name'">
+					<include refid="whereName"/>
+				</if>
+			</if>
+		</where>
+		
+		limit #{index}, #{count}
+	</select>
+		
+	<sql id="whereId">
+		or uid LIKE CONCAT('%', #{search.keyword}, '%')
+	</sql>
+		
+	<sql id="whereName">
+		or uid LIKE CONCAT('%', #{search.keyword}, '%')
+	</sql>
+	
+	
+	
+
+	</mapper>

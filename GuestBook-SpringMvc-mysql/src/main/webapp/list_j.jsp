@@ -11,7 +11,47 @@
 <meta charset="UTF-8">
 <title>::jackson:: list</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<style></style>
+<style>div {
+	border: 2px solid #666;
+	width: 200px;
+}
+
+a {
+	cusor: pointer;
+}
+a {
+   text-decoration: none;
+   color: black;
+}
+
+a:hover {
+   background-color: black;
+   color: white;
+}
+
+div {
+   padding:10px;
+   border: 1px solid #DDD;
+   width: 200px;
+   margin-bottom: 10px;
+}
+
+#page {
+   padding:5px;
+   border: 0;
+   text-align: center;
+}
+
+#page a {
+   display: inline-block;
+   padding: 0 5px 0 0;
+   cursor: pointer;
+}
+
+#wrap {
+   border: 0;
+   margin: auto;
+}</style>
 <link href="<c:url value='/css' />/default_css.css" type="text/css"
 	rel="stylesheet">
 
@@ -40,6 +80,9 @@
 	$(document).ready(function() {
 		page(1);
 	});
+	
+	
+
 	
 	/* page function */
 	function page(num) {

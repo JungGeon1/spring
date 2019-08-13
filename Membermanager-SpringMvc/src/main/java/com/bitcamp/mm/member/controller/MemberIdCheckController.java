@@ -15,17 +15,16 @@ public class MemberIdCheckController {
 	@Autowired
 	private MemberRegService regService;
 
-	@RequestMapping("/member/idCheck1")
-	public String idCheck1(
-			@RequestParam("id")String id,
-			Model model
-			) {
-		
-		
-		model.addAttribute("result",regService.idCheck(id));
-		return "member/idCheck";
-		
-	}
+	/*
+	 * @RequestMapping("/member/idCheck1") public String idCheck1(
+	 * 
+	 * @RequestParam("id")String id, Model model ) {
+	 * 
+	 * 
+	 * model.addAttribute("result",regService.idCheck(id)); return "member/idCheck";
+	 * 
+	 * }
+	 */
 	@RequestMapping("/member/idCheck2")
 	@ResponseBody
 	public String idCheck2(

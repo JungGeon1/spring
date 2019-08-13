@@ -15,22 +15,34 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.mm.jdbc.ConnectionProvider;
 import com.bitcamp.mm.member.dao.MemberDao;
 import com.bitcamp.mm.member.dao.MemberJdbcTempleteDao;
+import com.bitcamp.mm.member.dao.memberSessionDao;
 import com.bitcamp.mm.member.domain.MemberInfo;
 import com.bitcamp.mm.member.domain.RequestMemberRegist;
 
 @Service("regsitService")
 public class MemberRegService implements MemberService {
 
+	//@Autowired
+	//private MemberJdbcTempleteDao templeteDao;
+	
 	@Autowired
-	private MemberJdbcTempleteDao templeteDao;
+	private SqlSessionTemplate sessionTemplate;
+	
+	private memberSessionDao sessionDao;
+	
+
 
 	public int memberInsert(HttpServletRequest request, RequestMemberRegist regist) {
+		
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
+		
 		// 서버경로
 		String path = "/uploadfile/userphoto";
 		// 절대경로
@@ -52,7 +64,7 @@ public class MemberRegService implements MemberService {
 			// 데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
 			memberInfo.setuPhoto(newFileName);
 
-			resultCnt = templeteDao.insertMember(memberInfo);
+			resultCnt = sessionDao.insertMember(memberInfo);
 
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -67,17 +79,22 @@ public class MemberRegService implements MemberService {
 		return resultCnt;
 	}
 
-	public char idCheck(String id) {
-
-		char chk = templeteDao.selectMemberById(id) == null ? 'Y' : 'N';
-
-		return chk;
-	}
+	/*
+	 * public char idCheck(String id) {
+	 * 
+	 * char chk = sessionDao.selectMemberById(id) == null ? 'Y' : 'N';
+	 * 
+	 * return chk; }
+	 */
 	
 	public String idCheck1(String id) {
+		System.out.println(id);
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
 		
-		String chk = templeteDao.selectMemberById2(id)==null?"Y":"N" ;
+		System.out.println(id);
 		
+		String chk = sessionDao.selectMemberById2(id)==null?"Y":"N" ;
+		System.out.println(chk);
 		
 		return chk;
 	}

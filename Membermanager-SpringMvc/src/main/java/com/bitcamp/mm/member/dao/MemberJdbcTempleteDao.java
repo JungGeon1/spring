@@ -25,16 +25,16 @@ public class MemberJdbcTempleteDao {
 
 	public MemberInfo selectMemberById(String userId) {
 		
-		String sql = "select * from project.userinfo where mid=?";
+		String sql = "select * from project.userinfo where uid=?";
 		
 		List<MemberInfo> list= template.query(sql, new Object[] {userId}, new MemberInfoRowMapper());
 		
 		return list.isEmpty()?null:list.get(0);
 		
 	}
-public MemberInfo selectMemberById2(String userId) {
+	public MemberInfo selectMemberById2(String userId) {
 		
-		String sql = "select * from project.userinfo where mid=?";
+		String sql = "select * from project.userinfo where uid=?";
 		
 		MemberInfo memberInfo=null;
 		
@@ -52,7 +52,7 @@ public MemberInfo selectMemberById2(String userId) {
 	
 	
 	public int insertMember(MemberInfo memberInfo) {
-		String sql = "insert into project.userinfo(mid,mpw,mname,mphoto) values(?,?,?,?) ";
+		String sql = "insert into project.userinfo(uid,upw,uname,uphoto) values(?,?,?,?) ";
 		return template.update(sql, 
 				memberInfo.getuId(),
 				memberInfo.getuPW(),
@@ -68,14 +68,14 @@ public MemberInfo selectMemberById2(String userId) {
 		if (searchParam != null) {
 			sql = "select count(*) from project.userInfo where ";
 			if (searchParam.getStype().equals("both")) {
-				sql += " mid like '%" + searchParam.getKeyword() + "%' or mname  like '%" + searchParam.getKeyword()
+				sql += " uid like '%" + searchParam.getKeyword() + "%' or uname  like '%" + searchParam.getKeyword()
 						+ "%' ";
 			}
 			if (searchParam.getStype().equals("id")) {
-				sql += " mid  like '%" + searchParam.getKeyword() + "%'";
+				sql += " uid  like '%" + searchParam.getKeyword() + "%'";
 			}
 			if (searchParam.getStype().equals("name")) {
-				sql += " mname  like '%" + searchParam.getKeyword() + "%' ";
+				sql += " uname  like '%" + searchParam.getKeyword() + "%' ";
 			}
 		}
 		return template.queryForObject(sql, Integer.class);
@@ -97,7 +97,7 @@ public MemberInfo selectMemberById2(String userId) {
 	
 	public List<MemberInfo> selectListById(int index, int count, SearchParam searchParam) {
 		
-		String sql = "SELECT * FROM project.userInfo where mid like ?  limit ?, ?";
+		String sql = "SELECT * FROM project.userInfo where uid like ?  limit ?, ?";
 		
 		return template.query(
 				sql, 
@@ -111,7 +111,7 @@ public MemberInfo selectMemberById2(String userId) {
 	
 	
 public List<MemberInfo> selectListByName(int index, int count, SearchParam searchParam) {
-	String sql = "SELECT * FROM project.userInfo where mname like ?  limit ?, ?";
+	String sql = "SELECT * FROM project.userInfo where uname like ?  limit ?, ?";
 	
 	return template.query(
 			sql, 
@@ -123,7 +123,7 @@ public List<MemberInfo> selectListByName(int index, int count, SearchParam searc
 
 	}
 	public List<MemberInfo> selectListByBoth(int index, int count, SearchParam searchParam) {
-	String sql = "SELECT * FROM project.userInfo where mid like ? or  mname like ?  limit ?, ?";
+	String sql = "SELECT * FROM project.userInfo where uid like ? or  uname like ?  limit ?, ?";
 	
 	return template.query(
 			sql,
@@ -158,7 +158,7 @@ public List<MemberInfo> selectListByName(int index, int count, SearchParam searc
 
 	
 	public int memberUpdate(MemberInfo memberInfo) {
-		String sql = "update project.userinfo set mname=?, mpw=?, mphoto=? where idx=?";
+		String sql = "update project.userinfo set uname=?, upw=?, uphoto=? where idx=?";
 		return template.update(
 				sql,
 				 memberInfo.getuName(),
