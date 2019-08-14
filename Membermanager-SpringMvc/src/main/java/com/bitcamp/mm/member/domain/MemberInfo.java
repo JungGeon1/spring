@@ -122,7 +122,7 @@ public class MemberInfo {
 	}
 	
 	// 비밀번호 체크 확인
-	// 2017.07.25 메서드 추가
+	
 	public boolean pwChk(String pw) {
 		return uPW != null && uPW.trim().length()>0 && uPW.equals(pw);
 	}
