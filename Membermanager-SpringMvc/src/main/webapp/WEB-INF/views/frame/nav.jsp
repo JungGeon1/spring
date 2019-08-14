@@ -16,7 +16,8 @@
 		<li><a href="<c:url value='/member/mypage' />">MyPage</a></li>
 														
 		<li><a href="<c:url value='/member/memberList' />">회원리스트</a></li>
-		<li><a href="<c:url value='/member/memberList2.jsp' />">회원리스트2</a></li>
+		<li><a href="<c:url value='/member/memberListJson' />">회원리스트제이슨</a></li>
+		<li><a href="<c:url value='/member/memberListJson2' />">회원리스트제이슨엔띠띠</a></li>
 		<%-- <li><a href="<c:url value='/member/logout.do' />">LOGOUT</a></li> --%>
 	</ul>
 	<%-- <ul>

@@ -103,6 +103,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	
-	
+<!-- 	전체회워리스트구하기 -->
+	<select id="selectAllList" resultType="com.bitcamp.mm.member.domain.MemberInfo">
+		select * from project.userinfo order by uname
+	</select>
 
 	</mapper>

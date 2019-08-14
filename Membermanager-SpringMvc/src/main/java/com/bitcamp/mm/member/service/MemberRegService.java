@@ -50,12 +50,16 @@ public class MemberRegService implements MemberService {
 
 		MemberInfo memberInfo = regist.toMemInfo();
 
-		// 새로운 파일을 생성
-		String newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
-
+		
+		String newFileName="";
 		int resultCnt = 0;
 
 		try {
+			if(regist.getuPhoto()!=null) {
+				// 새로운 파일을 생성
+				newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
+			
+			
 
 			// 파일을 서버의 지정 경로에 저장
 			System.out.println(dir);
@@ -63,7 +67,7 @@ public class MemberRegService implements MemberService {
 
 			// 데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
 			memberInfo.setuPhoto(newFileName);
-
+			}
 			resultCnt = sessionDao.insertMember(memberInfo);
 
 		} catch (IllegalStateException e) {

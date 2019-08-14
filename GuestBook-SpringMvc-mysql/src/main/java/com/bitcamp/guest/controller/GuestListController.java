@@ -6,6 +6,8 @@ package com.bitcamp.guest.controller;
  * 추가: jackson을 사용하여 list를 json으로 변환해주기.
  * */
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +58,8 @@ public class GuestListController {
 			@RequestParam(
 					value = "page", 
 					defaultValue = "1") int pageNumber,
-			Model model
+			Model model,
+			HttpServletResponse response
 			) {
 		
 		MessageListView listView = 

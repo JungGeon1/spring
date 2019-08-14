@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.bitcamp.mm">
-		<level value="info" />
+		<level value="All" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

@@ -92,5 +92,19 @@ public class MemberListService implements MemberService {
 		return listData;
 
 	}
-
+	
+	public List<MemberInfo> getAllList(){
+		
+		
+		
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
+		
+		List<MemberInfo> list=sessionDao.selectAllList();
+		
+		return list;
+		
+	}
+	
+	
+	
 }

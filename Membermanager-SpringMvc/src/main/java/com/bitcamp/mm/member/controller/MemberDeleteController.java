@@ -24,7 +24,7 @@ public class MemberDeleteController {
 		model.addAttribute("dCnt", dCnt);
 		return "redirect:/member/memberList";
 	}
-
+	//(@PathVariable사용
 	@RequestMapping("member/delete/{id}")
 	public String del(@PathVariable("id") int idx) {
 

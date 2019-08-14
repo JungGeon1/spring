@@ -24,5 +24,7 @@ public interface memberSessionDao {
 	public List<MemberInfo> selectList(Map<String, Object> params);
 	
 	public int selectTotalCount(SearchParam searchParam);
+	
+	public List<MemberInfo> selectAllList();
 
 }
