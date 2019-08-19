@@ -83,10 +83,22 @@ public class MemberEditService {
 			// 신규파일이 없으면 이전 파일 이름을 그대로 업데이트
 			memberInfo.setuPhoto(oldFileName);
 		}
-		
-	
+		rCnt = sessionDao.memberUpdate(memberInfo);
 			
-			rCnt = sessionDao.memberUpdate(memberInfo);
+		
+		return rCnt;
+	}	
+	
+	public int edit(RequestMemberEdit edit,HttpServletRequest request) {
+		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
+		
+		int rCnt = 0;
+		MemberInfo memberInfo = edit.toMemberInfo();
+		//System.out.println(memberInfo.getIdx());
+		//System.out.println(memberInfo.getuId());
+		//System.out.println(memberInfo.getuName());
+		
+		rCnt = sessionDao.memberUpdate(memberInfo);
 			
 		
 		return rCnt;

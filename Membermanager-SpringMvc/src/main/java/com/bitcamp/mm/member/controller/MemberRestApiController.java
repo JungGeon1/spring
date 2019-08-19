@@ -51,7 +51,7 @@ public class MemberRestApiController {
 	@CrossOrigin
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public String regMember(
+	public int regMember(
 			
 			@RequestBody RequestMemberRegist regRequest,
 			HttpServletRequest request
@@ -59,8 +59,8 @@ public class MemberRestApiController {
 		
 			//System.out.println(regRequest);
 		int result = regService.memberInsert(request, regRequest);
-		
-		return result>0?"success":"fail";
+		System.out.println(result>0?1:"fail");
+		return result>0? 1:0;
 	}
 	
 	@CrossOrigin

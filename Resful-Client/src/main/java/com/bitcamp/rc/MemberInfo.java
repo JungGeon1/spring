@@ -1,8 +1,6 @@
-package com.bitcamp.mm.member.domain;
+package com.bitcamp.rc;
 
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // usebean Class
 public class MemberInfo {
@@ -10,7 +8,6 @@ public class MemberInfo {
 	// 각 변수의 저근 제어지시자는 private
 	private int idx;
 	private String uId;
-	//@JsonIgnore
 	private String uPW;
 	private String uName;
 	private String uPhoto;
@@ -93,8 +90,8 @@ public class MemberInfo {
 	// 데이터 확인을 위한 toString 오버라이딩
 	@Override
 	public String toString() {
-		return "MemberInfo [idx=" + idx + ", uId=" + uId + ", uPW=" + uPW + ", uName=" + uName + 
-				 ", regDate=" + regDate + "]";
+		return "MemberInfo [idx=" + idx + ", uId=" + uId + ", uPW=" + uPW + ", uName=" + uName + ", uPhoto=" + uPhoto
+				+ ", regDate=" + regDate + "]";
 	}
 	
 
@@ -115,14 +112,16 @@ public class MemberInfo {
 	}
 
 	// MemberInfo 객체 -> LoginInfo 객체 반환
-	public LoginInfo toLoginInfo() {
-
-		return new LoginInfo(uId, uName, uPhoto, regDate);
-
-	}
+	/*
+	 * public LoginInfo toLoginInfo() {
+	 * 
+	 * return new LoginInfo(uId, uName, uPhoto, regDate);
+	 * 
+	 * }
+	 */
 	
 	// 비밀번호 체크 확인
-	
+	// 2017.07.25 메서드 추가
 	public boolean pwChk(String pw) {
 		return uPW != null && uPW.trim().length()>0 && uPW.equals(pw);
 	}
