@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${loginInfo eq null}">
-<script>
+<!-- <script>
 	alert('로그인 후 사용가능 페이지 입니다.');
 	location.href='../loginForm.do';
-</script>
+</script> -->
 </c:if>
 
 <!DOCTYPE html>

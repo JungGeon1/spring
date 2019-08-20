@@ -66,6 +66,41 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
+
+<!-- 	메일 -->
+	<beans:bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="username" value="a20190820252@gmail.com" />
+		<beans:property name="password" value="a20190820252!!" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	
+	<beans:bean name="authCheckInterceptor" class="com.bitcamp.mm.intercepter.AuthCheckInterceptor"/>
+	<!-- 여러개의 인터셉터등록가능 -->
+	<interceptors>
+		<!-- 인터셉터 생성 : 로그인 체크 -->
+		<interceptor>
+			<mapping path="/member/mypage/**"/>
+			<mapping path="/member/json/**"/>
+			<beans:ref bean="authCheckInterceptor"/>
+		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->
+		
+		</interceptor>
+	</interceptors>
+	
+	
+	
 	<context:component-scan
 		base-package="com.bitcamp.mm" />
 

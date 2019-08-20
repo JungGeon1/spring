@@ -25,11 +25,11 @@ public class MemberDeleteController {
 		return "redirect:/member/memberList";
 	}
 	//(@PathVariable사용
-	@RequestMapping("member/delete/{id}")
+	@RequestMapping("member/json/delete/{id}")
 	public String del(@PathVariable("id") int idx) {
 
 		deleteSerivce.memberDelete(idx);
 
-		return "redirect:/member/memberList";
+		return "redirect:/member/json/memberList";
 	}
 }

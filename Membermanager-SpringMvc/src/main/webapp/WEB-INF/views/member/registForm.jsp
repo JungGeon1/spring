@@ -91,11 +91,11 @@
 					
 					if(data == 'Y'){
 						$('#idcheck').prop('checked', true);
-						$('#idcheckmsg').html('사용가능한 멋진 아이디 입니다.');
+						$('#idcheckmsg').html('멋진 이메일 입니다.');
 						$('#idcheckmsg').addClass('color_blue');
 					} else {
 						$('#idcheck').prop('checked', false);
-						$('#idcheckmsg').html('사용중인 아이디 이거나 탈퇴한 아이디 입니다.');
+						$('#idcheckmsg').html('사용중인 아이디 이거나 탈퇴한 이메일 입니다.');
 						$('#idcheckmsg').addClass('color_red');
 					}
 					

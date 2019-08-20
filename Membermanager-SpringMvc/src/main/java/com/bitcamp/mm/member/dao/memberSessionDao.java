@@ -13,7 +13,7 @@ public interface memberSessionDao {
 	
 	public MemberInfo selectMemberById(String userId);
 	
-	public String selectMemberById2(String id);
+	public MemberInfo  selectMemberById2(String id);
 	
 	public MemberInfo selectMemberByIdx(int id);
 	

@@ -29,20 +29,21 @@ import com.bitcamp.mm.member.domain.RequestMemberRegist;
 @Service("regsitService")
 public class MemberRegService implements MemberService {
 
-	//@Autowired
-	//private MemberJdbcTempleteDao templeteDao;
-	
+	// @Autowired
+	// private MemberJdbcTempleteDao templeteDao;
+
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
-	
-	private memberSessionDao sessionDao;
-	
 
+	@Autowired
+	private MailSenderService mailService;
+
+	private memberSessionDao sessionDao;
 
 	public int memberInsert(HttpServletRequest request, RequestMemberRegist regist) {
-		
-		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
-		
+
+		sessionDao = sessionTemplate.getMapper(memberSessionDao.class);
+
 		// 서버경로
 		String path = "/uploadfile/userphoto";
 		// 절대경로
@@ -50,25 +51,24 @@ public class MemberRegService implements MemberService {
 
 		MemberInfo memberInfo = regist.toMemInfo();
 
-		
-		String newFileName="";
+		String newFileName = "";
 		int resultCnt = 0;
 
 		try {
-			if(regist.getuPhoto()!=null) {
+			if (regist.getuPhoto() != null) {
 				// 새로운 파일을 생성
 				newFileName = memberInfo.getuId() + "_" + regist.getuPhoto().getOriginalFilename();
-			
-			
 
-			// 파일을 서버의 지정 경로에 저장
-			System.out.println(dir);
-			regist.getuPhoto().transferTo(new File(dir, newFileName));
+				// 파일을 서버의 지정 경로에 저장
+				System.out.println(dir);
+				regist.getuPhoto().transferTo(new File(dir, newFileName));
 
-			// 데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
-			memberInfo.setuPhoto(newFileName);
+				// 데이터 베이스 저장을 하기우ㅏ한 파일 이름 set
+				memberInfo.setuPhoto(newFileName);
 			}
+
 			resultCnt = sessionDao.insertMember(memberInfo);
+			mailService.send(regist.getuId());
 
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -90,16 +90,15 @@ public class MemberRegService implements MemberService {
 	 * 
 	 * return chk; }
 	 */
-	
+
 	public String idCheck1(String id) {
+		
+		sessionDao = sessionTemplate.getMapper(memberSessionDao.class);
+
 		System.out.println(id);
-		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
-		
-		System.out.println(id);
-		
-		String chk = sessionDao.selectMemberById2(id)==null?"Y":"N" ;
-		System.out.println(chk);
-		
+
+		String chk = sessionDao.selectMemberById2(id) == null ? "Y" : "N" ;
+
 		return chk;
 	}
 

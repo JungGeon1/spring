@@ -24,7 +24,7 @@ public class MemberListController {
 	private MemberListService listService;
 	
 	
-	@RequestMapping("/member/memberList")
+	@RequestMapping("/member/json/memberList")
 	public String memberList(
 			Model model,
 			@RequestParam(value = "p", defaultValue = "1") int pageNumber,
@@ -57,7 +57,7 @@ public class MemberListController {
 	}
 	
 	
-	@RequestMapping("/member/memberListJson")
+	@RequestMapping("/member/json/memberListJson")
 	public @ResponseBody ListViewData memberListJson(
 			//Model model,
 			@RequestParam(value = "p", defaultValue = "1") int pageNumber,
@@ -96,7 +96,7 @@ public class MemberListController {
 	
 	//반환 타입이 ResponseEntity<T>->spring4.2이상부터 사용가능
 	//반환하고자 하는 Body, status Httpheader
-	@RequestMapping("/member/memberListJson2")
+	@RequestMapping("/member/json/memberListJson2")
 	@ResponseBody 
 	public ResponseEntity<ListViewData> memberListJson2(
 			//Model model,

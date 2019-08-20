@@ -8,14 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		
 		<!-- select 결과 메핑을 위한 resultMap 설정 -->
-<!-- 	<resultMap id="resultMemberInfo"
+	<!-- <resultMap id="resultMemberInfo"
 		type="com.bitcamp.mm.member.domain.MemberInfo">
 		<id property="idx" column="idx" />
-		<result property="uId" column="uid" />
-		<result property="uPW" column="upw" />
-		<result property="uName" column="uname" />
-		<result property="uPhoto" column="uphoto" />
-		<result property="regDate" column="date" />
+		<result property="uId" column="uId" />
+		<result property="uPW" column="uPW" />
+		<result property="uName" column="uName" />
+		<result property="uPhoto" column="uPhoto" />
+		<result property="regDate" column="regdate" />
 	</resultMap> -->
 		
 		
@@ -23,11 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			insert into project.userinfo(uid,upw,uname,uphoto) values(#{uId},#{uPW},#{uName},#{uPhoto})
 		</insert>
 		
-		<select id="selectMemberById" resultType="com.bitcamp.mm.member.domain.MemberInfo" parameterType="String">
+		<select id="selectMemberById" resultType="com.bitcamp.mm.member.domain.MemberInfo" >
 			select * from project.userinfo where uid=#{id}
 		</select>
 		
-		<select id="selectMemberById2" resultType="com.bitcamp.mm.member.domain.MemberInfo" parameterType="String">
+		<select id="selectMemberById2" resultType="com.bitcamp.mm.member.domain.MemberInfo" >
 			select * from project.userinfo where uid=#{id}
 		</select>
 		
