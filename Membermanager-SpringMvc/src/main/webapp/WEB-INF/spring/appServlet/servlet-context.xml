@@ -84,7 +84,7 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 	<beans:bean name="authCheckInterceptor" class="com.bitcamp.mm.intercepter.AuthCheckInterceptor"/>
 	<!-- 여러개의 인터셉터등록가능 -->
