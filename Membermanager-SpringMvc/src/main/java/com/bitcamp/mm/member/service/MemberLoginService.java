@@ -19,31 +19,35 @@ import com.bitcamp.mm.member.domain.MemberInfo;
 public class MemberLoginService implements MemberService {
 	// @Autowired
 	// private MemberDao dao;
-	//@Autowired
-	//private MemberJdbcTempleteDao templeteDao;
-	
+	// @Autowired
+	// private MemberJdbcTempleteDao templeteDao;
+
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
-	
-	private memberSessionDao  sessionDao;
 
-	public boolean login(String id, String pw, HttpServletRequest request) {
-		
-		sessionDao=sessionTemplate.getMapper(memberSessionDao.class);
-		
-		boolean loginChk = false;
+	private memberSessionDao sessionDao;
+
+	public int login(String id, String pw, HttpServletRequest request) {
+
+		sessionDao = sessionTemplate.getMapper(memberSessionDao.class);
+
+		int loginChk = 0;
 
 		MemberInfo memberInfo = null;
 
 		memberInfo = sessionDao.selectMemberById(id);
 
 		if (memberInfo != null && memberInfo.pwChk(pw)) {
-			// 세션에 올려야지~
-			// loginChk상태값 변경
+			if (memberInfo.getVerify() == 'Y') {
+				// 인증을 했으므로 세션에 저장
+				request.getSession(true).setAttribute("loginInfo", memberInfo.toLoginInfo());
 
-			request.getSession(true).setAttribute("loginInfo", memberInfo.toLoginInfo());
+				loginChk = 2;
+			} else {
+				request.getSession().setAttribute("reEmail", memberInfo.getuId());
+				loginChk = 1;
+			}
 
-			loginChk = true;
 		}
 
 		return loginChk;

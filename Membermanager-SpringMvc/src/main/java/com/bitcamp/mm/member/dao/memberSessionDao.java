@@ -26,5 +26,7 @@ public interface memberSessionDao {
 	public int selectTotalCount(SearchParam searchParam);
 	
 	public List<MemberInfo> selectAllList();
+	
+	public int verify(String id, String code);
 
 }

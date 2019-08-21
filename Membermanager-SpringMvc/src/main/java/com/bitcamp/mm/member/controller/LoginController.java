@@ -41,15 +41,22 @@ public class LoginController {
 		
 		
 		String view="member/loginfail";
-		boolean loginChk=false;
+		
+		int loginChk=0;
 		
 		loginChk=loginService.login(id, pw, request);
 		
-		if(loginChk) {
-			
-		//response없이 리다이렉트-> 코어태그마냥  컨텍스트경로 제외하고 /main 이런식으로 작성한다	
-		 view="redirect:/main";
+		switch (loginChk) {
+		case 1:
+			view = "member/notVerify";
+			break;
+
+		case 2:
+			//response없이 리다이렉트-> 코어태그마냥  컨텍스트경로 제외하고 /main 이런식으로 작성한다	
+			 view="redirect:/main";
+			break;
 		}
+			
 		
 		return view;
 		

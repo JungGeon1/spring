@@ -68,7 +68,7 @@ public class MemberRegService implements MemberService {
 			}
 
 			resultCnt = sessionDao.insertMember(memberInfo);
-			mailService.send(regist.getuId());
+			mailService.send(memberInfo.getuId(),memberInfo.getCode());
 
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block

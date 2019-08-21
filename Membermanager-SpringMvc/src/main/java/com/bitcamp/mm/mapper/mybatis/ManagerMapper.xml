@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		
 		<insert id="insertMember" parameterType="com.bitcamp.mm.member.domain.MemberInfo">
-			insert into project.userinfo(uid,upw,uname,uphoto) values(#{uId},#{uPW},#{uName},#{uPhoto})
+			insert into project.userinfo(uid,upw,uname,uphoto,code) values(#{uId},#{uPW},#{uName},#{uPhoto},#{code})
 		</insert>
 		
 		<select id="selectMemberById" resultType="com.bitcamp.mm.member.domain.MemberInfo" >
@@ -107,5 +107,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllList" resultType="com.bitcamp.mm.member.domain.MemberInfo">
 		select * from project.userinfo order by uname
 	</select>
+	
+	
+	<update id="verify">
+		update project.userinfo set verify='Y' 
+		where uid=#{param1} and code=#{param2} 
+	</update>
 
 	</mapper>

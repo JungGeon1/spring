@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.mm.member.domain.MemberInfo;
 
 @Controller
-public class HelloController {
+public class EHandlerController {
 	
 	@RequestMapping("/hello")
 	public String page() {

@@ -1,6 +1,7 @@
 package com.bitcamp.mm.member.domain;
 
 import java.util.Date;
+import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,10 +16,15 @@ public class MemberInfo {
 	private String uName;
 	private String uPhoto;
 	private Date regDate;
+	private char verify;
+	@JsonIgnore
+	private String code;
 
+	
 	// default 생성자 필수
 	public MemberInfo() {
 		this.regDate = new Date();
+		getRandomString();
 	}
 
 	public MemberInfo(String uId, String uPW, String uName, String uPhoto) {
@@ -28,6 +34,7 @@ public class MemberInfo {
 		this.uName = uName;
 		this.uPhoto = uPhoto;
 		this.regDate = new Date();
+		getRandomString();
 	}
 
 	public MemberInfo(int idx, String uId, String uPW, String uName, String uPhoto, Date regDate) {
@@ -38,6 +45,7 @@ public class MemberInfo {
 		this.uName = uName;
 		this.uPhoto = uPhoto;
 		this.regDate = regDate;
+		getRandomString();
 	}
 
 	// 변수들의 Getter/Setter 시작
@@ -89,6 +97,22 @@ public class MemberInfo {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public char getVerify() {
+		return verify;
+	}
+
+	public void setVerify(char verify) {
+		this.verify = verify;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 
 	// 데이터 확인을 위한 toString 오버라이딩
 	@Override
@@ -127,7 +151,30 @@ public class MemberInfo {
 		return uPW != null && uPW.trim().length()>0 && uPW.equals(pw);
 	}
 	
+	//난수만들기
+	private void getRandomString() {
+		
+		
+		Random r = new Random(System.nanoTime());
+		StringBuffer sb = new StringBuffer();
+		
+		for(int i=0 ; i<20 ; i++ ) {
+			if(r.nextBoolean()) {
+				sb.append(r.nextInt(10));
+				
+			} else {
+				sb.append((char)(r.nextInt(26)+97));
+			}
+		}
+		
+		System.out.println("난수 코드 생성 : " + sb) ;
+		
+		setCode(sb.toString());
+		
+			
+	}
 	
+}
 	
 	
 	
@@ -140,4 +187,3 @@ public class MemberInfo {
 	
 	
 
-}
