@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</update>
 		
 		<update id="memberDelete" parameterType="int" >
-			delete from project.UserInfo where idx=#{idx}
+			delete from project.userinfo where idx=#{idx}
 		</update>
 		
 		
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="selectTotalCount"
 		parameterType="com.bitcamp.mm.member.domain.SearchParam"
 		resultType="int">
-		select count(*) from project.UserInfo
+		select count(*) from project.userinfo
 
 		<where>
 
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectList" parameterType="map"
 		resultType="com.bitcamp.mm.member.domain.MemberInfo">
-		SELECT * FROM project.UserInfo
+		select * from project.userinfo
 		<where>
 			<if test="search != null">
 				<if test="search.stype == 'both'">

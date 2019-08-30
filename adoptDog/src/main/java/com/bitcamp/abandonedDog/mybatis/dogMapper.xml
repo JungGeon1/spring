@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.abandonedDog.dao.DogInterface">
+
+
+	<insert id="insertDog" parameterType="com.bitcamp.abandonedDog.domain.Doginfo">
+			insert into petsite.adoptdog(m_id,a_text,a_title,a_desertionNo) values(#{m_id},#{a_text},#{a_title},#{a_desertionNo})
+	</insert>
+	
+	
+	
+	<select id="showList" resultType="com.bitcamp.abandonedDog.domain.Doginfo">
+			select * from petsite.adoptdog order by a_date desc;
+	</select>
+	
+	
+	<update id="deleteDog">
+			delete  from petsite.adoptdog where a_idx = #{param1} and m_id = #{param2}
+	</update>
+	
+	<select id="selectId" resultType="com.bitcamp.abandonedDog.domain.Doginfo" >
+			select * from petsite.adoptdog where a_idx=#{id}
+	</select>
+	
+	<update id="updateDog" parameterType="com.bitcamp.abandonedDog.domain.Doginfo" >
+			
+			update petsite.adoptdog set a_title=#{a_title}, a_text=#{a_text} where a_idx=#{a_idx} and m_id=#{m_id}
+	</update>
+	
+	<select id="selectDno" resultType="com.bitcamp.abandonedDog.domain.Doginfo" >
+			select * from petsite.adoptdog  where a_desertionNo=#{dNo}
+	</select>
+	
+	<select id="selectSearchList" parameterType="com.bitcamp.abandonedDog.domain.SearchParam" resultType="com.bitcamp.abandonedDog.domain.Doginfo">
+		select * from petsite.adoptdog
+		<where>
+			
+				<if test="stype == 'sboth'">
+					<include refid="whereId"/>
+					<include refid="whereNum"/>
+					
+				</if>
+				<if test="stype == 'sid'">				
+					<include refid="whereId"/>
+				</if>
+				<if test="stype == 'snumber'">
+					<include refid="whereNum"/>
+				</if>
+		
+		</where>
+		
+	</select>
+		
+	<sql id="whereId">
+		or m_id like concat('%', #{keyword}, '%')
+	</sql>
+		
+	<sql id="whereNum">
+		or a_desertionNo like concat('%', #{keyword}, '%')
+	</sql>
+</mapper> 
+ 
+ 

@@ -57,9 +57,58 @@ public class RestfulClientController {
 		
 	}
 
+
 	
+	@RequestMapping("/member/xml/list")
+	@ResponseBody
+	public ListViewDataXml getMememberXml() {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ListViewDataXml data = restTemplate.getForObject(
+				"http://localhost:8080/mm/member/xml/memberList.xml", 
+				ListViewDataXml.class);
+		
+		System.out.println(data.getTotalCount());
+		System.out.println(data.getCurrentPageNumber());
+		
+		for(MemberInfoXml m : data.getMemberList()) {
+			System.out.println(m);
+		}
+		
+		
+		
+		
+		return data;
+		
+	}
 	
+
 	
+	@RequestMapping("/dog/xml/list")
+	@ResponseBody
+	public DogRestResponse getDogXml() {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		DogRestResponse data = restTemplate.getForObject(
+				"http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?bgnde=20140301&endde=20140430&pageNo=1&numOfRows=10&upkind=417000&ServiceKey=w6tghMtfkPZl5OXy9wZ9CkT5WTgS0LAnwimWMdM2Bdqma5ru5Zf6vRLWPxELbS6A%2FZEU4mr333w4PAaHsdixGQ%3D%3D", 
+				DogRestResponse.class);
+		
+		//System.out.println(data.getHeader().getResultCode());
+		//System.out.println(data.getHeader().getResultMsg());
+		//System.out.println(data.getBody().getTotalCount());
+		
+//		for(Item i : data.getBody().getItems()) {
+//			System.out.println(i);
+//		}
+		
+		
+		
+		
+		return data;
+		
+	}
 	
 	
 	
