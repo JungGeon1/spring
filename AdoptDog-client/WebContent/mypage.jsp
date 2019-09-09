@@ -213,7 +213,7 @@ input{
                     html += '<tr><td>주소</td>';
                     html += '<td>' + data.address + '</td></tr>';
                     html += '<tr><td>사진</td>';
-                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://15.164.166.15:8080/ps/file/' + data.pic_name + '"></td></tr>';
+                    html += '<td><img class="img-rounded" alt="Cinque Terre" src="http://ec2-54-180-95-162.ap-northeast-2.compute.amazonaws.com:8080/ps/file/' + data.pic_name + '"></td></tr>';
                     html += '<tr><td>가입날짜</td>';
                     html += '<td>' + data.regDate + '</td></tr></table>';
                     html += '<button style="float: right" class="btn btn-warning btn-fill" onclick="edit(\'' + data.id + '\')">회원수정</button>';

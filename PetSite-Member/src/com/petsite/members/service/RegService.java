@@ -47,7 +47,7 @@ public class RegService {
 			newFileName = memberInfo.getId() + "_" + memberInfo.getPic().getOriginalFilename();
 
 			try {
-
+				System.out.println(dir);
 				memberInfo.getPic().transferTo(new File(dir, newFileName));
 				memberInfo.setPic_name(newFileName);
 
