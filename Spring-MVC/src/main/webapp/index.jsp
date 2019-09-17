@@ -22,7 +22,7 @@
 	<li><a href="<c:url value="/search/search"/>">/search/search</a></li>
 	<li><a href="<c:url value="/fileupload/uploadForm"/>">/fileupload/uploadForm</a></li>
 
-	
+	<h1>소스프리징</h1>
 </ul>
 </body>
 </html>

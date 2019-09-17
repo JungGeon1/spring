@@ -98,7 +98,7 @@ input{
     <script>
     
  	// KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('582e4d9c58d4a5fb561e39ea1d4f40b9');
+    Kakao.init('83c20064cc01d434b441d9ae9303903d');
  
         $(document).ready(function() {
         	

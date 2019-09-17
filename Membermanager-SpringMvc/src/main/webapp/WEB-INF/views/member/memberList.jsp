@@ -91,7 +91,7 @@
 			<td>${memberInfo.uId}</td>
 			<td>${memberInfo.uPW}</td>
 			<td>${memberInfo.uName}</td>
-			<td><img src="<c:url value='/uploadfile/userphoto/${memberInfo.uPhoto}'/>" height="100">  </td>
+			<td><a href="<c:url value='/uploadfile/userphoto/${memberInfo.uPhoto}'/>"></a><c:url value='/uploadfile/userphoto/${memberInfo.uPhoto}'/><img src="<c:url value='/uploadfile/userphoto/${memberInfo.uPhoto}'/>" height="100">  </td>
 			<td>
 				<fmt:formatDate value="${memberInfo.regDate}" pattern="yyyy.MM.dd"/>
 			</td>

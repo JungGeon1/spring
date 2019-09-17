@@ -55,7 +55,7 @@ public class SecurityController {
 	   @ResponseBody
 	   public String bcript03() throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 	      //최초 회원가입시 사용자 입력 비번 
-	      String str= "password123";
+	      String str= "passwords3";
 	      
 	      String encodedStr =asUtil.encrypt(str);
 	      String decodeStr = asUtil.decrypt(encodedStr);

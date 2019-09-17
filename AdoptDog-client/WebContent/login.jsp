@@ -96,9 +96,9 @@ input{
 	</div>
 	
 	<script>
-	
+	//개발자도구 도메인이 다른사람꺼라 로컬호스트 추가불가.
 	// KAKAO :: 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('582e4d9c58d4a5fb561e39ea1d4f40b9');
+    Kakao.init('83c20064cc01d434b441d9ae9303903d');
 	
         $(document).ready(function() {
             $('#form').submit(function() {
@@ -166,16 +166,17 @@ input{
      // 로그인
         function loginWithKakao() {
             // 로그인 창을 띄웁니다.
+           
             Kakao.Auth.login({
                 success: function(authObj) {
                    
-                	//alert('Auth.login >>>>> '+JSON.stringify(authObj));
+                	alert('Auth.login >>>>> '+JSON.stringify(authObj));
 
                     // 정보 확인 -> id(email) session에 저장
                         Kakao.API.request({
                             url: '/v2/user/me',
                             success: function(res) {
-                                //alert('API.request >>>>> '+JSON.stringify(res));
+                                alert('API.request >>>>> '+JSON.stringify(res));
                                 var id = res.kakao_account.email;
                                 var type = 'kakao';
                                 
