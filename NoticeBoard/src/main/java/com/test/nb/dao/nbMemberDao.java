@@ -17,4 +17,9 @@ public interface nbMemberDao {
 	public int insertNbMember(NbMemberDto dto);
 
 	public int verify(String id, String code);
+	
+	
+	public int deleteMember(int idx);
+
+	
 }

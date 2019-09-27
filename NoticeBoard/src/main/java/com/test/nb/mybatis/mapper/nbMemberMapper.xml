@@ -24,4 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="verify">
 		update noticetest.noticeBoardMember set nbm_verify ='Y' where nbm_id=#{param1} and nbm_code=#{param2}
 	</update>
+	
+<delete id="deleteMember">
+	delete from noticetest.noticeBoardMember where nbm_idx=#{param};
+</delete>
 </mapper>

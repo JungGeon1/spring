@@ -30,9 +30,14 @@
 #header {
 	text-align: center;
 }
+#contents{
+text-align: center;
+padding-top: 40px;
+}
 
-
-
+.delteBoxWidth{
+	width: 150px;
+}
 
 </style>
 </head>
@@ -45,19 +50,15 @@
 	<%@include file="/WEB-INF/views/frame/nav.jsp"%>
 
 	<div id="contents">
-		<h2>MY PAGE</h2>
-		<input id="id" type="text" value="${nbm_id}">
-		
-
-			<div ></div>
-			
-			<div >
+		<h1>MY PAGE</h1>
+			<input id="id" type="text" value="${nbm_id}" readonly="readonly">
+			<input id="pw" type="password" placeholder="비밀번호를 입력해 주세요">
+			<div>
 				<button class="btn btn-default" onclick="location.href='/nb/updatePage?idx=${idx}'">수정</button>
-				<button class="btn btn-default" onclick="deleteBoard()">삭제</button>
+				<button class="btn btn-default" onclick="deleteBoard()">탈퇴</button>
 			</div>
 		
 
-	
 	</div>
 
 	<%@include file="/WEB-INF/views/frame/footer.jsp"%>
@@ -95,17 +96,26 @@
 		
 		function deleteBoard() {
 
-			var idx = $('#idx').val();
-			if (confirm('삭제하시겠습니까')) {
+			
+			if (confirm('탈퇴하시겠습니까?')) {
 				$.ajax({
-					url : 'rest/delete/' + idx + '?category=page',
-					type : 'delete',
+					url : 'myPage/delete',
+					type : 'post',
+					data:{
+						nbm_id : $('#id').val(),
+						nbm_pw :$('#pw').val()
+					},
 					error : function(error) {
 						alert(error);
 					},
 					success : function(data) {
-						alert('삭제되었습니다. 리스트로 이동합니다.');
-						location.href = '/nb/pageList';
+					if(data=='success'){
+						alert('탈퇴되었습니다.');
+						location.href = '${pageContext.request.contextPath}/login';
+					}else{
+						alert('비밀번호가 일치하지 않습니다.');
+						
+					}
 					}
 
 				});
