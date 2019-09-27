@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.nb.dao.commentDao">
+
+
+<!-- 댓글등록 -->
+<insert id="insertCm" parameterType="com.test.nb.domain.CommentDto">
+	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno});
+</insert>
+
+<!-- 답글등록을 위한 grpord증가 -->
+<update id="ReCmUp" parameterType="com.test.nb.domain.CommentDto">
+	update noticetest.ncomment set n_grpord=n_grpord+1 where n_grpno=#{n_grpno} and n_grpord>#{n_grpord};
+</update>
+<!-- 답글등록 -->
+<insert id="insertReCm" parameterType="com.test.nb.domain.CommentDto">
+	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno,n_grpord,n_depth)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno},#{n_grpord},#{n_depth});
+</insert>
+<!-- 댓글 갯수 -->
+<select id="selectCommentCnt" resultType="int">
+	select count(*)from noticetest.ncomment where u_idx=#{param};
+</select>
+
+<!-- 댓글리스트 -->
+<select id="commentList"  resultType="com.test.nb.domain.CommentDto">
+	select * from noticetest.ncomment where u_idx=#{param} order by n_grpno desc , n_grpord asc;
+</select>
+
+<!-- 댓글삭제-->
+<delete id="deleteCm" >
+	delete from noticetest.ncomment where n_idx=#{n_idx};
+</delete>
+
+
+</mapper>

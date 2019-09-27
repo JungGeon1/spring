@@ -73,7 +73,7 @@ input[type=checkbox] {
 									<tr>
 										<td>아이디(이메일)</td>
 										<td><input class="form-control" type="email" id="id" name="id" required>
-										<input class="btn btn-warning btn-fill" type="button" onclick="checkId()"value="아이디 중복체크">
+										<input class="btn btn-default" type="button" onclick="checkId()"value="아이디 중복체크">
 										<input type="checkbox" id="idCheck"><br>
 										<span id="checkIdSpan"></span>
 										</td>
@@ -108,7 +108,7 @@ input[type=checkbox] {
 										<td><input type="file" id="pic" name="pic"></td>
 									</tr>
 									<tr>
-										<td colspan="3"><input type="submit" style="float: right" class="btn btn-warning btn-fill" value="JOIN US!"></td>
+										<td colspan="3"><input type="submit" style="float: right" class="btn btn-default" value="JOIN US!"></td>
 									</tr>
 								</table>
 							</form>

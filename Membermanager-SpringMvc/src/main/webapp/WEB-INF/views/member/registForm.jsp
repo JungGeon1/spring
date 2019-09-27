@@ -36,7 +36,7 @@
 <div id="contents">
 	<h3>회원가입 페이지</h3>
 	<hr>
-	<form id="regform" method="post" enctype="multipart/form-data">
+	<form id="regform" method="post" enctype="multipart/form-data" >
 		<table>
 			<tr>
 				<td>아이디(이메일)</td>

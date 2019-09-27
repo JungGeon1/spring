@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.nb.dao.nbDao">
+
+<!-- <resultMap type="com.test.nb.domain.NbInfo" id="nbMap">
+	
+	<result property="u_id" column="u_id"/>
+	<result property="u_title" column="u_title"/>
+	<result property="u_contents" column="u_contents"/>
+	<result property="u_image" column="u_image"/>
+	<result property="category" column="category"/>
+	
+</resultMap> -->
+<!-- 게시글등록 -->
+<insert id="insertNb" parameterType="com.test.nb.domain.NbInfoDto">
+	insert into noticetest.noticeboard(u_id,u_title,u_contents,u_image,category)values(#{u_id},#{u_title},#{u_contents},#{u_image},#{category});
+</insert>
+ <!-- 이미지 없이 등록 -->
+<insert id="insertNbNoImg" parameterType="com.test.nb.domain.NbInfoDto">
+	insert into noticetest.noticeboard(u_id,u_title,u_contents,category)values(#{u_id},#{u_title},#{u_contents},#{category});
+</insert>
+<!-- 게시판 갯수 -->
+<select id="selectList" resultType="int">
+	select count(*) from noticetest.noticeboard where category=#{param};
+</select>
+
+<!-- 게시판리스트 -->
+<select id="List"  parameterType="com.test.nb.domain.ListViewDataDto"  resultType="com.test.nb.domain.NbInfoDto">
+	select * from noticetest.noticeboard where category=#{category} order by  idx desc limit #{startIdx}, 6;
+</select>
+
+<!-- 뷰페이지가져오기 -->
+<select id="selectViewPage" parameterType="com.test.nb.domain.ViewPageDataDto" resultType="com.test.nb.domain.NbInfoDto" >
+	select * from noticetest.noticeboard where category=#{category} and idx=#{idx}
+</select>
+
+<update id="viewUp">
+  update  noticetest.noticeboard set u_readcount= u_readcount+1 where idx=#{param}
+</update>
+
+<delete id="deleteNb">
+	delete from noticetest.noticeboard where category=#{category} and idx=#{idx}
+</delete>
+
+<update id="updateNb" parameterType="com.test.nb.domain.NbInfoDto">
+	update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image=#{u_image} where idx=#{idx};
+</update>
+<update id="updateNbNoImg" parameterType="com.test.nb.domain.NbInfoDto">
+	update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image='NO_IMAGE.png' where idx=#{idx};
+</update>
+
+</mapper>

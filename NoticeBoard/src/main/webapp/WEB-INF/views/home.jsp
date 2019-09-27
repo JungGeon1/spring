@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 
-<%response.sendRedirect("start"); %>
+<%response.sendRedirect("login"); %>
 <html>
 <head>
 	<title>Home</title>
