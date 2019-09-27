@@ -75,7 +75,8 @@
 			<div id="formDiv">
 
 				<h2>${nbm_id}님 <br>
-				어서오세요</h2>
+				오셨구요
+				 </h2>
 
 			</div>
 		</div>

@@ -34,27 +34,29 @@
 <script src="lang/summernote-ko-KR.js"></script>
 <title>Insert title here</title>
 <style>
-
-#header {
-	text-align: center;
+#header{
+text-align: center;
 }
-
-.li {
-	float: right;
-	padding-right: 40px;
-}
-
-.both {
+.li{
+float: right;
+padding-right: 40px;
+}.both {
 	clear: both;
-}
-
-#contents {
+}#contents{
 	width: 80%;
 	margin-left: 50px;
 }
+.btnWidth{
+width: 100%;
+}#updateBox{
+float:left;
 
-#img {
-	width: 500px;
+}.img-wrap{
+float:right;
+margin-left: 100px;
+margin-top: 110px;
+}#img{
+width: 700px;
 }
 </style>
 </head>
@@ -68,6 +70,7 @@
 
 	<div id="contents">
 		<input id="idx" type="text" value="${idx}" hidden="">
+	<div id="updateBox">
 		<h1>UPDATE</h1>
 		<!-- <form id="insertForm" enctype="multipart/form-data" method="post" action="rest"> -->
 		<form id="updateForm">
@@ -103,14 +106,15 @@
 				</tr>
 			</table>
 		</form>
-
-		<div class="img-wrap" id="img-wrap"></div>
+	</div>
+	<div class="img-wrap" id="img-wrap"></div>
 	</div>
 	<%@include file="/WEB-INF/views/frame/footer.jsp"%>
 	<script>
 		$(document).ready(function() {
 			$('#u_contents').summernote({
 				height : 300, // set editor height
+				width:700,
 				minHeight : null, // set minimum height of editor
 				maxHeight : null, // set maximum height of editor
 				focus : true, // set focus to editable area after initializing summernote
@@ -203,7 +207,7 @@
 						success : function(data) {
 
 							var img = '';
-							img += '<h4>이미지 미리보기</h4>';
+							
 							$('#u_id').val(data.u_id);
 							$('#u_title').val(data.u_title);
 							//$('#u_contents').val(data.u_contents); 
@@ -213,6 +217,7 @@
 							img += '<img id="img" src="uploadfile/'+data.u_image+'" alt="'+data.u_image+'">';
 
 							$('#img-wrap').html(img);
+							
 						}
 
 					});

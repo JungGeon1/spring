@@ -37,7 +37,10 @@
 	
 }#pwCheck{
 display: none;
-}#idCheck{
+}#pwCheck2{
+display: none;
+}
+#idCheck{
 display: none;
 }
 .textWidth{
@@ -89,9 +92,12 @@ td{
 									</tr>
 									<tr>
 										<td>비밀번호 확인</td>
-										<td><input class="form-control textWidthLarge" type="password" id="nbm_pw2" name="nbm_pw2" required><br>
-											<span id="pwSpan"></span> <span id="pwSpan2"></span> <input
-											type="checkbox" id="pwCheck"></td>
+											<td>
+											<input class="form-control textWidthLarge" type="password" id="nbm_pw2" name="nbm_pw2" required><br>
+											<span id="pwSpan"></span> <span id="pwSpan2"></span> 
+											<input type="checkbox" id="pwCheck">
+											<input type="checkbox" id="pwCheck2">
+											</td>
 									</tr>
 									<tr>
 										<td>이름</td>
@@ -153,12 +159,12 @@ $(document).ready(function(){
 				if (!checkPw.test($('#nbm_pw').val())&&$('#nbm_pw').val().length>1) {
 					$('#pwSpan2').html('[비밀번호] 영문 4글자~10글자 미만, 최소 1개의 숫자 또는 특수문자 포함');
 					$('#pwSpan2').css('color', 'red');
-					$('#pwCheck').prop('checked', false);
+					$('#pwCheck2').prop('checked', false);
 					
 				}if(checkPw.test($('#nbm_pw').val())&&$('#nbm_pw').val().length>1) {
 					$('#pwSpan2').html('[비밀번호] 안전한 비밀번호입니다.');
 					$('#pwSpan2').css('color', 'green');
-					$('#pwCheck').prop('checked', true);
+					$('#pwCheck2').prop('checked', true);
 				}
 			});
 
@@ -169,7 +175,10 @@ $(document).ready(function(){
 					return false;
 				}
 				if (!$('#pwCheck').prop('checked')) {
-					alert('비밀번호가 일치하지 않거나 양식과 다른 형식입니다.');
+					alert('비밀번호가 일치하지 않습니다.');
+					return false;
+				}if (!$('#pwCheck2').prop('checked')) {
+					alert('비밀번호가  양식과 다른 형식입니다.');
 					return false;
 				}
 

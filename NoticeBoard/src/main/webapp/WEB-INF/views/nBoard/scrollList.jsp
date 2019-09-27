@@ -90,7 +90,9 @@ display: none;
 	
 
 <div id="contents">
+<c:if test="${nbm_id  ne null}">
 <button id="insetBtn" class="btn btn-default btnWidth">INSERT</button>
+</c:if>
 <button id="insertClose" class="btn btn-default btnWidth" >IN_CANCLE</button>
 <button id="updateClose" class="btn btn-default btnWidth">UP_CANCLE</button>
 
@@ -103,7 +105,7 @@ display: none;
 			
 			<tr>
 				
-				<td><input type="text"  id="u_id" name="u_id" required placeholder="작성자"> </td>
+				<td><input type="text"  id="u_id" name="u_id" required placeholder="작성자" value="${nbm_id}" readonly="readonly"> </td>
 			</tr>
 			
 			<tr>
@@ -137,7 +139,7 @@ display: none;
 			
 			<tr>
 				
-				<td><input type="text"  id="up_id" name="u_id" required placeholder="작성자"> </td>
+				<td><input type="text"  id="up_id" name="u_id" required placeholder="작성자" > </td>
 			</tr>
 			
 			<tr>
@@ -273,12 +275,14 @@ function scrollList(pNumber) {
                 for(var i=0; i<data.length;i++){
                 	html += '<div class="itemBox wordBreak">';
                     html += '<div>No. '+(data[i].pListCnt-i)+'</div>';                
-                    html += '<div>Name. '+data[i].u_id+'</div>';              
+                    html += '<div>Id. '+data[i].u_id+'</div>';              
                     html += '<div>Title. '+data[i].u_title+'</div>';                  
          	        html += '<div>Date. '+data[i].u_date+'</div>';
          	        html += '<div>Contents. '+data[i].u_contents+'</div>';
+         	      if(data[i].u_id=='${nbm_id}'){
          	        html += '<div><button class="btn btn-default btnWidth" onclick="update('+data[i].idx+')">UPDATE</button><button class="btn btn-default btnWidth" onclick="deleteBoard('+data[i].idx+') ">DELETE</button></div>';
-                    html += '</div>';
+         	      }
+         	        html += '</div>';
                 }
                 
                 $('#scrollList').append(html);

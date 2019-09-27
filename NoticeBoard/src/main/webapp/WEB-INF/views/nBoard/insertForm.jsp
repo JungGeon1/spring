@@ -40,11 +40,19 @@ padding-right: 40px;
 	width: 80%;
 	margin-left: 50px;
 }
-#img{
-width: 500px;
-}.btnWidth{
+.btnWidth{
 width: 100%;
+}#insertBox{
+float:left;
+
+}.img-wrap{
+float:right;
+margin-left: 100px;
+margin-top: 110px;
+}#img{
+width: 700px;
 }
+
 </style>
 </head>
 <body>
@@ -56,6 +64,7 @@ width: 100%;
 <%@include file="/WEB-INF/views/frame/nav.jsp" %>
 
 <div id="contents">
+<div id="insertBox">
 <h1>INSERT</h1>
 <!-- <form id="insertForm" enctype="multipart/form-data" method="post" action="rest"> -->
 <form id="insertForm">
@@ -66,7 +75,7 @@ width: 100%;
 			
 			<tr>
 				
-				<td><input type="text"  id="u_id" name="u_id" required placeholder="작성자"> </td>
+				<td><input type="text"  id="u_id" name="u_id" required placeholder="작성자" value="${nbm_id}" readonly="readonly"> </td>
 			</tr>
 			
 			<tr>
@@ -87,9 +96,9 @@ width: 100%;
 			</tr>
 		</table>
 	</form>
-	
+</div>
 	<div class="img-wrap">
-		<h4>이미지 미리보기</h4>
+		
 		<img id="img">
 	</div>
 </div>
@@ -97,7 +106,8 @@ width: 100%;
 <script>
 $(document).ready(function(){
 	 $('#u_contents').summernote({
-         height: 300,                 // set editor height
+         height: 300,
+         width:700,	// set editor height
          minHeight: null,             // set minimum height of editor
          maxHeight: null,             // set maximum height of editor
          focus: true,                  // set focus to editable area after initializing summernote
@@ -120,6 +130,7 @@ function read(input) {
             $('#img').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
+       
     }
 }
 

@@ -36,7 +36,10 @@ width: 900px;
 height:700px;
 margin: 0 auto;
 }
-
+#contents{
+text-align: center;
+padding-top: 40px;
+}
 </style>
 </head>
 <body>
@@ -54,7 +57,7 @@ margin: 0 auto;
 <div id="contents">
 	
 	<h2>인증되었습니다.</h2>
-	<h3><a href="login">로그인 하기</a></h3>
+	<h3><a href="${pageContext.request.contextPath}/login">로그인 하러가기</a></h3>
 </div>
 <!-- 컨텐츠 끝 -->
 

@@ -38,7 +38,10 @@ width: 900px;
 height:700px;
 margin: 0 auto;
 }
-
+#contents{
+text-align: center;
+padding-top: 40px;
+}
 </style>
 </head>
 <body>
@@ -83,6 +86,7 @@ margin: 0 auto;
 				success: function (data) {
 					if(data=='success'){
 						alert('메일이 재전송되었습니다.!');
+						location.href='${pageContext.request.contextPath}';
 					}
 				}
 			

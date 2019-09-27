@@ -47,11 +47,11 @@ public class MailSenderService {
 			String htmlMsg="<h1>회원가입을 축하합니다</h1>";
 
 			htmlMsg += "<h3>인증을 위해 아래 링크를 클랙해주세요.</h3>";
-			htmlMsg += "<h3><a href=\"http://localhost:8080/nb/verify?id="+getuId+"&code="+code+"\" >인증하기</a></h3>";
+			htmlMsg += "<h3><a href=\"http://localhost:8080/nb/verify?id="+getuId+"&code="+code+"\" >인증하기("+getuId+")</a></h3>";
 			
 			message.setText(htmlMsg, "UTF-8", "html");
-			message.setFrom(new InternetAddress("a20190820252@gmail.com"));
-			message.addRecipient(RecipientType.TO, new InternetAddress(getuId,"이장님","UTF-8"));
+			message.setFrom(new InternetAddress("a20190820252@gmail.com","M_click_dummy","UTF-8"));
+			message.addRecipient(RecipientType.TO, new InternetAddress(getuId,"고객님","UTF-8"));
 			
 			sender.send(message);
 		} catch (MessagingException e) {
@@ -75,11 +75,11 @@ public void reSend(String getuId, String code) {
 			String htmlMsg = "<h1>이메일 인증을 해주세요.</h1>";
 			
 			htmlMsg += "<h3>인증을 위해 아래 링크를 클랙해주세요.</h3>";
-			htmlMsg += "<h3><a href=\"http://localhost:8080/nb/verify?id="+getuId+"&code="+code+"\" >인증하기</a></h3>";
+			htmlMsg += "<h3><a href=\"http://localhost:8080/nb/verify?id="+getuId+"&code="+code+"\" >재인증하기("+getuId+")</a></h3>";
 			
 			message.setText(htmlMsg, "UTF-8", "html");
-			message.setFrom(new InternetAddress("a20190820252@gmail.com"));
-			message.addRecipient(RecipientType.TO, new InternetAddress(getuId,"이장님","UTF-8"));
+			message.setFrom(new InternetAddress("a20190820252@gmail.com","M_click_dummy","UTF-8"));
+			message.addRecipient(RecipientType.TO, new InternetAddress(getuId,"고객님","UTF-8"));
 			
 			sender.send(message);
 			

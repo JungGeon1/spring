@@ -113,6 +113,8 @@
 	
 }.cmtBtnBox{
 	margin-top: 5px;
+}#viewBtnBox{
+	display: none;
 }
 </style>
 </head>
@@ -126,12 +128,12 @@
 
 	<div id="contents">
 		<input id="idx" type="text" value="${idx}" hidden="">
-		<input id="id" type="text">
+		<input id="id" type="text" value="${nbm_id}" hidden="" readonly="readonly">
 		<div class="boardBox">
 
 			<div class="boardinner wordBreak" id="textBox"></div>
 			<div class="boardinner" id="imgBox"></div>
-			<div class="both left">
+			<div class="both left" id="viewBtnBox"> 
 				<button class="btn btn-default" onclick="location.href='/nb/updatePage?idx=${idx}'">수정</button>
 				<button class="btn btn-default" onclick="deleteBoard()">삭제</button>
 			</div>
@@ -172,6 +174,11 @@
 							html += '<div><h4>' + data.u_date + '</h4></div>';
 							html += '<div><p>' + data.u_contents + '</p></div>';
 							img += '<img class="img" src="uploadfile/'+data.u_image+'" alt="'+data.u_image+'">';
+							
+							if(data.u_id=='${nbm_id}'){
+								$('#viewBtnBox').css('display','block');
+							}
+							
 							$('#textBox').html(html);
 							$('#imgBox').html(img);
 						}
@@ -339,7 +346,11 @@
 						html += '<div><span>' + data[i].n_id + '</span>';
 						html += '<span class="right">' + data[i].n_date + '</span></div>';
 						html += '<div class="cmtBtnBox">' + data[i].n_comment;
-						html += '<button class="right " onclick="reComment('+data[i].n_idx+')">Recm</button><button class="right" onclick="deleteCm('+data[i].n_idx+')" >Del</button>' + '</div>';
+						html += '<button class="right " onclick="reComment('+data[i].n_idx+')">Recm</button>';
+						if(data[i].n_id=='${nbm_id}'){
+						html +='<button class="right" onclick="deleteCm('+data[i].n_idx+')" >Del</button>'
+						}
+						html +='</div>';
 						html +='</div>';
 						//------------------------------------------
 						html+='<div class="reCommetBox" id="'+data[i].n_idx+'">';
