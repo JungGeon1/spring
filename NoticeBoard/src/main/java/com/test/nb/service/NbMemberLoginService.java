@@ -19,17 +19,16 @@ public class NbMemberLoginService {
 	SqlSessionTemplate template;
 
 	nbMemberDao dao;
-
+//로그인
 	public int login(String id, String pw, HttpServletRequest request) {
 		dao=template.getMapper(nbMemberDao.class);
 		
-		
-		System.out.println("체큰");
 		int rCnt = 0;
-
+		//입력받은 아이디로  db에서 정보를 가져온다
 		NbMemberDto nbDto = dao.selectIdChk(id);
-		
+		//정보가 존재할시 암호화된 비밀번호 비교
 		if(nbDto!=null&& encoder.matches(pw, nbDto.getNbm_pw())) {
+			//메일 인증여부 체크
 			if (nbDto.getNbm_verify().equals("Y")) {
 				NbLoginInfoDto logindto = new NbLoginInfoDto(nbDto.getNbm_id(), nbDto.getNbm_pw());
 				request.getSession(true).setAttribute("nbm_id", logindto.getNbm_id());

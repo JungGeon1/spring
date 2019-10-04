@@ -15,7 +15,7 @@ public class ViewPageService {
 	SqlSessionTemplate template;
 	
 	nbDao nbIf;
-	
+	//뷰페이지 정보
 	public NbInfoDto viewData(ViewPageDataDto pageData) {
 		
 		nbIf= template.getMapper(nbDao.class);

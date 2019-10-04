@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.test.nb.domain.ListViewDataDto;
 import com.test.nb.domain.NbInfoDto;
+import com.test.nb.domain.SearchParamDto;
 import com.test.nb.domain.ViewPageDataDto;
 
 public interface nbDao {
@@ -14,9 +15,9 @@ public interface nbDao {
 	
 	public int insertNbNoImg(NbInfoDto nbInfo);
 	
-	public int selectList(String category);
+	public int selectList(Map<String, Object> map);
 	
-	public List<NbInfoDto> List(ListViewDataDto viewData);
+	public List<NbInfoDto> List(Map<String, Object> map);
 	
 	public NbInfoDto selectViewPage(ViewPageDataDto pageData);
 	

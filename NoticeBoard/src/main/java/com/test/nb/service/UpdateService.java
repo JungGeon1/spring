@@ -28,7 +28,11 @@ public class UpdateService {
 			int rCnt=0;
 			
 			nbIf=template.getMapper(nbDao.class);
-			
+			if(info.getU_address().length()<1) {
+				//검색어가 없을시 공백을제거해서 널값으로 만들어준다
+				info.setU_address(null); 
+				
+			}
 			NbInfoDto nInfo=info.toNbInfo();
 			//System.out.println("insertInfo에서 NbInfo로 넘어가는 값체크>>"+nInfo.toString());
 		

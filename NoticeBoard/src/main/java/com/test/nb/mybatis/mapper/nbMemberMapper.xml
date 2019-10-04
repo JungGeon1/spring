@@ -4,28 +4,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.nb.dao.nbMemberDao">
 
-<!-- <resultMap type="com.test.nb.domain.NbInfo" id="nbMap">
-	
-	<result property="u_id" column="u_id"/>
-	<result property="u_title" column="u_title"/>
-	<result property="u_contents" column="u_contents"/>
-	<result property="u_image" column="u_image"/>
-	<result property="category" column="category"/>
-	
-</resultMap> -->
-<!-- 게시글등록 -->
-<select id="selectIdChk" resultType="com.test.nb.domain.NbMemberDto">
-	select * from noticetest.noticeBoardMember where nbm_id=#{param};
-</select>
-<insert id="insertNbMember" parameterType="com.test.nb.domain.NbMemberDto">
-	insert into noticetest.noticeBoardMember(nbm_name,nbm_id,nbm_pw,nbm_address,nbm_code)values(#{nbm_name},#{nbm_id},#{nbm_pw},#{nbm_address},#{nbm_code});
-</insert>
 
-<update id="verify">
-		update noticetest.noticeBoardMember set nbm_verify ='Y' where nbm_id=#{param1} and nbm_code=#{param2}
+	<!-- 게시글등록 -->
+	<select id="selectIdChk"
+		resultType="com.test.nb.domain.NbMemberDto">
+		select * from noticetest.noticeBoardMember where nbm_id=#{param};
+	</select>
+	<insert id="insertNbMember"
+		parameterType="com.test.nb.domain.NbMemberDto">
+		insert into
+		noticetest.noticeBoardMember(nbm_name,nbm_id,nbm_pw,nbm_address,nbm_code)values(#{nbm_name},#{nbm_id},#{nbm_pw},#{nbm_address},#{nbm_code});
+	</insert>
+
+	<update id="verify">
+		update noticetest.noticeBoardMember set nbm_verify
+		='Y' where nbm_id=#{param1} and nbm_code=#{param2}
 	</update>
+
+	<delete id="deleteMember">
+		delete from noticetest.noticeBoardMember where nbm_idx=#{param};
+	</delete>
+	<!-- 유저가 작성한 모든 게시판의 갯수 -->
+	<select id="totalBoardCnt" resultType="int">
+		select count(*) from noticetest.noticeboard where u_id=#{param};
+	</select>
+	<!-- 유저가 작성한 ??게시판의이 갯수 -->
+	<select id="selectBoardCnt" resultType="int" parameterType="map">
+		select count(*) from noticetest.noticeboard where category=#{category}
+		and u_id=#{nbm_id};
+
+	</select>
+	<!-- 유저가 작성한 댓글들의 총 갯수 -->
+	<select id="selectTotalCmCnt" resultType="int">
+		select count(*) from noticetest.ncomment where n_id=#{param};
+	</select>
+
+
+	<!-- 유저가 작성한 게시판 리스트 마이페이지용 -->
 	
-<delete id="deleteMember">
-	delete from noticetest.noticeBoardMember where nbm_idx=#{param};
-</delete>
+	<select id="selectMypageList" parameterType="map" resultType="com.test.nb.domain.NbInfoDto">
+		select * from noticetest.noticeboard where category=#{category} and u_id=#{nbm_id};
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="pwChage" parameterType="map">
+		update noticetest.noticeboardmember set nbm_pw=#{pw} where nbm_id=#{nbm_id};
+	</update>
+	<!-- 로그인뷰 탑3 -->
+	<select id="ReadCntList" resultType="com.test.nb.domain.NbInfoDto">
+		select * from noticetest.noticeboard where u_id=#{param} order by u_readcount desc limit 0,3;
+	</select>
+	
+	<!-- 메인뷰 탑3 -->
+	<select id="mainBestList" resultType="com.test.nb.domain.NbInfoDto">
+		select * from noticetest.noticeboard order by u_readcount desc limit 0,3;
+	</select>
 </mapper>

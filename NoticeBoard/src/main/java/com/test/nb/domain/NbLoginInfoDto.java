@@ -1,8 +1,9 @@
 package com.test.nb.domain;
 
 public class NbLoginInfoDto {
-	
+	//로그인 아이디
 	private String nbm_id;
+	//로그인 비밀번호
 	private String nbm_pw;
 	
 	public NbLoginInfoDto() {

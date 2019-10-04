@@ -18,8 +18,20 @@ public interface nbMemberDao {
 
 	public int verify(String id, String code);
 	
-	
 	public int deleteMember(int idx);
+	
+	public int totalBoardCnt(String id);
+	
+	public int selectBoardCnt(Map<String, String> map);
+	
+	public int selectTotalCmCnt(String id);
 
+	public List<NbInfoDto> selectMypageList(Map<String, String>map);
+	
+	public int pwChage(Map<String, String> map);
+	
+	public List<NbInfoDto> ReadCntList(String id);
+	
+	public List<NbInfoDto> mainBestList();
 	
 }

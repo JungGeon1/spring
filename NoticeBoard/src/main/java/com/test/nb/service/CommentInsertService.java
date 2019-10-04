@@ -19,7 +19,7 @@ public class CommentInsertService {
 		int comentCnt=0;
 		dao=template.getMapper(commentDao.class);
 		comentCnt=commentCount(cDto);
-		//전체 게시물 수를 뽑아와 하나 증가시켜 넣어준다 
+		//전체 게시물 수를 뽑아와 grpno를 하나 증가시켜 넣어준다 
 		cDto.setN_grpno(comentCnt+1);
 		rCnt=dao.insertCm(cDto);
 		return rCnt;
@@ -34,24 +34,25 @@ public class CommentInsertService {
 		dao=template.getMapper(commentDao.class);
 		
 		uChk=dao.ReCmUp(cDto);
-		System.out.println("uChk체크>>"+uChk);
+		//System.out.println("uChk체크>>"+uChk);
 		cDto.setN_grpord(cDto.getN_grpord()+1);
 		cDto.setN_depth(cDto.getN_depth()+1);
 		
 		depthchk=cDto.getN_depth();
 		
+	//답글의 dept체크
 		for(int i=0; i<depthchk-1;i++) {
 		sbr.append("RE");
 		}
 		sbr.append(":");
 		sbr.append(cDto.getN_comment());
-//		
+		
 		cDto.setN_comment(sbr.toString());
 		rCnt=dao.insertReCm(cDto);
 		return rCnt;
 		
 	}
-	
+	//댓글입력시 grpno증가를 위해 전체 개시글의 갯수를 가져온다
 	public int commentCount(CommentDto cDto) {
 		int rCnt=0;
 		

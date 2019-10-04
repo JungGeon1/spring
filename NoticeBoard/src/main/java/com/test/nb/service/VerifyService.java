@@ -16,7 +16,7 @@ public class VerifyService {
 	private SqlSessionTemplate template;
 	
 	private nbMemberDao dao;
-	
+	//이메일 인증여부
 	public String verify(String id, String code) {
 		
 		dao=template.getMapper(nbMemberDao.class);
@@ -25,7 +25,7 @@ public class VerifyService {
 		// TODO Auto-generated method stub
 		return rCnt>0?"Success":"Fail";
 	}
-
+	//메일 재인증
 	public int reMailSend(String eamil) {
 		
 		dao = template.getMapper(nbMemberDao.class);

@@ -15,40 +15,99 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap> -->
 <!-- 게시글등록 -->
 <insert id="insertNb" parameterType="com.test.nb.domain.NbInfoDto">
+<!-- 주소의 유무에따라 쿼리문 분기처리 -->
+<if test="u_address != null">	
+	insert into noticetest.noticeboard(u_id,u_title,u_contents,u_image,category,u_address)values(#{u_id},#{u_title},#{u_contents},#{u_image},#{category},#{u_address});
+</if>
+<if test="u_address == null">
 	insert into noticetest.noticeboard(u_id,u_title,u_contents,u_image,category)values(#{u_id},#{u_title},#{u_contents},#{u_image},#{category});
+</if>
 </insert>
  <!-- 이미지 없이 등록 -->
 <insert id="insertNbNoImg" parameterType="com.test.nb.domain.NbInfoDto">
+
+<if test="u_address != null">	
+	insert into noticetest.noticeboard(u_id,u_title,u_contents,category,u_address)values(#{u_id},#{u_title},#{u_contents},#{category},#{u_address});
+</if>
+<if test="u_address == null">	
 	insert into noticetest.noticeboard(u_id,u_title,u_contents,category)values(#{u_id},#{u_title},#{u_contents},#{category});
+</if>
 </insert>
 <!-- 게시판 갯수 -->
-<select id="selectList" resultType="int">
-	select count(*) from noticetest.noticeboard where category=#{param};
+<select id="selectList" parameterType="map" resultType="int">
+	select count(*) from noticetest.noticeboard where category=#{category}
+		<if test="search.stype != null">
+				and
+				<if test="search.stype == 'id'">
+					u_id LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'title'">
+					u_title LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'date'">
+					u_date LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+
+		</if>
+	
+	
 </select>
 
 <!-- 게시판리스트 -->
-<select id="List"  parameterType="com.test.nb.domain.ListViewDataDto"  resultType="com.test.nb.domain.NbInfoDto">
-	select * from noticetest.noticeboard where category=#{category} order by  idx desc limit #{startIdx}, 6;
+<select id="List"   parameterType="map"  resultType="com.test.nb.domain.NbInfoDto">
+	select * from noticetest.noticeboard where category=#{viewData.category} 
+	
+	
+		<if test="search.stype != null">
+				and
+				<if test="search.stype == 'id'">
+					u_id LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'title'">
+					u_title LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'date'">
+					u_date LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				
+
+			</if>
+	
+	order by  idx desc limit #{viewData.startIdx}, 6;
 </select>
+
+
+
+
 
 <!-- 뷰페이지가져오기 -->
 <select id="selectViewPage" parameterType="com.test.nb.domain.ViewPageDataDto" resultType="com.test.nb.domain.NbInfoDto" >
 	select * from noticetest.noticeboard where category=#{category} and idx=#{idx}
 </select>
-
+<!-- 조회수 업 -->
 <update id="viewUp">
   update  noticetest.noticeboard set u_readcount= u_readcount+1 where idx=#{param}
 </update>
-
+<!-- 게시글 삭제 -->
 <delete id="deleteNb">
 	delete from noticetest.noticeboard where category=#{category} and idx=#{idx}
 </delete>
-
+<!-- 게시글수정 -->
 <update id="updateNb" parameterType="com.test.nb.domain.NbInfoDto">
-	update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image=#{u_image} where idx=#{idx};
+	<if test="u_address != null">	
+		update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image=#{u_image}, u_address=#{u_address} where idx=#{idx};
+	</if>
+	<if test="u_address == null">	
+		update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image=#{u_image} where idx=#{idx};
+	</if>
 </update>
 <update id="updateNbNoImg" parameterType="com.test.nb.domain.NbInfoDto">
-	update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents},u_image='NO_IMAGE.png' where idx=#{idx};
+	<if test="u_address != null">	
+		update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents}, u_address=#{u_address} where idx=#{idx};
+	</if>
+	<if test="u_address == null">	
+		update noticetest.noticeboard set u_id=#{u_id}, u_title=#{u_title}, u_contents=#{u_contents} where idx=#{idx};
+	</if>
 </update>
 
 </mapper>

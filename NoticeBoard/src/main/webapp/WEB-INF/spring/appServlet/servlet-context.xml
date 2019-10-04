@@ -88,6 +88,7 @@
 		<!-- 인터셉터 생성 : 로그인 체크 -->
 		<interceptor>
 			<mapping path="/pageList/**"/>
+			<mapping path="/myPage/**" />
 			
 			<beans:ref bean="authCheckInterceptor"/>
 		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->

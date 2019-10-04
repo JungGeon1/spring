@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.nb.domain.InsertInfoDto;
 import com.test.nb.domain.NbInfoDto;
+import com.test.nb.domain.SearchParamDto;
 import com.test.nb.domain.ViewPageDataDto;
 import com.test.nb.service.DeleteService;
 import com.test.nb.service.InsertService;
@@ -66,14 +67,22 @@ public class NbController {
 	@GetMapping("/pList")
 	public ResponseEntity<List<NbInfoDto>>pageList(
 			@RequestParam(value = "p") int pageNumber,
-			@RequestParam(value = "category") String category
+			@RequestParam(value = "category") String category,
+			@RequestParam(value = "stype") String stype,
+			@RequestParam(value = "keyword") String keyword
 			){
 		
 		List<NbInfoDto> list=null;
 		int totalPageList=0;
+		SearchParamDto sParamDto= new SearchParamDto();
+		
+		if(stype!=null&&keyword!=null&&!stype.isEmpty()&&!keyword.isEmpty()) {
+			sParamDto.setKeyword(keyword);
+			sParamDto.setStype(stype);
+		}
 		
 		
-		totalPageList=pListService.selectPagelist(category);
+		totalPageList=pListService.selectPagelist(category, sParamDto);
 		//리스트 출력시 시작 게시글 번호를 구하기 위해
 		totalPageList=totalPageList-((pageNumber-1)*6);
 		
@@ -81,7 +90,7 @@ public class NbController {
 		
 		
 		
-		list=pListService.getPageList(pageNumber,category);
+		list=pListService.getPageList(pageNumber,category,sParamDto);
 		
 		System.out.println("리스트사이즈체크>>>"+list.size());
 		//리스트 출력시 시작 게시글 번호를 구하기 위해
@@ -97,20 +106,30 @@ public class NbController {
 	@CrossOrigin
 	@GetMapping("/pCount")
 	public ResponseEntity<Integer> pCount(
-			@RequestParam(value = "category") String category
+			@RequestParam(value = "category") String category,
+			@RequestParam(value = "stype") String stype,
+			@RequestParam(value = "keyword") String keyword
 			){
-	
+		System.out.println(stype+keyword);
 		int totalPageList=0;
 		int pageCount=0;
+		SearchParamDto sParamDto= new SearchParamDto();
+		
+		if(stype!=null&&keyword!=null&&!stype.isEmpty()&&!keyword.isEmpty()) {
+			sParamDto.setKeyword(keyword);
+			sParamDto.setStype(stype);
+		}
 	
-		totalPageList=pListService.selectPagelist(category);
-		System.out.println("총 페이지 리스트 개수 체크>>>>"+totalPageList);
-		//필요한 페이지의 갯수 
+		totalPageList=pListService.selectPagelist(category, sParamDto);
+		
 		pageCount=totalPageList%6==0?totalPageList/6:totalPageList/6+1;
 		
-		System.out.println("총 페이지 갯수체크>>>>"+pageCount);
+		
 		return new ResponseEntity<Integer>(pageCount,HttpStatus.OK);
 	}
+	
+	
+	
 	
 	//PageListViewPage
 	@CrossOrigin

@@ -50,7 +50,7 @@ public class NbLoginController {
 	
 		case 1:
 			// response없이 리다이렉트-> 코어태그마냥 컨텍스트경로 제외하고 /main 이런식으로 작성한다
-			view = "redirect:/start";
+			view = "redirect:/myPage/start";
 			break;
 			
 		case 2:

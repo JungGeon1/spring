@@ -18,7 +18,7 @@ public class NbMemberRegService {
 	BCryptPasswordEncoder encoder;
 	
 	nbMemberDao dao;
-	
+	//입력받은 아이디가 db에 저장되있는지 확인
 	public int  idChk(String id) {
 		
 		dao=template.getMapper(nbMemberDao.class);
@@ -31,6 +31,7 @@ public class NbMemberRegService {
 		return rCnt;
 		
 	}
+	//회원가입
 	public int regMember(NbMemberDto dto) {
 		dao=template.getMapper(nbMemberDao.class);
 		//비밀번호암호화

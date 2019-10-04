@@ -5,16 +5,29 @@ package com.test.nb.domain;
 
 
 public class NbInfoDto {
+	//글주소
 	private int idx;
+	//작성자아이디.
 	private String u_id;
+	//글제목
 	private String u_title;
+	//글내용
 	private String u_contents;
+	//사진의 이름
 	private String u_image;
+	//지도 키워드
+	private String u_address;
+	//조회수
 	private int u_readcount;
+	//작성날짜
 	private String u_date;
+	//카테고리
 	private String category;
+	//포토게시판 갯수
 	private int pListCnt;
+	//방명록갯수
 	private int sListCnt;
+	//댓글 갯수
 	private int commetCnt;
 	
 	public NbInfoDto() {
@@ -109,6 +122,14 @@ public class NbInfoDto {
 
 	public void setCommetCnt(int commetCnt) {
 		this.commetCnt = commetCnt;
+	}
+
+	public String getU_address() {
+		return u_address;
+	}
+
+	public void setU_address(String u_address) {
+		this.u_address = u_address;
 	}
 
 	@Override

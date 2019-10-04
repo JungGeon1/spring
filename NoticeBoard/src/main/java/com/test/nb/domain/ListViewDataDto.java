@@ -1,8 +1,9 @@
 package com.test.nb.domain;
 
 public class ListViewDataDto {
-
+	//찾고자 하는 리스트의 시작 주소
 	private int startIdx;
+	//찾고자하는 게시판의 종류
 	private String category;
 
 	public ListViewDataDto() {

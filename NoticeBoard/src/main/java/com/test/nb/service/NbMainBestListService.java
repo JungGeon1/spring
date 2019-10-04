@@ -1,31 +1,32 @@
 package com.test.nb.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.nb.dao.nbMemberDao;
-import com.test.nb.domain.NbMemberDto;
+import com.test.nb.domain.NbInfoDto;
 
-@Service("mypageService")
-public class NbMypageService {
+@Service("mainBestLsitService")
+public class NbMainBestListService {
 	
 	@Autowired
 	SqlSessionTemplate template;
 	
 	nbMemberDao memberDao;
-//마이페이지 회워정보 	
-	public NbMemberDto getMyPageView(String id) {
-		
-		
-		NbMemberDto memberDto= new NbMemberDto();
+	//시작 화면에 출력할 BestList 3개 
+	public List<NbInfoDto> mainBestList(){
 		
 		memberDao=template.getMapper(nbMemberDao.class);
 		
-		memberDto=memberDao.selectIdChk(id);
 		
-		return memberDto;
+		List<NbInfoDto> list= new ArrayList<NbInfoDto>();
+		
+		list=memberDao.mainBestList();
+		return list;
 	}
-	
 	
 }

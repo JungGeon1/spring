@@ -79,7 +79,7 @@ td{
 									</tr>	
 									<tr>
 										<td>
-										<input  type="button" onclick="checkId()"value="중복체크">
+										<input  type="button"  class="btn btn-default btn-xs" onclick="checkId()"value="중복체크">
 										<input type="checkbox" id="idCheck">
 										
 										</td>
@@ -167,7 +167,7 @@ $(document).ready(function(){
 					$('#pwCheck2').prop('checked', true);
 				}
 			});
-
+			//회원가입 
 			$('#regForm').submit(function() {
 
 				if (!$('#idCheck').prop('checked')) {
@@ -213,7 +213,7 @@ $(document).ready(function(){
 			});
 		
 		
-		// 주소 API
+		// 주소검색 API
 		function execDaumPostcode() {
 			new daum.Postcode({
 						oncomplete : function(data) {

@@ -3,17 +3,27 @@ package com.test.nb.domain;
 import java.util.Random;
 
 public class NbMemberDto {
-	
-	private int nbm_idx; 
+	//회원의 등록번호
+	private int nbm_idx;
+	//회원이름
 	private String nbm_name;
+	//회원 이메일
 	private String nbm_id;
+	//회원비밀번호
 	private String nbm_pw; 
+	//회원 주소
 	private String nbm_address;
+	//가입날짜
 	private String nbm_date;
+	//인증을 위한 인증코드
 	private String nbm_code;
+	//메일 인증여부 N Y
 	private String nbm_verify;
+	//우편번호
 	private String postcode;
+	//주소
 	private String address;
+	//상세주소
 	private String detailAddress;
 	
 	public NbMemberDto() {

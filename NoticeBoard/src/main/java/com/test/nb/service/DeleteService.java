@@ -15,7 +15,7 @@ public class DeleteService {
 		SqlSessionTemplate template;
 		
 		nbDao nbIf;
-		
+		//삭제하고자하는 게시판의 카테고리와 글주소를 키워드로 게시판 삭제
 		public int deleteBoard(Map<String, String> deleteMap) {
 			
 			nbIf=template.getMapper(nbDao.class);

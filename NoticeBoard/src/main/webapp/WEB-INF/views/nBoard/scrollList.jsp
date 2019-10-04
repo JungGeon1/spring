@@ -25,11 +25,16 @@
 <title>Insert title here</title>
 <style>
 
+#contentswrap {
+width: 100%;
+height: 100%:
 
+}
 #contents {
 	width: 60%;
 	margin: 0 auto;
 	height: 100%;
+	 
 }
 
 .li {
@@ -49,6 +54,7 @@
 	margin :0 auto;
 	margin-bottom: 20px;
 	padding: 20px;
+	
 }
 .btnWidth{
 width: 100%;
@@ -61,7 +67,7 @@ width: 100%;
     bottom: 30px;
     display: none;
     
-    font-size:60px;  
+    font-size:80px;  
  
 }#updateBox{
 display: none;
@@ -87,17 +93,18 @@ display: none;
 
 	<%@include file="/WEB-INF/views/frame/nav.jsp"%>
 
-	
-
+<div id="contentswrap">
 <div id="contents">
+		
 <c:if test="${nbm_id  ne null}">
-<button id="insetBtn" class="btn btn-default btnWidth">INSERT</button>
+	<button id="insetBtn" class="btn btn-default btnWidth">INSERT</button>
 </c:if>
-<button id="insertClose" class="btn btn-default btnWidth" >IN_CANCLE</button>
-<button id="updateClose" class="btn btn-default btnWidth">UP_CANCLE</button>
+	<button id="insertClose" class="btn btn-default btnWidth" >IN_CANCLE</button>
+	<button id="updateClose" class="btn btn-default btnWidth">UP_CANCLE</button>
+
 
 <div id="insertBox">
-<form id="insertForm">
+	<form id="insertForm">
 		<table>
 			<tr>
 				<td><input type="text"  id="category" name="category" value="scroll" hidden> </td>
@@ -105,12 +112,12 @@ display: none;
 			
 			<tr>
 				
-				<td><input type="text"  id="u_id" name="u_id" required placeholder="작성자" value="${nbm_id}" readonly="readonly"> </td>
+				<td><input type="text"  id="u_id" name="u_id" class="form-control" required placeholder="작성자" value="${nbm_id}" readonly="readonly"> </td>
 			</tr>
 			
 			<tr>
 				
-				<td><input type="text" id="u_title" name="u_title" required placeholder="제목을 입력해주세요"> </td>
+				<td><input type="text" id="u_title" name="u_title" class="form-control" required placeholder="제목을 입력해주세요"> </td>
 			</tr>
 			<tr>
 				
@@ -157,14 +164,14 @@ display: none;
 		</table>
 	</form>
 </div>	
-
-		
+	
 		<div id="scrollList"></div>
 			<div id="lodingBox" >
 				<img alt="lonig" width="100px;" src="images/loding.gif">
 			</div>
-		</div>
-
+		
+</div>
+</div>
 	<%@include file="/WEB-INF/views/frame/footer.jsp"%>
 	<a id="MOVE_TOP" href="#">TOP</a>
 <script>
@@ -177,11 +184,6 @@ $(document).ready(function(){
 	scrollList(p);
 	//무한스크롤 이벤트	
 	
-
- 
-
-
-
 	        $(window).scroll(function(){
 	            let $window = $(this);
 	            let scrollTop = $window.scrollTop();
@@ -229,6 +231,9 @@ $(document).ready(function(){
 	 });
 	
 });
+
+
+
 	
 	/* 스크롤 top 이벤트 */
 	$(window).scroll(function (){
@@ -244,12 +249,13 @@ $(document).ready(function(){
 		},500);
 		return false;
 	});
-	
+	//전체 페이지 갯수 가져오기
 	function paging() {
 		var totalPage=0;
 		$.ajax({
-			url:'rest/pCount?category=page',
+			url:'rest/pCount?category=page&stype=&keyword=',
 			type:'GET',
+			//페이지값리턴을 위해 동기로 변경
 			async:false,
 			error : function (error) {
 				alert(error);
@@ -260,11 +266,11 @@ $(document).ready(function(){
 		});
 		return totalPage;
 	}	
-	
+//페이지번호로 해당 페이지의 리스트를 뿌려준다	
 function scrollList(pNumber) {
 
 	$.ajax({
-		url : 'rest/pList?p='+pNumber+'&category=scroll',
+		url : '${pageContext.request.contextPath}/rest/pList?p='+pNumber+'&category=scroll&stype=&keyword=',
 		type: 'GET',
 		error : function(error) {
 			alert(error);
@@ -293,7 +299,7 @@ function scrollList(pNumber) {
 	return false;
 	
 }
-
+//버튼들을 바꿔준다
 $('#insetBtn').click(function () {
 	$('#insertBox').css('display','block');
 	$('#insertClose').css('display','block');
@@ -312,8 +318,9 @@ $('#updateClose').click(function () {
 	$('#insetBtn').css('display','block');
 	
 });
+// 게시글 입력
 $('#insertForm').submit(function() {
-	var formData = new FormData(); // 파일 전송 -> FormData()활용
+	var formData = new FormData();
 
 	formData.append('u_id', $('#u_id').val());
 	formData.append('u_title', $('#u_title').val());
@@ -335,7 +342,7 @@ $('#insertForm').submit(function() {
 	});
 	return false;
 })
-
+//게시글 삭제
 	function deleteBoard(idx) {
 
 		
@@ -355,7 +362,7 @@ $('#insertForm').submit(function() {
 
 			}
 		}
-		
+//게시글 수정		
 $('#updateForm').submit(function() {
 
 	if (confirm('수정하시겠습니까?')) {
@@ -386,7 +393,7 @@ $('#updateForm').submit(function() {
 	}
 	return false;
 })		
-
+//수정할 글의 정보를 바인딩
 function update(idx) {
 
 			$.ajax({

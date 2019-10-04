@@ -14,7 +14,7 @@ public class CommentDeleteService {
 	@Autowired
 	SqlSessionTemplate template;
 	commentDao dao;
-	
+	//댓글의 글번호를 키워드로 댓글삭제
 	public int deleteComment(int n_idx) {
 		
 		dao=template.getMapper(commentDao.class);

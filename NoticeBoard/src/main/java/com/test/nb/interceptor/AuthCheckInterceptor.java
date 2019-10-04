@@ -26,6 +26,7 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 //				return true;
 //			}
 //		} 
+//세션이 존재하고 세연이 nbm_id인지 체크 아닐경우 로그인 창으로 이동
 		if (session != null && session.getAttribute("nbm_id") != null) {
 			return true;
 		}

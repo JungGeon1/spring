@@ -16,29 +16,30 @@ public class MailSenderService {
 	@Autowired
 	private JavaMailSender sender;
 	
-	public int send(String email) {
-		
-		MimeMessage message=sender.createMimeMessage();
-		
-		try {
-			message.setSubject("[회원가입을 축하합니다]", "UTF-8");
-			String htmlMsg="<h1>회원가입을 축하합니다</h1>";
-			message.setText(htmlMsg, "UTF-8", "html");
-			message.setFrom(new InternetAddress("a20190820252@gmail.com"));
-			message.addRecipient(RecipientType.TO, new InternetAddress(email,"이장님","UTF-8"));
-			
-			sender.send(message);
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return 1;
-	}
+//	public int send(String email) {
+//		
+//		MimeMessage message=sender.createMimeMessage();
+//		
+//		try {
+//			message.setSubject("[회원가입을 축하합니다]", "UTF-8");
+//			String htmlMsg="<h1>회원가입을 축하합니다</h1>";
+//			message.setText(htmlMsg, "UTF-8", "html");
+//			message.setFrom(new InternetAddress("a20190820252@gmail.com"));
+//			message.addRecipient(RecipientType.TO, new InternetAddress(email,"이장님","UTF-8"));
+//			
+//			sender.send(message);
+//		} catch (MessagingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return 1;
+//	}
 	
+	//인증 메일 전송
 	public void send(String getuId, String code) {
 		
 		MimeMessage message = sender.createMimeMessage();
@@ -64,6 +65,7 @@ public class MailSenderService {
 		
 		
 	}
+	//인증메일 재전송
 public void reSend(String getuId, String code) {
 
 		

@@ -1,17 +1,31 @@
 package com.test.nb.domain;
 
 import org.springframework.web.multipart.MultipartFile;
-
+// 처음 바인딩받는용 따로만든이유는 멀티파트타입으로 DB에 저장할수 없기에 후에 다른 Dto에로 전달
 public class InsertInfoDto {
+	//게시글번호
 	private int idx;
+	//작성자 아이디
 	private String u_id;
+	//글제목
 	private String u_title;
+	//글내용
 	private String u_contents;
+	//글사진
 	private MultipartFile u_image;
+	//카테고리
 	private String category;
+	//지도키워드
+	private String u_address;
 	public InsertInfoDto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public String getU_address() {
+		return u_address;
+	}
+	public void setU_address(String u_address) {
+		this.u_address = u_address;
 	}
 	public int getIdx() {
 		return idx;
@@ -55,6 +69,7 @@ public class InsertInfoDto {
 		return "InsertInfoDto [idx=" + idx + ", u_id=" + u_id + ", u_title=" + u_title + ", u_contents=" + u_contents
 				+ ", u_image=" + u_image + ", category=" + category + "]";
 	}
+	//DB에 저장하기위해 파일전달
 	public NbInfoDto toNbInfo() {
 		
 		NbInfoDto nbInfo= new NbInfoDto();
@@ -63,6 +78,7 @@ public class InsertInfoDto {
 		nbInfo.setU_title(u_title);
 		nbInfo.setU_contents(u_contents);
 		nbInfo.setCategory(category);
+		nbInfo.setU_address(u_address);
 		return nbInfo;
 	}
 	

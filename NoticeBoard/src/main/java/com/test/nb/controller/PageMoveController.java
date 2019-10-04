@@ -8,12 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PageMoveController {
 
-	// 시작화면
-	@RequestMapping("start")
-	public String start() {
-
-		return "nBoard/start";
-	}
 
 	// 회원가입
 	@RequestMapping("regist")

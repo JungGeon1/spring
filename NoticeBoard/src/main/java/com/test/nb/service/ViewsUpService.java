@@ -13,7 +13,7 @@ public class ViewsUpService {
 	
 	nbDao nbIf;
 
-	
+	//조회수 업
 	public int viewsUp(int idx) {
 		
 		nbIf=template.getMapper(nbDao.class);

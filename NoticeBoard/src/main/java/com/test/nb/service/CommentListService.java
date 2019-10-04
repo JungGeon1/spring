@@ -19,7 +19,7 @@ public class CommentListService {
 	
 	commentDao dao;
 	
-	
+	// 댓글 ㄹ리스트
 	public List<CommentDto> getCLiset(int idx) {
 		
 		

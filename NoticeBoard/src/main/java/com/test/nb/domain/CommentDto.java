@@ -1,14 +1,21 @@
 package com.test.nb.domain;
 
 public class CommentDto {
-	
+	//댓글 번호
 	private int n_idx;
+	//게시글 번호
 	private int u_idx;
+	//작성자 아이디
 	private String n_id;
+	//댓글 내용
 	private String n_comment;
+	//작성날짜
 	private String n_date;
+	//댓글 그룹번호
 	private int	n_grpno;
+	//댓글 수선
 	private int n_grpord; 
+	//댓글 depth
 	private int n_depth;
 	
 	
