@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.nb.domain.MainImgClickCommentDto;
 import com.test.nb.domain.NbInfoDto;
 import com.test.nb.service.NbMainBestListService;
+import com.test.nb.service.NbMainImgClickCommentService;
 import com.test.nb.service.NbReadCntListService;
 
 @Controller
@@ -20,6 +22,7 @@ public class NbStartPageController {
 	NbReadCntListService readCntService;
 	@Autowired
 	NbMainBestListService mainBestService;
+
 	
 	
 	
@@ -34,6 +37,5 @@ public class NbStartPageController {
 		
 		
 	}
-
-
+	
 }

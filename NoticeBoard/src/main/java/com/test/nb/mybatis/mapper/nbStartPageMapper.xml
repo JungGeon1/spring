@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.nb.dao.nbStartPageDao">
+
+
+	<!-- 유저가 작성한 ??게시판의이 갯수 -->
+	<select id="selectBoardCnt" resultType="int" parameterType="map">
+		select count(*) from noticetest.noticeboard where category=#{category}
+		and u_id=#{nbm_id};
+	</select>
+	<!-- 유저가 작성한 댓글들의 총 갯수 -->
+	<select id="selectTotalCmCnt" resultType="int">
+		select count(*) from noticetest.ncomment where n_id=#{param};
+	</select>
+	<!-- 로그인뷰 탑3 -->
+	<select id="ReadCntList" resultType="com.test.nb.domain.NbInfoDto">
+		select * from noticetest.noticeboard where u_id=#{param} order by u_readcount desc limit 0,3;
+	</select>
+	
+	<!-- 메인뷰 탑3 -->
+	<select id="mainBestList" resultType="com.test.nb.domain.NbInfoDto">
+		select * from noticetest.noticeboard order by u_readcount desc limit 0,3;
+	</select>
+	<!-- 가입기간 -->
+	<select id="selectMemberDate" resultType="int">
+		select to_days( now())- to_days(( select nbm_date from noticetest.noticeboardmember where nbm_id=#{param})) as memberdate;
+	</select>
+	 <!-- 총조회수 -->
+	<select id="selectTotalViews" resultType="int">
+		select sum(u_readcount) from noticetest.noticeboard where u_id=#{param};
+	</select>
+	
+	<!-- 총 업로드 한 사진 수 -->
+	<select id="selectTotalImage" resultType="int">
+		select count(u_image)from noticetest.noticeboard where u_id=#{param} and u_image != 'NO_IMAGE.png';
+	</select>
+	
+</mapper>

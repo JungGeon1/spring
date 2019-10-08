@@ -30,10 +30,10 @@ public class VerifyService {
 		
 		dao = template.getMapper(nbMemberDao.class);
 		
-		System.out.println("nbm_id: " + eamil);
+		//System.out.println("nbm_id: " + eamil);
 		
 		 NbMemberDto dto = dao.selectIdChk( eamil);
-		System.out.println("check : " + dto);
+		//System.out.println("check : " + dto);
 		
 		mailService.reSend(dto.getNbm_id(), dto.getNbm_code());
 		

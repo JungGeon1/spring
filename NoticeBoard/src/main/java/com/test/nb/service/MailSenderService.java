@@ -95,4 +95,32 @@ public void reSend(String getuId, String code) {
 		
 	}
 	
+
+
+//인증 메일 전송
+public void findPwChksend(String getuId, String code) {
+	
+	MimeMessage message = sender.createMimeMessage();
+	try {
+		message.setSubject("[임시 비밀번호 발급]", "UTF-8");
+		String htmlMsg="<h1>임시 비밀번호 발급 서비스 입니다.</h1>";
+
+		htmlMsg += "<h3>임시 비밀번호가 발급되었습니다.</h3>";
+		htmlMsg += "<h3>임시비밀번호:"+code+"</h3>";
+		
+		message.setText(htmlMsg, "UTF-8", "html");
+		message.setFrom(new InternetAddress("a20190820252@gmail.com","M_click_dummy","UTF-8"));
+		message.addRecipient(RecipientType.TO, new InternetAddress(getuId,"고객님","UTF-8"));
+		
+		sender.send(message);
+	} catch (MessagingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+}
 }

@@ -23,7 +23,7 @@ import com.test.nb.service.InsertService;
 
 @RestController
 @RequestMapping("/rest/comment")
-public class CommentController {
+public class NbCommentController {
 	
 	@Autowired
 	CommentInsertService InsertService;

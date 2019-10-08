@@ -26,7 +26,7 @@ public class NbMemberController {
 			){
 		int rCnt=0;
 		rCnt=regService.idChk(id);
-		System.out.println("셀렉트 아이디 체크>>rCnt="+rCnt);
+		//System.out.println("셀렉트 아이디 체크>>rCnt="+rCnt);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 		
 	}

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.nb.domain.NbMypageBoardInfoDto;
+import com.test.nb.domain.MainImgClickCommentDto;
 import com.test.nb.domain.NbInfoDto;
 import com.test.nb.domain.NbMemberDto;
+import com.test.nb.service.NbMainImgClickCommentService;
 import com.test.nb.service.NbMypageBoardInfoService;
 import com.test.nb.service.NbMypageDeleteService;
 import com.test.nb.service.NbMypageListService;
@@ -40,22 +42,23 @@ public class NbMypageController {
 	@Autowired
 	NbReadCntListService  readCntService;
 	
+	@Autowired
+	NbMainImgClickCommentService imgclickService;
 	
 	
-	// 로그인 시작화면
-		@RequestMapping(value = "/start", method = RequestMethod.GET)
-		public String start() {
-
-			return "nBoard/myStart";
-		}
-	
+	//페이지이동ㄴ
 	@RequestMapping(method = RequestMethod.GET)
 	public String  myPage() {
 		
 		
 		return "nBoard/myPage";
 	}
-	
+	// 로그인후 시작화면
+			@RequestMapping(value = "/start", method = RequestMethod.GET)
+			public String start() {
+
+				return "nBoard/myStart";
+			}
 	
 	
 	@RequestMapping(value = "/view",method = RequestMethod.GET)
@@ -70,6 +73,7 @@ public class NbMypageController {
 		
 		return memberDto;
 	}
+	//마이페이지에서 방명록 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String nbMypageDelete(
@@ -99,7 +103,7 @@ public class NbMypageController {
 		
 		return bInfoDto;
 	}
-	
+	//파이페이 리스트 출력
 	@RequestMapping(value = "/mypageList", method = RequestMethod.GET) 
 	@ResponseBody
 	public List<NbInfoDto> mypageList(
@@ -117,7 +121,7 @@ public class NbMypageController {
 		return list;
 		
 	}
-
+	//비밀번호변경
 	@RequestMapping(value = "/pwChange", method = RequestMethod.POST)
 	@ResponseBody
 	public String pwChage(
@@ -144,4 +148,17 @@ public class NbMypageController {
 		
 		
 	}
+	@ResponseBody
+	@RequestMapping(value = "/mainImgClick", method = RequestMethod.GET )
+	public MainImgClickCommentDto mainImgClick(
+			@RequestParam("nbm_id") String id
+			) {
+		
+		MainImgClickCommentDto imgClickDto= null;
+		
+		imgClickDto=imgclickService.imgClickComment(id);
+		
+		return imgClickDto;
+	}
+
 }

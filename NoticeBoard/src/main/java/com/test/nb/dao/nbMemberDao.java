@@ -34,4 +34,8 @@ public interface nbMemberDao {
 	
 	public List<NbInfoDto> mainBestList();
 	
+	public NbMemberDto findPwChk(Map<String, String> map);
+	
+	public int upTempPw(Map<String, String> map); 
+	
 }

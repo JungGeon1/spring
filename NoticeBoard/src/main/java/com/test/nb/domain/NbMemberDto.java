@@ -25,6 +25,7 @@ public class NbMemberDto {
 	private String address;
 	//상세주소
 	private String detailAddress;
+
 	
 	public NbMemberDto() {
 		super();
@@ -101,6 +102,12 @@ public class NbMemberDto {
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
 	}
+	
+	
+	public void setNbm_address(String nbm_address) {
+		this.nbm_address = nbm_address;
+	}
+	
 	@Override
 	public String toString() {
 		return "NbMemberDto [nbm_idx=" + nbm_idx + ", nbm_name=" + nbm_name + ", nbm_id=" + nbm_id + ", nbm_pw="
@@ -136,7 +143,9 @@ public class NbMemberDto {
 			
 				
 		}
+		
+		
 	
-	
+		
 
 }

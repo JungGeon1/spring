@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.nb.dao.nbMemberDao;
+import com.test.nb.dao.nbStartPageDao;
 import com.test.nb.domain.NbInfoDto;
 
 @Service("readCntService")
@@ -16,16 +17,16 @@ public class NbReadCntListService {
 	@Autowired
 	SqlSessionTemplate template;
 	
-	nbMemberDao memberDao;
-	//마이페이지 조회수 리스트
+	nbStartPageDao dao;
+	//조회수TOP3 리스트
 	public List<NbInfoDto> selectReadCntList(String id){
 		
-		memberDao=template.getMapper(nbMemberDao.class);
+		dao=template.getMapper(nbStartPageDao.class);
 		
 		
 		List<NbInfoDto> list= new ArrayList<NbInfoDto>();
 		
-		list=memberDao.ReadCntList(id);
+		list=dao.ReadCntList(id);
 		
 		return list;
 	}

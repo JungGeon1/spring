@@ -12,7 +12,7 @@ import com.test.nb.service.VerifyService;
 
 
 @Controller
-public class VerifyController {
+public class NbVerifyController {
 	
 	@Autowired
 	private VerifyService verifyService;

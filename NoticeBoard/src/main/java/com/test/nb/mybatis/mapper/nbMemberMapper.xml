@@ -59,4 +59,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mainBestList" resultType="com.test.nb.domain.NbInfoDto">
 		select * from noticetest.noticeboard order by u_readcount desc limit 0,3;
 	</select>
+	<!-- 비밀번호찾기를 위한 아이디 유무체크 -->
+	<select id="findPwChk" resultType="com.test.nb.domain.NbMemberDto" parameterType="map">
+		select * from noticetest.noticeboardmember where nbm_id=#{nbm_id} and nbm_name=#{nbm_name};
+	</select>
+	
+	<!-- 임시비밀번호생성 -->
+	<update id="upTempPw" parameterType="map">
+		update noticetest.noticeBoardMember set nbm_pw =#{tempPw}where nbm_id=#{nbm_id};
+	</update>
+	
 </mapper>

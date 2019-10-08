@@ -106,8 +106,9 @@ cursor: pointer;
  .img{
         position: relative;
         background-image: url(/images/holiday2.jpg);                                                               
-        height: 100vh;
+        height: 1100px;
         background-size: cover;
+        cursor: pointer;
     }
 
     .img-cover{
@@ -121,18 +122,22 @@ cursor: pointer;
 
     .img .content{
          position: absolute;
-         top:40%;
+         top:30%;
          left:50%;
          transform: translate(-50%, -50%);                                                                   
          color: white;
          z-index: 2;
          text-align: center;
     }
+  
 	.firstComment{
 		font-size:15em;
 	}
 	.secondComment{
 	    font-size:5em;
+	}.clickComment{
+	    font-size:4em;
+	   
 	}
 
 
@@ -151,6 +156,8 @@ cursor: pointer;
 	
 	width: 100%;
 	height: 100%;
+}#footerWrap{
+	margin-top : 10px;
 }
 </style>
 </head>
@@ -172,9 +179,9 @@ cursor: pointer;
 
 				
 				<div class="page-header">
- 					 <h1>${nbm_id} <small>계정로 로그인 하셨습니다.</small></h1>
+ 					 <h1>${nbm_id} <small>계정으로 로그인 하셨습니다.</small></h1>
 				</div>
-				<div class="slideExpandUp" id="readCountBox">
+				<div class="pullUp" id="readCountBox">
 					<h1>Views Top 3</h1>
 					<div>
 						<table id="readCntList"></table>
@@ -184,8 +191,8 @@ cursor: pointer;
 			</div>
 		</div>
 	</div>
-		 <div  class="img" style="background-image: url('<c:url value="/images/people.jpg"/>');">
-        <div class="content">
+	 <div  class="img" onclick="imgClickCmt()" style="background-image: url('<c:url value="/images/people.jpg"/>');">
+        <div class="content" id="imgComment">
             <span class="firstComment">Hello!</span><br>
            	<span class="secondComment">Write your Trip record</span>
         </div>
@@ -351,6 +358,38 @@ cursor: pointer;
 
 		
 	}
+	function imgClickCmt() {
+		var html='';
+		
+		
+		
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/myPage/mainImgClick?nbm_id=${nbm_id}',
+			type: 'get',
+			error : function(data) {
+				alert(data)
+			},success : function(data) {
+				//alert(data.memberdate);
+				 html+='<div class="bounce clickComment">';
+				 html+='<span>함께한 시간  '+data.memberdate+'일<span><br>';
+				 html+='<span>작성한 보드  '+data.totalPhotoBoard+'개<span><br>';
+				 html+='<span>끄적해본 방명록   '+data.totalGuestBook+'번<span><br>';
+				 html+='<span>달아봤던 댓글  '+data.totalComment+'개<span><br>';
+				 html+='<span>올려봤던 사진   '+data.totalUpPhoto+'장<span><br>';
+				 html+='<span>사람들의 시선  '+data.totalViews+'번<span><br>';
+				 html+='</div>';
+				 $('#imgComment').html(html);
+			
+			}
+			
+			
+		}); 
+		
+		
+		
+	}
+	
 	</script>
 </body>
 </html>

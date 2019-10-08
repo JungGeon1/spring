@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js" ></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/coming-sssoon.css" rel="stylesheet" />

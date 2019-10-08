@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css?family=Grand+Hotel&display=swap" rel="stylesheet">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-<meta name="viewport" content="width=device-width" />
+
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
@@ -120,7 +120,6 @@
 	width: 100%;
 	height: 100%;
 }
-
 </style>
 </head>
 <body>
@@ -159,11 +158,21 @@
 
 						<tr>
 							<td></td>
-							<td><a href="/nb/regist">회원가입하기</a><input type="submit"
-								style="float: right" class="btn btn-default" value="JOIN"></td>
+						
+							<td><input type="submit"style="float: right" class="btn btn-default" value="JOIN"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<%-- <a href="<c:url value="/findAccount/findId"/>">아이디</a> --%>
+								<a href="<c:url value="/findAccount/findPw"/>">비밀번호 찾기</a>
+								<br>
+								<br>
+							<a href="<c:url value="/regist"/>">아직 회원이 아니신가요?</a></td>
 						</tr>
 					</table>
 				</form>
+
 
 			</div>
 		</div>
