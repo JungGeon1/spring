@@ -13,7 +13,7 @@ public class CommentDto {
 	private String n_date;
 	//댓글 그룹번호
 	private int	n_grpno;
-	//댓글 수선
+	//댓글 순서
 	private int n_grpord; 
 	//댓글 depth
 	private int n_depth;

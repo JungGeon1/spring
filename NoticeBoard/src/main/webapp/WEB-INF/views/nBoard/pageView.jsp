@@ -99,6 +99,10 @@
 	border-bottom : 1px solid white;
 	margin-bottom: 5px;
 	
+	
+	
+}.reCmLeft{
+	margin-left: 20px;
 }
 
 #commentText {
@@ -411,14 +415,23 @@ width: 100%;
 							$('#commentList').html(html);
 							return false;
 						}
-					
+						
 						for(var i=0; i<data.length;i++){
-
-						html +='<div class="comment">';	
+						//답글일경우 div 옆에서 20px밀어주는 class를 추가
+						if(data[i].n_grpord>0){
+						html +='<div class="comment reCmLeft">';	
+						}else{
+							html +='<div class="comment">';
+							}
+						
 						html += '<div><span>' + data[i].n_id + '</span>';
 						html += '<span class="right">' + data[i].n_date + '</span></div>';
 						html += '<div class="cmtBtnBox">' + data[i].n_comment;
+						
+						if('${nbm_id}'.length>0){
 						html += '<button class="btn btn-default btn-xs right" onclick="reComment('+data[i].n_idx+')">Recm</button>';
+						}
+						//세션에 올라와있는 아이디와 작성자의 아이디가 같을경우만 삭제버튼 출력
 						if(data[i].n_id=='${nbm_id}'){
 						html +='<button class="btn btn-default btn-xs right" onclick="deleteCm('+data[i].n_idx+')" >Del</button>'
 						}

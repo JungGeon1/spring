@@ -1,5 +1,8 @@
 package com.test.nb.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +16,7 @@ public class CommentInsertService {
 	SqlSessionTemplate template;
 	
 	commentDao dao;
-	
+	//댓글입력
 	public int insertComment(CommentDto cDto) {
 		int rCnt=0;
 		int comentCnt=0;
@@ -25,6 +28,8 @@ public class CommentInsertService {
 		return rCnt;
 		
 	}
+	
+	//내림차순답글입력
 	public int insertReComment(CommentDto cDto) {
 		int uChk=0;
 		int rCnt=0;
@@ -52,6 +57,62 @@ public class CommentInsertService {
 		return rCnt;
 		
 	}
+	//오름차순 답글
+	public int insertAscReComment(CommentDto cDto) {
+		dao=template.getMapper(commentDao.class);
+		
+		
+		//입력받은 답글의n_grpord가 0일지 아닐지 체크
+		int chkGord=0;
+		//chkGrpord가 0일경우의 grpord의값
+		int selectGord=0;
+		//chkGrpord가 0이 아닐경우의 grpord의값
+		int upGord = 0;
+		
+		int rCnt=0;
+		  
+		chkGord =dao.chkGrpord(cDto);
+		System.out.println("chkGord의 값>>"+chkGord);
+		
+		if(chkGord==0) {
+			int n_grpno=0;
+			n_grpno=cDto.getN_grpno();
+			selectGord=dao.selectGrpord(n_grpno);
+			System.out.println("selectGord의 값>>"+selectGord);
+			cDto.setN_grpord(selectGord);
+			
+			rCnt=dao.insertAscReCm(cDto);
+			
+		}else {
+			int n_grpno=0;
+			Map<String, Integer> map= new HashMap<String,Integer>();
+			
+			n_grpno=cDto.getN_grpno();
+			
+			
+			map.put("n_grpno", n_grpno);
+			
+			map.put("chkGrpord", chkGord);
+			
+			
+			upGord= dao.upGrpord(map);
+			System.out.println("upGord체크>>"+upGord);
+			
+			rCnt=dao.insertAscReCm(cDto);
+			
+			
+			
+		}
+		
+		
+	
+		return rCnt;
+		
+	}
+	
+	
+	
+	
 	//댓글입력시 grpno증가를 위해 전체 개시글의 갯수를 가져온다
 	public int commentCount(CommentDto cDto) {
 		int rCnt=0;

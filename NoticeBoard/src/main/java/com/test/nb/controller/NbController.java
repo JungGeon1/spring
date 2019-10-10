@@ -160,14 +160,15 @@ public class NbController {
 	@DeleteMapping("/delete/{idx}")
 	public ResponseEntity<String> getDelete(
 			@RequestParam(value = "category") String category,
-			@PathVariable String idx
+			@PathVariable String idx,
+			HttpServletRequest request
 			){
 		
 		Map<String, String> deleteMap= new HashMap<String, String>();
 		deleteMap.put("idx", idx);
 		deleteMap.put("category", category);
 		int rCnt=0;	
-		rCnt=deleteService.deleteBoard(deleteMap);
+		rCnt=deleteService.deleteBoard(request,deleteMap);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	

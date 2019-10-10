@@ -6,9 +6,10 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<link href="css/bootstrap.css" rel="stylesheet" />
-<link href="css/coming-sssoon.css" rel="stylesheet" />
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/coming-sssoon.css" rel="stylesheet" />
+
 <link href="<c:url value="/css/nbCss.css"/>" rel="stylesheet" />
 <!-- 애니메이션css -->
 <link href="<c:url value="/css/animation.css"/>" rel="stylesheet" />
@@ -162,22 +163,27 @@ function paging(idx) {
 		error : function (error) {
 			alert(error);
 		},success: function(data) {
+			//data=총 페이지수
+			//idx=시작페이지 번호 ex) 1, 4, 7 
 			var endIdx='';
 			var html = '';
 			//마지막페이지는 기존페이제 3을 더했을경우가 총페이보다 크면 총페이지수를 출력한다
 			endIdx=idx+3<=data?idx+3:data+1;
 			html+=' <nav>';
 			html+=' <ul class="pagination">';
+			if(idx!=1){
 			html+='<li><a onclick="jumpDownPage('+idx+')"><</a></li>';
+			}
 			//alert(data);
 			for(var i=idx; i<endIdx;i++){
 				
 				html+='<li><a onclick="pageList('+i+');">'+i+'</a></li>';
 			}
-			if(idx>data){
-				jumpDownPage(idx+3);
-			}
-			html+='<li><a onclick="jumpUpPage('+idx+')">></a></li>';
+			//ex)1+2<=총페이지 
+			if(idx+2<=data){
+				html+='<li><a onclick="jumpUpPage('+idx+')">></a></li>';
+			} 
+			
 			html+=' </ul class="pagination">';
 			html+=' </nav>';
 			$('#paging').html(html);
@@ -193,9 +199,9 @@ function jumpUpPage(idx) {
 	paging(idx);
 }
 function jumpDownPage(idx) {
-	if(idx==1){
+	/* if(idx==1){
 	return;
-	}
+	} */
 	idx-=3;
 	pageList(idx);
 	paging(idx);
@@ -219,7 +225,7 @@ function cCount(idx) {
 }
 
 
-//async:false-> 비동기 통신을 동기적으로 사요ㅕㅇ
+//async:false- 비동기 통신을 동기적으로 사요ㅕㅇ
 </script>
 </body>
 </html>

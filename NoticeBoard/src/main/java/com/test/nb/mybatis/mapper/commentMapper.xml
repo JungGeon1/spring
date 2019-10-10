@@ -10,14 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno});
 </insert>
 
-<!-- 답글등록을 위한 grpord증가 -->
-<update id="ReCmUp" parameterType="com.test.nb.domain.CommentDto">
-	update noticetest.ncomment set n_grpord=n_grpord+1 where n_grpno=#{n_grpno} and n_grpord>#{n_grpord};
-</update>
-<!-- 답글등록 -->
-<insert id="insertReCm" parameterType="com.test.nb.domain.CommentDto">
-	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno,n_grpord,n_depth)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno},#{n_grpord},#{n_depth});
-</insert>
+
 <!-- 댓글 갯수 -->
 <select id="selectCommentCnt" resultType="int">
 	select count(*)from noticetest.ncomment where u_idx=#{param};
@@ -33,5 +26,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	delete from noticetest.ncomment where n_idx=#{n_idx};
 </delete>
 
+<!-- 내림차순으로 답글등록시 사용했던 쿼리문 -->
+
+<!-- 답글등록을 위한 grpord증가 -->
+<update id="ReCmUp" parameterType="com.test.nb.domain.CommentDto">
+	update noticetest.ncomment set n_grpord=n_grpord+1 where n_grpno=#{n_grpno} and n_grpord>#{n_grpord};
+</update>
+<!-- 답글등록 -->
+<insert id="insertReCm" parameterType="com.test.nb.domain.CommentDto">
+	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno,n_grpord,n_depth)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno},#{n_grpord},#{n_depth});
+</insert>
+
+<!-- 오름차순 답글 등록 -->
+
+ <!--  입력받은 답글의n_grpord가 0일지 아닐지 체크 --> 
+<select id="chkGrpord" resultType="int" parameterType="com.test.nb.domain.CommentDto">
+	select coalesce(min(n_grpord),0) from noticetest.ncomment where  n_grpno = #{n_grpno} and n_grpord > #{n_grpord} and #{n_depth}>= n_depth;
+
+</select>
+
+<!-- 위 쿼리가 0일경우의 grpord select -->
+<select id="selectGrpord" resultType="int">
+	 select coalesce(max(n_grpord),0)+1 from noticetest.ncomment  where  n_grpno = #{n_grpno}; 
+</select>
+
+<!-- 위 쿼리가 0이 아닐경우 중간에 들어가는 답글이기 때문에 다른 답글들의 n_grpord 증가 -->
+<update id="upGrpord"  parameterType="map" >
+	  update noticetest.ncomment set n_grpord= n_grpord+1 where n_grpno=#{n_grpno} and n_grpord>= #{chkGrpord}
+</update>
+
+<!-- 답글등록 -->
+<insert id="insertAscReCm" parameterType="com.test.nb.domain.CommentDto">
+	insert into noticetest.ncomment(u_idx,n_id,n_comment,n_grpno,n_grpord,n_depth)values(#{u_idx},#{n_id},#{n_comment},#{n_grpno},#{n_grpord},#{n_depth}+1);
+</insert>
 
 </mapper>

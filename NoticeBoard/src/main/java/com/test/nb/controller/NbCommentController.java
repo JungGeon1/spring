@@ -26,7 +26,7 @@ import com.test.nb.service.InsertService;
 public class NbCommentController {
 	
 	@Autowired
-	CommentInsertService InsertService;
+	CommentInsertService insertService;
 	@Autowired
 	CommentListService listService;
 	@Autowired
@@ -39,7 +39,7 @@ public class NbCommentController {
 			) {
 		int rCnt=0;
 		System.out.println("댓글체크>>"+cDto.toString());
-		rCnt=InsertService.insertComment(cDto);
+		rCnt=insertService.insertComment(cDto);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	@CrossOrigin
@@ -49,7 +49,8 @@ public class NbCommentController {
 			) {
 		int rCnt=0;
 		System.out.println("답글체크>>"+cDto.toString());
-		rCnt=InsertService.insertReComment(cDto);
+		//rCnt=InsertService.insertReComment(cDto);
+		rCnt=insertService.insertAscReComment(cDto);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	@CrossOrigin
@@ -68,7 +69,7 @@ public class NbCommentController {
 			@PathVariable("idx")int idx
 			) {
 		
-		int rCnt=InsertService.commentCount(idx);
+		int rCnt=insertService.commentCount(idx);
 		
 		return new ResponseEntity<Integer>(rCnt,HttpStatus.OK);
 	}
