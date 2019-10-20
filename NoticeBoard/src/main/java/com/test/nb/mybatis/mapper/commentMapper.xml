@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <!-- 오름차순 답글 등록 -->
-
+ 
  <!--  입력받은 답글의n_grpord가 0일지 아닐지 체크 --> 
 <select id="chkGrpord" resultType="int" parameterType="com.test.nb.domain.CommentDto">
 	select coalesce(min(n_grpord),0) from noticetest.ncomment where  n_grpno = #{n_grpno} and n_grpord > #{n_grpord} and #{n_depth}>= n_depth;

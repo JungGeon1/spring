@@ -46,6 +46,18 @@ margin: 0 auto;
 td{
 	padding: 5px;
 } 
+ .wrap-loading div{ /*로딩 이미지*/
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin-left: -21px;
+        margin-top: -21px;
+  }
+
+ .display-none{ /*감추기*/
+	 display:none;
+}
+
 </style>
 </head>
 <body>
@@ -87,7 +99,12 @@ td{
 								
 									
 								
-								
+	<!-- 비밀번호변경메일전송시 로딩화면 -->
+	 <div class="wrap-loading display-none">
+
+  					   <div><img src="/nb/images/loading1.gif" /></div>
+
+	</div>							
 									
 							
 </div>
@@ -142,13 +159,20 @@ function checkId() {
 						if (data == 'success') {
 						
 							alert("아이디(이메일)로 임시 비밀번호를 전송했습니다.");
-							loacation.href='${pageContext.request.contextPath}/login';
+							location.href='${pageContext.request.contextPath}';
 						} else {
 							
 							alert("가입정보가 없습니다.");
 						
 						}
-					}
+					},beforeSend:function(){
+				       // (이미지 보여주기 처리)
+				        $('.wrap-loading').removeClass('display-none');
+				    }
+				    ,complete:function(){
+				       // (이미지 감추기 처리)
+				        $('.wrap-loading').addClass('display-none');
+				        }
 				});
 			}
 	return false;

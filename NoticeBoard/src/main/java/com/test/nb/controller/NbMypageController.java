@@ -73,7 +73,7 @@ public class NbMypageController {
 		
 		return memberDto;
 	}
-	//마이페이지에서 방명록 삭제
+	//회원탈퇴
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String nbMypageDelete(

@@ -15,7 +15,7 @@ import com.test.nb.domain.InsertInfoDto;
 import com.test.nb.domain.NbInfoDto;
 
 @Service("insertService")
-public class InsertService {
+public class NbInsertService {
 	
 	@Autowired
 	SqlSessionTemplate template;

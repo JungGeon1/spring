@@ -110,4 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </update>
 
+<!-- 모든 보드게시판의 갯수 -->
+	<select id="totalBoardCnt" resultType="int">
+		select count(*) from noticetest.noticeboard where category='page';
+	</select>
+<!-- 오늘 작성한 게시판의 갯수 -->
+<select id="totalTodayBoardCnt" resultType="int">
+	select count(*) from noticetest.noticeboard where category='page' and u_date LIKE CONCAT('%', CURDATE(), '%');</select>	
 </mapper>

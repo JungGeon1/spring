@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.test.nb.dao.nbAdminMemberDao;
 import com.test.nb.dao.nbMemberDao;
+import com.test.nb.domain.NbAdminMemberDto;
 import com.test.nb.domain.NbLoginInfoDto;
 import com.test.nb.domain.NbMemberDto;
 
@@ -19,6 +21,7 @@ public class NbMemberLoginService {
 	SqlSessionTemplate template;
 
 	nbMemberDao dao;
+	nbAdminMemberDao adminDao;
 //로그인
 	public int login(String id, String pw, HttpServletRequest request) {
 		dao=template.getMapper(nbMemberDao.class);
@@ -45,5 +48,26 @@ public class NbMemberLoginService {
 		return rCnt;
 
 	}
+	//관리자로그인
+		public int adminLogin(String id, String pw, HttpServletRequest request) {
+			adminDao=template.getMapper(nbAdminMemberDao.class);
+			
+			int rCnt = 0;
+			//입력받은 아이디로  db에서 정보를 가져온다
+			NbAdminMemberDto nbDto = adminDao.selectAdminIdChk(id);
+			//정보가 존재할시 암호화된 비밀번호 비교
+		if (nbDto != null&&pw.equals(nbDto.getAdmin_pw())/* && encoder.matches(pw, nbDto.getAdmin_pw()) */) {
+			
+					
+					request.getSession(true).setAttribute("admin_id", nbDto.getAdmin_id());
+					request.getSession(true).setAttribute("admin_pw", nbDto.getAdmin_pw());
+					rCnt = 1;
+
+				}
+
+
+			return rCnt;
+
+		}
 
 }

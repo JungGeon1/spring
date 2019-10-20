@@ -19,7 +19,7 @@ import com.test.nb.domain.CommentDto;
 import com.test.nb.service.CommentDeleteService;
 import com.test.nb.service.CommentInsertService;
 import com.test.nb.service.CommentListService;
-import com.test.nb.service.InsertService;
+import com.test.nb.service.NbInsertService;
 
 @RestController
 @RequestMapping("/rest/comment")

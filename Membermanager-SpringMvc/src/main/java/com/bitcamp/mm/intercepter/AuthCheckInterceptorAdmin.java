@@ -1,4 +1,4 @@
-package com.test.nb.interceptor;
+package com.bitcamp.mm.intercepter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
+public class AuthCheckInterceptorAdmin extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -26,13 +26,10 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 //				return true;
 //			}
 //		} 
-//세션이 존재하고 세연이 nbm_id인지 체크 아닐경우 로그인 창으로 이동
-		if (session != null && session.getAttribute("nbm_id") != null) {
-			return true;
-		}else if (session != null && session.getAttribute("admin_id") != null) {
+		if (session != null && session.getAttribute("admin_id") != null) {
 			return true;
 		}
-		response.sendRedirect(request.getContextPath()+"/login");
+		response.sendRedirect(request.getContextPath()+"/member/login");
 		
 		return false;
 	}

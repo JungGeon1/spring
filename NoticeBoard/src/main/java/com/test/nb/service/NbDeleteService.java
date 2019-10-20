@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.test.nb.dao.nbDao;
 
 @Service("deleteService")
-public class DeleteService {
+public class NbDeleteService {
 		
 		@Autowired
 		SqlSessionTemplate template;

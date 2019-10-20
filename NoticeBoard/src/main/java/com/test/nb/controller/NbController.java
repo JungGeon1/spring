@@ -23,9 +23,10 @@ import com.test.nb.domain.InsertInfoDto;
 import com.test.nb.domain.NbInfoDto;
 import com.test.nb.domain.SearchParamDto;
 import com.test.nb.domain.ViewPageDataDto;
-import com.test.nb.service.DeleteService;
-import com.test.nb.service.InsertService;
-import com.test.nb.service.ListService;
+import com.test.nb.service.NbBoardCntService;
+import com.test.nb.service.NbDeleteService;
+import com.test.nb.service.NbInsertService;
+import com.test.nb.service.NbListService;
 import com.test.nb.service.UpdateService;
 import com.test.nb.service.ViewPageService;
 import com.test.nb.service.ViewsUpService;
@@ -35,18 +36,19 @@ import com.test.nb.service.ViewsUpService;
 public class NbController {
 	
 	@Autowired
-	InsertService insertService;
+	NbInsertService insertService;
 	@Autowired
-	ListService pListService;
+	NbListService pListService;
 	@Autowired
 	ViewPageService viewService;
 	@Autowired
 	ViewsUpService upService;
 	@Autowired
-	DeleteService deleteService;
+	NbDeleteService deleteService;
 	@Autowired
 	UpdateService UpdateService;
-	
+	@Autowired
+	NbBoardCntService boardCntService;
 	
 	@CrossOrigin
 	@PostMapping
@@ -184,6 +186,26 @@ public class NbController {
 		rCnt=UpdateService.updateNb(request, info);
 		
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
+	}
+	
+	
+	@CrossOrigin
+	@GetMapping("/totalBoardCnt")
+	public ResponseEntity<Integer>totalBoardCnt(){
+		
+		int rCnt=0;
+		rCnt=boardCntService.totalBoard();		
+		return new ResponseEntity<Integer>(rCnt,HttpStatus.OK);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/todayBoardCnt")
+	public ResponseEntity<Integer>todayBoardCnt(){
+		
+		int rCnt=0;
+		rCnt=boardCntService.todayBoard();	
+		
+		return new ResponseEntity<Integer>(rCnt,HttpStatus.OK);
 	}
 
 }

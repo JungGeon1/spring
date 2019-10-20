@@ -167,8 +167,11 @@ display: none;
 	
 		<div id="scrollList"></div>
 			<div id="lodingBox" >
-				<img alt="lonig" width="100px;" src="images/loding.gif">
+				<img alt="lonig" width="100px;" src="/nb/images/loding.gif">
 			</div>
+
+
+
 		
 </div>
 </div>
@@ -348,7 +351,7 @@ $('#insertForm').submit(function() {
 		
 			if (confirm('삭제하시겠습니까')) {
 				$.ajax({
-					url : 'rest/delete/' + idx + '?category=scroll',
+					url : '${pageContext.request.contextPath}/rest/delete/' + idx + '?category=scroll',
 					type : 'delete',
 					error : function(error) {
 						alert(error);
@@ -397,7 +400,7 @@ $('#updateForm').submit(function() {
 function update(idx) {
 
 			$.ajax({
-						url : 'rest/viewPage?category=scroll&idx=' + idx,
+						url : '${pageContext.request.contextPath}/rest/viewPage?category=scroll&idx=' + idx,
 						type : 'GET',
 						error : function(error) {
 							alert(error);

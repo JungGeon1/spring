@@ -69,4 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update noticetest.noticeBoardMember set nbm_pw =#{tempPw}where nbm_id=#{nbm_id};
 	</update>
 	
+	
+	
+	
 </mapper>

@@ -14,7 +14,7 @@ import com.test.nb.domain.NbInfoDto;
 import com.test.nb.domain.SearchParamDto;
 
 @Service("pListService")
-public class ListService {
+public class NbListService {
 	@Autowired
 	SqlSessionTemplate template;
 	

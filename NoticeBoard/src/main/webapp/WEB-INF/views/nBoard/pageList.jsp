@@ -67,10 +67,22 @@ td {
 }
 .sBtntWidth{
 	width: 12%;
-}#carImg{
-width: 300px;
-position: relative;
-bottom: 40px;
+}.carImg{
+	width: 300px;
+	position: relative;
+	bottom: 40px;
+}.todayBoard{
+	
+	font-size: 3em;
+	text-align: center;
+	
+
+}
+.totalBoard{
+	font-size: 3em;
+	text-align: center;
+	margin-left: 100px;
+
 }
 </style>
 </head>
@@ -101,8 +113,11 @@ bottom: 40px;
 			<button  class="btn btn-default displayInline sBtntWidth"  id="searchBtn" onclick="search()" >검색</button>
 		</div>
 		<div id="paging"></div>
-		
-		<img id="carImg" class="slideLeft" src="<c:url value="/images/car.png"/>">
+		<div class="slideLeft">
+			<img class="carImg"  src="<c:url value="/images/car.png"/>">
+			<span class="todayBoard" id="todayBoard"></span>
+			<span class="totalBoard" id="totalBoard"></span>
+		</div>
 	</div>
 	
 	<%@include file="/WEB-INF/views/frame/footer.jsp"%>
@@ -115,11 +130,16 @@ $(document).ready(function() {
 	var p=1;
 	pageList(p);
 	paging(1);
+	totalBoardCnt();
+	todayBoardCnt();
+	
 });
 //검색시 검색조건에 따라 리스트랑 페이지네이션 재실행
 function search() {
 	pageList(1);
 	paging(1);
+	totalBoardCnt();
+	todayBoardCnt();
 	
 }
 //리스트출력
@@ -152,80 +172,128 @@ function pageList(pNumber) {
 	});
 	// 호출시 리다이렉트되는것을 막기위한 false
 	return false;
-	
-}
+	 
+	}
 	//페이징 
-function paging(idx) {
-	
-	$.ajax({
-		url:'rest/pCount?category=page&stype='+$('#stype').val()+'&keyword='+$('#keyword').val(),
-		type:'GET',
-		error : function (error) {
-			alert(error);
-		},success: function(data) {
-			//data=총 페이지수
-			//idx=시작페이지 번호 ex) 1, 4, 7 
-			var endIdx='';
-			var html = '';
-			//마지막페이지는 기존페이제 3을 더했을경우가 총페이보다 크면 총페이지수를 출력한다
-			endIdx=idx+3<=data?idx+3:data+1;
-			html+=' <nav>';
-			html+=' <ul class="pagination">';
-			if(idx!=1){
-			html+='<li><a onclick="jumpDownPage('+idx+')"><</a></li>';
-			}
-			//alert(data);
-			for(var i=idx; i<endIdx;i++){
-				
-				html+='<li><a onclick="pageList('+i+');">'+i+'</a></li>';
-			}
-			//ex)1+2<=총페이지 
-			if(idx+2<=data){
-				html+='<li><a onclick="jumpUpPage('+idx+')">></a></li>';
-			} 
-			
-			html+=' </ul class="pagination">';
-			html+=' </nav>';
-			$('#paging').html(html);
-		}
-		
-	});
-	
-}
-//페이지 이동버튼 3개기준
-function jumpUpPage(idx) {
-	idx+=3;
-	pageList(idx);
-	paging(idx);
-}
-function jumpDownPage(idx) {
-	/* if(idx==1){
-	return;
-	} */
-	idx-=3;
-	pageList(idx);
-	paging(idx);
-}
-//댓글 갯수출력 -- 값을 반환해야하기떄문에 동기방식으로 변경
-function cCount(idx) {
-	var cCnt=0;
-	$.ajax({
-		url:'rest/comment/cCount/'+idx,
-		type:'GET',
-		async:false,
-		error : function (error) {
-			alert(error);
-		},success: function(data) {
-			cCnt=data;
-			
-		}
-		
-	});
-	return cCnt;
-}
+	function paging(idx) {
 
+		$.ajax({
+			url : 'rest/pCount?category=page&stype=' + $('#stype').val()
+					+ '&keyword=' + $('#keyword').val(),
+			type : 'GET',
+			error : function(error) {
+				alert(error);
+			},
+			success : function(data) {
+				//data=총 페이지수
+				//idx=시작페이지 번호 ex) 1, 4, 7 
+				var endIdx = '';
+				var html = '';
+				//마지막페이지는 기존페이제 3을 더했을경우가 총페이보다 크면 총페이지수를 출력한다
+				endIdx = idx + 3 <= data ? idx + 3 : data + 1;
+				html += ' <nav>';
+				html += ' <ul class="pagination">';
+				if (idx != 1) {
+					html += '<li><a onclick="jumpDownPage(' + idx
+							+ ')"><</a></li>';
+				}
+				//alert(data);
+				for (var i = idx; i < endIdx; i++) {
 
-//async:false- 비동기 통신을 동기적으로 사요ㅕㅇ
+					html += '<li><a onclick="pageList(' + i + ');">' + i
+							+ '</a></li>';
+				}
+				//ex)1+2<=총페이지 
+				if (idx + 2 <= data) {
+					html += '<li><a onclick="jumpUpPage(' + idx
+							+ ')">></a></li>';
+				}
+
+				html += ' </ul class="pagination">';
+				html += ' </nav>';
+				$('#paging').html(html);
+			}
+
+		});
+
+	}
+	//페이지 이동버튼 3개기준
+	function jumpUpPage(idx) {
+		idx += 3;
+		pageList(idx);
+		paging(idx);
+
+	}
+	function jumpDownPage(idx) {
+		/* if(idx==1){
+		return;
+		} */
+		idx -= 3;
+		pageList(idx);
+		paging(idx);
+
+	}
+	//댓글 갯수출력 -- 값을 반환해야하기떄문에 동기방식으로 변경
+	function cCount(idx) {
+		var cCnt = 0;
+		$.ajax({
+			url : 'rest/comment/cCount/' + idx,
+			type : 'GET',
+			async : false,
+			error : function(error) {
+				alert(error);
+			},
+			success : function(data) {
+				cCnt = data;
+
+			}
+
+		});
+		return cCnt;
+	}
+
+	//총 보드수
+	function totalBoardCnt() {
+
+		$.ajax({
+			url : 'rest/totalBoardCnt',
+			type : 'GET',
+			error : function(error) {
+				//alert(error);
+			},
+			success : function(data) {
+				//alert(data);
+				var html = '';
+				html += '그동안 쌓인 보드 수 : ';
+				html += data;
+
+				$('#totalBoard').html(html);
+			}
+
+		});
+	}
+	//오늘작성한 보드수
+	function todayBoardCnt() {
+
+		$.ajax({
+			url : 'rest/todayBoardCnt',
+			type : 'GET',
+			error : function(error) {
+				//alert(error);
+			},
+			success : function(data) {
+				//alert(data);
+				var html = '';
+				html += '오늘 추가된 보드 수 : ';
+				html += data;
+
+				$('#todayBoard').html(html);
+			}
+
+		});
+	}
+
+	//async:false- 비동기 통신을 동기적으로 사요ㅕㅇ
 </script>
 </body>
 </html>

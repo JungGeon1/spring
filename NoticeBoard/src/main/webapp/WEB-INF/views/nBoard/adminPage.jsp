@@ -58,17 +58,13 @@
 	text-align: left;
 }
 
-.infoItem {
-	margin-bottom: 5px;
-	font-size: 1.2em;
-}
 
 #boardInfo span {
 	padding: 40px;
 	font-size: 1.3em;
 }
 
-#pageList {
+#adminList {
 	width: 750px;
 	margin: 0 auto;
 	padding-left: 15px;
@@ -77,7 +73,7 @@
 	text-align: left;
 }
 
-#scrollList {
+#memberList {
 	width: 750px;
 	margin: 0 auto;
 	padding-left: 15px;
@@ -94,14 +90,11 @@
 	padding: 50px;
 }
 
-.scrollItem {
+.adminItem {
 	width: 730px;
 	margin-bottom: 5px;
 }
 
-.pageItem {
-	margin-bottom: 5px;
-}
 
 .btnRight {
 	position: relative;
@@ -149,7 +142,7 @@
 
 	<div id="contents">
 		<div class="content">
-		<h1>MY PAGE</h1>
+		<h1>ADMIN PAGE</h1>
 		<div id="leftBox">
 			<h2>MY INFO</h2>
 			<div id="infoBox">
@@ -178,17 +171,16 @@
 					<button class="btn btn-default btn-group-xs" onclick="pwChange()">Change</button>
 				</div>
 			</div>
-			<h2>MY BOARD</h2>
-			<div id="boardInfo"></div>
+		
 		</div>
 		<div id="rightBox">
 			<div id="boardBox">
 
 				<div id="boardList">
-					<h3>PHOTO BOARD</h3>
-					<div id="pageList"></div>
-					<h3>GUEST BOARD</h3>
-					<div id="scrollList"></div>
+					<h3>ADMIN LIST</h3>
+					<div id="adminList"></div>
+					<h3>MEMBER LIST</h3>
+					<div id="memberList"></div>
 				</div>
 			</div>
 		</div>
@@ -199,13 +191,13 @@
 	<script>
 		$(document).ready(function name() {
 			//기본정보
-			getViewData();
-			//작성한 게시판 정보	
-			showBoardInfo();
-			//포토게시판에대한 정보
-			showPageList();
-			//스크롤게시판에대한 정보
-			showScrollList();
+			//getViewData();
+		
+			//관리자
+			adminList();
+			//회원
+			memberList();
+			
 		});
 	// 세션에 올라가있는 아이디를 키워드로 회원 정보를 뿌려준다
 		function getViewData() {
@@ -240,53 +232,8 @@
 			return false;
 
 		}
-	//회원탈퇴 폼 출력
-		function signOut() {
-			
-			if($('#pwBox').is(":visible")){
-			     // display : none가 아닐 경우
-				$('#pwBox').css('display','none');
-				return;
-			}
-			else{
-				
-				$('#pwChangeBox').css('display','none');
-				if(confirm('탈퇴하시겠습니까?')){
-					
-					$('#pwBox').css('display','block');
-				}
-			}
-		
-			
-		}
-	//회워탈퇴
-		function deleteMember() {
-
-			if (confirm('확인을 누를 시 탈퇴처리가 진행됩니다.')) {
-				$.ajax({
-							url : 'myPage/delete',
-							type : 'post',
-							data : {
-								nbm_id : $('#id').val(),
-								nbm_pw : $('#pw').val()
-							},
-							error : function(error) {
-								alert(error);
-							},
-							success : function(data) {
-								if (data == 'success') {
-									alert('탈퇴되었습니다.');
-									location.href = '${pageContext.request.contextPath}/login';
-								} else {
-									alert('비밀번호가 일치하지 않습니다.');
-
-								}
-							}
-
-						});
-
-			}
-		}
+	
+	
 	//비밀번호 변경 폼 출력
 	function pwChangeBox() {
 			
@@ -370,123 +317,87 @@
 	}
 	
 	
-//게시글정보 출력
-		function showBoardInfo() {
-			$.ajax({
-				url : 'myPage/showBoardInfo?nbm_id=${nbm_id}',
-				type : 'GET',
-				error : function(error) {
-					alert(error);
-				},
-				success : function(data) {
-					var html = '';
+	//관리자 리스트
+	function adminList() {
 
-					html += '<span>TotalBoardCount : ' + data.totalBoardCnt
-							+ ' </span>';
-					html += '<span>PhotoBoardCount : ' + data.pageBoardCnt
-							+ ' </span><br>';
-					html += '<span>GusetBoardCount : ' + data.scrollBoardCnt
-							+ ' </span>';
-					html += '<span>TotalCommentCount: ' + data.selectTotalCmCnt
-							+ ' </span>';
+		$.ajax({
+					url : '${pageContext.request.contextPath}/adminPage/adminList',
+					type : 'GET',
+					error : function(error) {
+						alert(error);
+					},
+					success : function(data) {
+						var html = '';
 
-					$('#boardInfo').html(html);
-				}
+						for (var i = 0; i < data.length; i++) {
 
-			});
+							html += '<div class="adminItem">\n<span class="gbItemWidth">';
+							html += 'No : ' + data[i].admin_idx + ' ';
+							html += 'Id : ' + data[i].admin_id + ' ';
+							html += 'Name : ' + data[i].admin_name + ' ';
+							
+							if(data[i].admin_rank==0){
+							html += 'Rank : Assistant  </span>';
+							}else{
+							html += 'Rank : Administrator  </span>';
+							}
+							html += '<button class="btnRight btn btn-default btn-xs" onclick="deleteMember('
+									+ data[i].idx + ') ">DELETE</button>';
 
-		}
-
-	//포토게시판에대한 정보출력
-		function showPageList() {
-
-			$.ajax({
-				url : 'myPage/mypageList?category=page&nbm_id=${nbm_id}',
-				type : 'GET',
-				error : function(error) {
-					alert(error);
-				},
-				success : function(data) {
-					var html = '';
-
-					for (var i = 0; i < data.length; i++) {
-
-						html += '<div class="pageItem">\n';
-						html += 'No : ' + data[i].idx + ' ';
-						html += 'Title: <a href="/nb/view?idx=' + data[i].idx
-								+ '" >' + data[i].u_title + '</a> ';
-						html += 'CommentCount : ' + cCount(data[i].idx) + ' ';
-						if (data[i].u_image == 'NO_IMAGE.png') {
-							html += 'Image : X ';
-						} else {
-							html += 'Image : O ';
+							html += '</div>\n';
 						}
-						html += 'Date : ' + data[i].u_date + '';
-						html += '</div>\n';
+
+						$('#adminList').html(html);
 					}
 
-					$('#pageList').html(html);
-				}
+				});
 
-			});
+	}
+	//회원 리스트
+	function memberList() {
 
-		}
+		$.ajax({
+					url : '${pageContext.request.contextPath}/adminPage/memberList',
+					type : 'GET',
+					error : function(error) {
+						alert(error);
+					},
+					success : function(data) {
+						var html = '';
 
-		//방명록에대한 정보 출력	
-		function showScrollList() {
+						for (var i = 0; i < data.length; i++) {
 
-			$.ajax({
-						url : 'myPage/mypageList?category=scroll&nbm_id=${nbm_id}',
-						type : 'GET',
-						error : function(error) {
-							alert(error);
-						},
-						success : function(data) {
-							var html = '';
+							html += '<div class="adminItem">\n<span class="gbItemWidth">';
+							html += 'No : ' + data[i].nbm_idx + ' ';
+							html += 'Id : ' + data[i].nbm_id + ' ';
+							html += 'Name : ' + data[i].nbm_name + ' ';
+							html += 'Verify : '+data[i].nbm_verify+' </span>'
+							
+						
+							html += '<button class="btnRight btn btn-default btn-xs" onclick="deleteMember('
+									+ data[i].nbm_idx + ') ">DELETE</button>';
 
-							for (var i = 0; i < data.length; i++) {
-
-								html += '<div class="scrollItem">\n<span class="gbItemWidth">';
-								html += 'No : ' + data[i].idx + ' ';
-								html += 'Title : ' + data[i].u_title + ' ';
-								html += 'Date : ' + data[i].u_date + '</span>';
-								html += '<button class="btnRight btn btn-default btn-xs" onclick="deleteBoard('
-										+ data[i].idx + ') ">DELETE</button>';
-
-								html += '</div>\n';
-							}
-
-							$('#scrollList').html(html);
+							html += '</div>\n';
 						}
 
-					});
+						$('#memberList').html(html);
+					}
 
-		}
-//댓글 갯수들정보를 출력 반환을 위해 동기식으로 설정 
-		function cCount(idx) {
-			var cCnt = 0;
-			$.ajax({
-				url : 'rest/comment/cCount/' + idx,
-				type : 'GET',
-				async : false,
-				error : function(error) {
-					alert(error);
-				},
-				success : function(data) {
-					cCnt = data;
+				});
 
-				}
+	}
 
-			});
-			return cCnt;
-		}
-//방멸록 삭제
-		function deleteBoard(idx) {
+	
 
-			if (confirm('' + idx + '번 글을 삭제하시겠습니까?')) {
+	
+
+//회원강퇴
+		function deleteMember(nbm_idx) {
+
+			if (confirm('' + nbm_idx + '번 회원을 영멸시킬까요?')) {
 				$.ajax({
-					url : 'rest/delete/' + idx + '?category=scroll',
-					type : 'delete',
+					url : '${pageContext.request.contextPath}/adminPage/memberDelete/'+nbm_idx,
+					type : 'post',
 					error : function(error) {
 						alert(error);
 					},
@@ -498,7 +409,7 @@
 				});
 
 			}
-		}
+		} 
 	</script>
 </body>
 </html>
