@@ -20,5 +20,13 @@ public interface nbAdminMemberDao {
 	public List<NbMemberDto> memberLsit();
 	//회원삭제
 	public int memberDelete(int nbm_idx);
+	//관리자 생성
+	public int createAdminMember(NbAdminMemberDto dto);
+	//비밀번호변경
+	public int pwChage(Map<String, String> pwChangeMap);
+	//비밀번호변경
+	public int idChage(Map<String, String> idChangeMap);
+	//관리자삭제
+	public int adminDelete(int admin_idx);
 	
 }

@@ -21,7 +21,7 @@ import com.test.nb.service.NbMainImgClickCommentService;
 import com.test.nb.service.NbMypageBoardInfoService;
 import com.test.nb.service.NbMypageDeleteService;
 import com.test.nb.service.NbMypageListService;
-import com.test.nb.service.NbMypagePwChangeService;
+import com.test.nb.service.NbPwChangeService;
 import com.test.nb.service.NbMypageService;
 import com.test.nb.service.NbReadCntListService;
 
@@ -38,7 +38,7 @@ public class NbMypageController {
 	@Autowired
 	NbMypageListService listService;
 	@Autowired
-	NbMypagePwChangeService pwchangeSerivce;
+	NbPwChangeService pwchangeSerivce;
 	@Autowired
 	NbReadCntListService  readCntService;
 	
@@ -124,7 +124,7 @@ public class NbMypageController {
 	//비밀번호변경
 	@RequestMapping(value = "/pwChange", method = RequestMethod.POST)
 	@ResponseBody
-	public String pwChage(
+	public String pwChange(
 			@RequestParam("nbm_id") String id,
 			@RequestParam("oldPw") String oldPw,
 			@RequestParam("newPw")String newPw 

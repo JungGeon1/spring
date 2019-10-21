@@ -56,7 +56,7 @@
 
 #mainImg{
 	width: 100%;
-	height: 100%;
+	
 }
 
  
@@ -75,7 +75,7 @@
 		<div id="content">
 			<div id="leftBox">
 
-				<img id="mainImg" class="slideRight" src="<c:url value="/images/car.png"/>">
+				<img id="mainImg" class="slideRight" src="<c:url value="/images/admin.png"/>">
 			</div>
 			<div id="formDiv">
 
@@ -98,7 +98,7 @@
 						<tr>
 							<td></td>
 						
-							<td><a href="<c:url value="/findAccount/findPw"/>">비밀번호 찾기</a>
+							<td><span id="createAdmin"><a href="<c:url value="/findAccount/findPw"/>">비밀번호 찾기</a></span>
 							<input type="submit"style="float: right" class="btn btn-default" value="JOIN"></td>
 						</tr>
 					
@@ -118,7 +118,37 @@
 
 <script>
 	
-	
+	$(document).ready(function name() {
+		adminList();
+		 
+	});
+
+//관리자 리스트체크
+ function adminList() {
+
+	$.ajax({
+				url : '${pageContext.request.contextPath}/firstAdmin/adminChk',
+				type : 'GET',
+				error : function(error) {
+					alert(error);
+				},
+				success : function(data) {
+					//alert(data.length);
+					if(data.length<1){
+					
+					var html = '';
+
+
+					html += '<a href="<c:url value="/firstAdmin/createAdmin"/>">최초 관리자 생성</a>';
+			
+			
+					$('#createAdmin').html(html);
+					}
+				}
+			});
+
+} 
+
 
 
 </script>

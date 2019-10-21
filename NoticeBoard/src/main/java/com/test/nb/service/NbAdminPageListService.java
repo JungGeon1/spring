@@ -17,6 +17,19 @@ public class NbAdminPageListService {
 	SqlSessionTemplate template;
 	
 	nbAdminMemberDao dao;
+	
+	
+	//로그인중인 관리자 정보
+	public NbAdminMemberDto adminInfo(String id){
+		
+		dao=template.getMapper(nbAdminMemberDao.class);
+		NbAdminMemberDto adminDto= new NbAdminMemberDto();
+		
+		adminDto = dao.selectAdminIdChk(id);
+		return adminDto;
+		
+	}
+	
 	//관리자 리스트
 	public List<NbAdminMemberDto> adminList(){
 		

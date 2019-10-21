@@ -71,7 +71,7 @@
 	</beans:bean>
 	
 	
-<!-- 암호와 -->
+<!-- 암호화 -->
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -83,7 +83,10 @@
 	
 	
 	<beans:bean name="authCheckInterceptor" class="com.test.nb.interceptor.AuthCheckInterceptor"/>
+	<beans:bean name="authCheckInterceptorSessionTrue" class="com.test.nb.interceptor.AuthCheckInterceptorSessionTrue"/>
 	<beans:bean name="authCheckInterceptorAdmin" class="com.test.nb.interceptor.AuthCheckInterceptorAdmin"/>
+	
+	
 	<!-- 여러개의 인터셉터등록가능 -->
 	<interceptors>
 		<!-- 인터셉터 생성 : 로그인 체크 -->
@@ -98,6 +101,7 @@
 		</interceptor>
 		
 		
+		
 			<!-- 인터셉터 생성 : 관리자관로그인 체크 -->
 		<interceptor>
 			
@@ -106,6 +110,18 @@
 		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->
 		
 		</interceptor>
+		
+		
+		<!-- 세션이 남아있는상황에서 다시 접속시 -->
+		<interceptor>
+			
+			<mapping path="/login"/>
+			
+			<beans:ref bean="authCheckInterceptorSessionTrue"/>
+		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->
+		
+		</interceptor>
+		
 	</interceptors>
 	
 	

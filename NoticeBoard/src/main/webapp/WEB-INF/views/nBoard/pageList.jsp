@@ -95,8 +95,9 @@ td {
 	<%@include file="/WEB-INF/views/frame/nav.jsp"%>
 
 	<div id="contents">
-		
-		<a href="insert" class="btn btn-default btnWidth">INSERT</a>
+		<c:if test="${nbm_id ne null}">
+			<a href="insert" class="btn btn-default btnWidth">INSERT</a>
+		</c:if>
 		<div id="list">
 		
 			<table id="pageList" class="table table-hover">

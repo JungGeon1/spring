@@ -28,4 +28,14 @@ public class NbAdminPagerDeleteService {
 		
 	}
 
+	
+	public int deleteadmin(int admin_idx) {
+		
+		dao=template.getMapper(nbAdminMemberDao.class);
+		int rCnt=0;
+		
+		rCnt= dao.adminDelete(admin_idx);
+		return rCnt;
+	}
+
 }

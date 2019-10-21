@@ -14,7 +14,7 @@ import com.test.nb.domain.NbLoginInfoDto;
 import com.test.nb.domain.NbMemberDto;
 
 @Service("loginService")
-public class NbMemberLoginService {
+public class NbLoginService {
 	@Autowired
 	BCryptPasswordEncoder encoder;
 	@Autowired
@@ -56,7 +56,7 @@ public class NbMemberLoginService {
 			//입력받은 아이디로  db에서 정보를 가져온다
 			NbAdminMemberDto nbDto = adminDao.selectAdminIdChk(id);
 			//정보가 존재할시 암호화된 비밀번호 비교
-		if (nbDto != null&&pw.equals(nbDto.getAdmin_pw())/* && encoder.matches(pw, nbDto.getAdmin_pw()) */) {
+		if (nbDto != null && encoder.matches(pw, nbDto.getAdmin_pw())) {
 			
 					
 					request.getSession(true).setAttribute("admin_id", nbDto.getAdmin_id());

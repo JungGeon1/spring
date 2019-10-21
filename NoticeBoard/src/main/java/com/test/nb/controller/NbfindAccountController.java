@@ -34,6 +34,7 @@ public class NbfindAccountController {
 		return "nBoard/findAccount/findPwForm";
 	}
 	
+	//회원 비밀번호변경
 	@RequestMapping(value = "/findPwIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String fidnPwIdChk(

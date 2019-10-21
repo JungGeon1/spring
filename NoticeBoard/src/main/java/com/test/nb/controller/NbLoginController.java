@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import com.test.nb.service.NbMemberLoginService;
+import com.test.nb.service.NbLoginService;
 
 @Controller
 public class NbLoginController {
 	@Autowired
-	NbMemberLoginService loginService;
+	NbLoginService loginService;
 
 	// 로그인
 	@RequestMapping("/login")
@@ -63,14 +63,15 @@ public class NbLoginController {
 
 	}
 	
-	//관리자로그인
-
+	
+		//관리자 로그인 페이지 이동
 		@RequestMapping("/login/admin")
 		public String loginAdmin() {
 
 			return "nBoard/login/adminLoginForm";
 		}
 		
+		//관리자로그인
 		@RequestMapping(value = "login/adminLoginReq", method = RequestMethod.POST)
 		public String adminlogin(
 				@RequestParam("admin_id") String id, 

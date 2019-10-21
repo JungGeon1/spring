@@ -19,9 +19,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="memberLsit" resultType="com.test.nb.domain.NbMemberDto">
 			select * from noticetest.noticeBoardMember;
 		</select>
-		
+	<!-- 가입유저삭젝 -->
 		<delete id="memberDelete">
-			delete from noticetest.noticeBoardMember where nbm_idx=#{param}; 
+			delete from noticetest.noticeboardmember where nbm_idx=#{param}; 
 		</delete>
-			
+	<!-- 관리자생성 -->	
+		<insert id="createAdminMember" parameterType="com.test.nb.domain.NbAdminMemberDto">
+		 	insert into noticetest.noticeadminmember
+		 	
+		 	<if test="admin_id=='admin'">
+				 	(admin_id,admin_pw,admin_name,admin_rank)values(#{admin_id},#{admin_pw},#{admin_name},1);
+		 	</if>
+		 	
+		 	<if test="admin_id!='admin'">
+				 	(admin_id,admin_pw,admin_name)values(#{admin_id},#{admin_pw},#{admin_name});
+		 	</if>
+		 	
+		</insert>
+	<!-- 비밀번호변경 -->
+	<update id="pwChage" parameterType="map">
+		update noticetest.noticeadminmember set admin_pw=#{pw} where admin_id=#{admin_id};
+	</update>
+	
+	<!-- 아이디변경 -->
+	<update id="idChage" parameterType="map">
+		update noticetest.noticeadminmember set admin_id=#{newId} where admin_id=#{admin_id};
+	</update>
+		<!-- 관리자삭젝 -->
+		<delete id="adminDelete">
+			delete from noticetest.noticeadminmember where admin_idx=#{param}; 
+		</delete>	
 </mapper>

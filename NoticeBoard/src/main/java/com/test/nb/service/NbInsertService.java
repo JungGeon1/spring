@@ -27,7 +27,7 @@ public class NbInsertService {
 	public int insertNb(HttpServletRequest request, InsertInfoDto info) {
 			int rCnt=0;
 			//System.out.println(info.getU_address().length());
-			if(info.getU_address().length()<1) {
+			if(info.getU_address()!=null&& info.getU_address().length()<1) {
 				// 주소 검색어가 없을시 공백을제거해서 널값으로 만들어준다
 				info.setU_address(null); 
 				
