@@ -30,6 +30,7 @@ public class AuthCheckInterceptorAdmin extends HandlerInterceptorAdapter {
 		if (session != null && session.getAttribute("admin_id") != null) {
 			return true;
 		}
+		session.invalidate();
 		response.sendRedirect(request.getContextPath()+"/login/admin");
 		
 		return false;

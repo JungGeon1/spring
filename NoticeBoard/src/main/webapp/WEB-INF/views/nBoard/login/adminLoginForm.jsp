@@ -86,7 +86,7 @@
 							<td colspan="2"><h1>ADMIN LOGIN</h1></td>
 						</tr>
 						<tr>
-							<td>아이디(이메일)</td>
+							<td>아이디</td>
 							<td><input class="form-control" type="text" id="admin_id" name="admin_id" required></td>
 						</tr>
 						<tr>
@@ -96,10 +96,18 @@
 
 
 						<tr>
-							<td></td>
+							
 						
-							<td><span id="createAdmin"><a href="<c:url value="/findAccount/findPw"/>">비밀번호 찾기</a></span>
-							<input type="submit"style="float: right" class="btn btn-default" value="JOIN"></td>
+							<td>
+								<span id="createAdmin">
+								<a href="<c:url value="/findAccount/findAdminId"/>">아이디 찾기</a>
+								<br>
+								<a href="<c:url value="/findAccount/findAdminPw"/>">비밀번호 찾기</a>
+								</span>
+							</td>
+							<td>	
+								<input type="submit"style="float: right" class="btn btn-default" value="JOIN">
+							</td>
 						</tr>
 					
 					</table>
@@ -123,7 +131,7 @@
 		 
 	});
 
-//관리자 리스트체크
+//관리자가 존재하지 않을시 최초 관리자 생성
  function adminList() {
 
 	$.ajax({

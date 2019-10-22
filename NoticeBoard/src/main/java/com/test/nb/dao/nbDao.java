@@ -20,7 +20,7 @@ public interface nbDao {
 	public List<NbInfoDto> List(Map<String, Object> map);
 	//포토보드뷰페이지 가져오기
 	public NbInfoDto selectViewPage(ViewPageDataDto pageData);
-	//조회수업
+	//조회수 업
 	public int viewUp(int idx);
 	//게시글삭제
 	public int deleteNb(Map<String, String> deleteMap);

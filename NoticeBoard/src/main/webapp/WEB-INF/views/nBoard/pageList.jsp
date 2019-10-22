@@ -32,6 +32,7 @@
 	width: 80%;
 	margin: 0 auto;
 	overflow: hidden;
+	margin-top: 50px;
 }
 
 
@@ -45,6 +46,7 @@
 
 table {
 	width: 100%;
+	text-align: center;
 	
 }
 td {
@@ -98,6 +100,7 @@ td {
 		<c:if test="${nbm_id ne null}">
 			<a href="insert" class="btn btn-default btnWidth">INSERT</a>
 		</c:if>
+		
 		<div id="list">
 		
 			<table id="pageList" class="table table-hover">
@@ -148,14 +151,15 @@ function pageList(pNumber) {
 	
 	
 	$.ajax({
-		url : 'rest/pList?p='+pNumber+'&category=page&stype='+$('#stype').val()+'&keyword='+$('#keyword').val(),
+		url : '${pageContext.request.contextPath}/rest/pList?p='+pNumber+'&category=page&stype='+$('#stype').val()+'&keyword='+$('#keyword').val(),
 		type: 'GET',
 		error : function(error) {
 			alert(error);
 		},success : function(data){
 			   var html = '';
-			   html+='<tr><td>No</td><td>E-Mail</td><td>Title(comment)</td><td>Date</td><td>Views</td></tr>';
-			  		
+			   
+			   html+='<tr><td>No</td><td>E-Mail</td><td>Title(comment)</td><td>Date</td><td>Views</td>';
+			   html+='<c:if test="${admin_id ne null}"><td>DELETE</td></c:if></tr>'		
                 for(var i=0; i<data.length;i++){
                 	
                     html += '<tr>';
@@ -164,6 +168,7 @@ function pageList(pNumber) {
                     html += '<td><a href="/nb/view?idx='+data[i].idx+'" >'+data[i].u_title+'</a>  ('+cCount(data[i].idx)+')</td>';
          	        html += '<td>'+data[i].u_date+'</td>';
                     html += '<td>'+data[i].u_readcount+'</td>';
+                    html += '<c:if test="${admin_id ne null}"><td><button onclick="adminDelete('+data[i].idx+')" class="adminBtnRight btn btn-default btn-sm">관리자삭제</button></td></c:if>'
                     html += '</tr>\n';
                 }
                 
@@ -179,8 +184,7 @@ function pageList(pNumber) {
 	function paging(idx) {
 
 		$.ajax({
-			url : 'rest/pCount?category=page&stype=' + $('#stype').val()
-					+ '&keyword=' + $('#keyword').val(),
+			url : '${pageContext.request.contextPath}/rest/pCount?category=page&stype=' + $('#stype').val() + '&keyword=' + $('#keyword').val(),
 			type : 'GET',
 			error : function(error) {
 				alert(error);
@@ -195,19 +199,16 @@ function pageList(pNumber) {
 				html += ' <nav>';
 				html += ' <ul class="pagination">';
 				if (idx != 1) {
-					html += '<li><a onclick="jumpDownPage(' + idx
-							+ ')"><</a></li>';
+					html += '<li><a onclick="jumpDownPage(' + idx+ ')"><</a></li>';
 				}
 				//alert(data);
 				for (var i = idx; i < endIdx; i++) {
 
-					html += '<li><a onclick="pageList(' + i + ');">' + i
-							+ '</a></li>';
+					html += '<li><a onclick="pageList(' + i + ');">' + i+ '</a></li>';
 				}
 				//ex)1+2<=총페이지 
 				if (idx + 2 <= data) {
-					html += '<li><a onclick="jumpUpPage(' + idx
-							+ ')">></a></li>';
+					html += '<li><a onclick="jumpUpPage(' + idx + ')">></a></li>';
 				}
 
 				html += ' </ul class="pagination">';
@@ -238,7 +239,7 @@ function pageList(pNumber) {
 	function cCount(idx) {
 		var cCnt = 0;
 		$.ajax({
-			url : 'rest/comment/cCount/' + idx,
+			url : '${pageContext.request.contextPath}/rest/comment/cCount/' + idx,
 			type : 'GET',
 			async : false,
 			error : function(error) {
@@ -257,7 +258,7 @@ function pageList(pNumber) {
 	function totalBoardCnt() {
 
 		$.ajax({
-			url : 'rest/totalBoardCnt',
+			url : '${pageContext.request.contextPath}/rest/totalBoardCnt',
 			type : 'GET',
 			error : function(error) {
 				//alert(error);
@@ -277,7 +278,7 @@ function pageList(pNumber) {
 	function todayBoardCnt() {
 
 		$.ajax({
-			url : 'rest/todayBoardCnt',
+			url : '${pageContext.request.contextPath}/rest/todayBoardCnt',
 			type : 'GET',
 			error : function(error) {
 				//alert(error);
@@ -294,6 +295,35 @@ function pageList(pNumber) {
 		});
 	}
 
+	
+	function adminDelete(idx) {
+		if(confirm('관리자의 권한으로 삭제하시겠습니까?.')){
+			$.ajax({
+				
+				url : '${pageContext.request.contextPath}/adminBoard/boardDelete',
+				type : 'post',
+				data : {
+					idx : idx,
+					category : 'page',
+				
+				},error : function (data) {
+					alert(data);
+				},success : function (data) {
+					//alert(data);
+					
+					if(data=='success'){
+						
+						alert('삭제되었습니다.');
+						location.href='${pageContext.request.contextPath}/pageList';
+					}
+				}
+				
+			});
+			
+		}
+		
+	}
+	
 	//async:false- 비동기 통신을 동기적으로 사요ㅕㅇ
 </script>
 </body>

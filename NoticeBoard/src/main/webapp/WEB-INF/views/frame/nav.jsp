@@ -10,7 +10,7 @@
 		<li role="presentation" id="nav1"><a href="<c:url value="/myPage/start"/>" title="로그인 후 이용 가능합니다">START</a></li>
 		</c:if>
 		<li role="presentation" id="nav2"><a href="<c:url value="/pageList"/>" title="로그인 후 이용 가능합니다">PHOTO BOARD</a></li>
-		<li role="presentation" id="nav3"><a href="<c:url value="/chat"/>" >CHATTING</a></li>
+		<li role="presentation" id="nav3"><a href="<c:url value="/chat"/>" title="로그인 후 이용 가능합니다">CHATTING</a></li>
 		<li role="presentation" id="nav3"><a href="<c:url value="/scrollList"/>" >GUEST BOOK</a></li>
 		<li role="presentation" id="nav4"><a href="<c:url value="/youTube"/>">SEARCH VOIDEO</a></li>
 		<li role="presentation" class="dropdown" id="dropDown">

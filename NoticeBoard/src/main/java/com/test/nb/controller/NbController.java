@@ -112,7 +112,7 @@ public class NbController {
 			@RequestParam(value = "stype") String stype,
 			@RequestParam(value = "keyword") String keyword
 			){
-		System.out.println(stype+keyword);
+		//System.out.println(stype+keyword);
 		int totalPageList=0;
 		int pageCount=0;
 		SearchParamDto sParamDto= new SearchParamDto();
@@ -162,15 +162,12 @@ public class NbController {
 	@DeleteMapping("/delete/{idx}")
 	public ResponseEntity<String> getDelete(
 			@RequestParam(value = "category") String category,
-			@PathVariable String idx,
-			HttpServletRequest request
+			@PathVariable String idx
 			){
 		
-		Map<String, String> deleteMap= new HashMap<String, String>();
-		deleteMap.put("idx", idx);
-		deleteMap.put("category", category);
+		
 		int rCnt=0;	
-		rCnt=deleteService.deleteBoard(request,deleteMap);
+		rCnt=deleteService.deleteBoard(idx,category);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	
@@ -180,7 +177,7 @@ public class NbController {
 			InsertInfoDto info,
 			HttpServletRequest request
 			){
-		System.out.println("바인딩 체크>>"+info.toString());
+		//System.out.println("바인딩 체크>>"+info.toString());
 		
 		int rCnt=0;
 		rCnt=UpdateService.updateNb(request, info);

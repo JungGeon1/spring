@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.test.nb.dao.nbAdminMemberDao;
 import com.test.nb.dao.nbMemberDao;
+import com.test.nb.domain.NbAdminMemberDto;
 import com.test.nb.domain.NbMemberDto;
 
 @Service("findPwChkService")
@@ -25,7 +27,9 @@ public class NbFindPwIdChkService {
 	
 	nbMemberDao dao;
 	
-	//아이디 존재유무 확인과 인증메일 보내기
+	nbAdminMemberDao adminDao;
+	
+	//가입자 아이디 존재유무 확인과 인증메일 보내기
 	public int findPwIdchk(String id, String name) {
 		
 		dao=template.getMapper(nbMemberDao.class);
@@ -62,6 +66,56 @@ public class NbFindPwIdChkService {
 		
 		return rCnt;
 	}
+	//관리자 아이디 존재유무 확인과 인증메일 보내기
+		public int findAdminPwIdchk(String id, String email) {
+			
+			adminDao=template.getMapper(nbAdminMemberDao.class);
+			
+			NbAdminMemberDto adminDto= new NbAdminMemberDto();
+			
+			
+			int rCnt=0;
+			int pwTempChk=0;
+			String tempPassword=null;
+			Map<String, String> pwChkMap= new HashMap<String, String>(); 
+			Map<String, String> pwUpMap= new HashMap<String, String>(); 
+		
+			pwChkMap.put("admin_id", id);
+			pwChkMap.put("admin_email", email);
+			//아이디와 이메일 정보호가인
+			adminDto=adminDao.findAdminPwChk(pwChkMap);
+			//후에 여기서 분기처릴 늘려서 아이디만 일치하고 이메일은 일치하지 않는경우도 구현
+			if(adminDto!=null) {
+			
+			//임시비밀번호 
+			tempPassword=RandomPwString(); 	
+			pwUpMap.put("tempPw", encoder.encode(tempPassword));
+			pwUpMap.put("admin_id",adminDto.getAdmin_id());
+			//임시 비밀번호로 비밀번호를 변경
+			pwTempChk=adminDao.upTempPw(pwUpMap);
+			System.out.println("임시비밀번호로변경확인>>"+pwTempChk);	
+			mailService.findAdminPwChksend(adminDto.getAdmin_email(), tempPassword);
+			
+			rCnt=1;
+			}
+			
+			
+			return rCnt;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//임시비밀번호만들기
 		private String RandomPwString() {

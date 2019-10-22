@@ -34,13 +34,7 @@
 	margin-top: 50px;
 }
 
-#pwCheck {
-	display: none;
-}
 
-#pwCheck2 {
-	display: none;
-}
 
 .textWidth {
 	width: 200px;
@@ -62,11 +56,7 @@ td {
 	text-align: center;
 }
 
-#idCheck {
-	display: none;
-}
-
-#nameCheck {
+.chkBoxDisplay{
 	display: none;
 }
 </style>
@@ -95,7 +85,17 @@ td {
 							id="admin_id" name="admin_id" required></td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="idCheck"></td>
+						<td>
+							<div>
+								<input  type="button"  class="btn btn-default btn-xs" onclick="idChk()"value="IDCHECK">
+							</div>
+						</td>
+						<td>
+							<input type="checkbox" id="idOverlap" class="chkBoxDisplay">
+						</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="idCheck" class="chkBoxDisplay"></td>
 						<td><span id="checkIdSpan"></span></td>
 					</tr>
 
@@ -107,11 +107,13 @@ td {
 					</tr>
 					<tr>
 						<td>비밀번호 확인</td>
-						<td><input class="form-control textWidthLarge"
-							type="password" id="admin_pw2" name="admin_pw2" required><br>
-							<span id="pwSpan"></span> <span id="pwSpan2"></span> <input
-							type="checkbox" id="pwCheck"> <input type="checkbox"
-							id="pwCheck2"></td>
+						<td>
+						<input class="form-control textWidthLarge"type="password" id="admin_pw2" name="admin_pw2" required>
+						<br>
+						<span id="pwSpan"></span> <span id="pwSpan2"></span> 
+						<input	type="checkbox" id="pwCheck" class="chkBoxDisplay"> 
+						<input type="checkbox"	id="pwCheck2" class="chkBoxDisplay">
+						</td>
 					</tr>
 					<tr>
 						<td>이름</td>
@@ -119,8 +121,17 @@ td {
 							id="admin_name" name="admin_name" required>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="nameCheck"></td>
+						<td><input type="checkbox" id="nameCheck" class="chkBoxDisplay"></td>
 						<td><span id="nameSpan"></span></td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td><input class="form-control textWidthLarge" type="email" 
+							id="admin_email" name="admin_email" required placeholder="계정 분실시 사용할 이메일">
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="emailCheck" class="chkBoxDisplay"></td>
+						<td><span id="emailSpan"></span></td>
 					</tr>
 
 					<tr>
@@ -147,12 +158,12 @@ td {
 		// 아이디 확인
 		$('#admin_id').focusout(
 				function() {
-					var checkId = /^[a-zA-Z]*$/;
-
+					
+					var checkId = RegExp(/^(?=.*[a-zA-Z]).{5,12}$/);;
+					
 					// 아이디 유효성검사
-					if (!checkId.test($('#admin_id').val())
-							&& $('#admin_id').val().length > 1) {
-						$('#checkIdSpan').html('[아이디] 영문만');
+					if (!checkId.test($('#admin_id').val())&& $('#admin_id').val().length > 1) {
+						$('#checkIdSpan').html('[아이디] 5자리 이상 12자리 이하 영문만');
 						$('#checkIdSpan').css('color', 'red');
 						$('#idCheck').prop('checked', false);
 
@@ -162,7 +173,7 @@ td {
 						$('#checkIdSpan').html('');
 						$('#idCheck').prop('checked', true);
 					}
-					idChk();
+				
 				});
 
 		// 비밀번호 재입력 시 일치하는지 확인
@@ -218,14 +229,41 @@ td {
 						$('#nameCheck').prop('checked', true);
 					}
 				});
+		
+		// 이메일
+		  	
+		$('#admin_email').focusout(
+				function() {
+					var exptext = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; //이메일 형식만 가능
+
+					// 이름 유효성검사
+					if (!exptext.test($('#admin_email').val())&& $('#admin_email').val().length > 1) {
+						$('#emailSpan').html('[이메일] 이메일형식만');
+						$('#emailSpan').css('color', 'red');
+						$('#emailCheck').prop('checked', false);
+
+					}
+					if (exptext.test($('#admin_email').val())
+							&& $('#admin_email').val().length > 1) {
+						$('#emailSpan').html('');
+						$('#emailCheck').prop('checked', true);
+					}
+				});
+		
+		
+		
+		
+		
 
 		//회원가입 
-		$('#createForm')
-				.submit(
+		$('#createForm').submit(
 						function() {
 
 							if (!$('#idCheck').prop('checked')) {
 								alert('아이디를 확인해주세요.');
+								return false;
+							}if (!$('#idOverlap').prop('checked')) {
+								alert('중복체크를 해주세요.');
 								return false;
 							}
 							if (!$('#pwCheck').prop('checked')) {
@@ -238,6 +276,9 @@ td {
 							}
 							if (!$('#nameCheck').prop('checked')) {
 								alert('이름이 양식과 다른 형식입니다.');
+								return false;
+							}if (!$('#emailCheck').prop('checked')) {
+								alert('이메일 형식이 아닙니다.');
 								return false;
 							}
 
@@ -293,9 +334,14 @@ td {
 
 		}
 		
-		
+	//중복체크	
 	function idChk() {
 
+		if($('#admin_id').val().length<1){
+			alert('아이디를 입력해주세요');	
+			return;
+		}
+		
 			$.ajax({
 				url : '${pageContext.request.contextPath}/adminPage/adminInfo?admin_id='+$('#admin_id').val(),
 				type : 'GET',
@@ -307,12 +353,13 @@ td {
 					if(data.admin_id!=null){
 						$('#checkIdSpan').html('[아이디] 이미 존재합니다');
 						$('#checkIdSpan').css('color', 'red');
-						$('#idCheck').prop('checked', false);
+						$('#idOverlap').prop('checked', false);
 						
 					}
 					else{
 						$('#checkIdSpan').html('');
-						$('#idCheck').prop('checked', true);
+						$('#idOverlap').prop('checked', true);
+						alert('사용가능한 아이디 입니다.');
 						
 					}
 					

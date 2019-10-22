@@ -138,7 +138,7 @@ display: none;
 		
 		<table>
 			<tr>
-			<td><input id="up_idx" type="text" hidden=""></td>
+				<td><input id="up_idx" type="text" hidden=""></td>
 			</tr>
 			<tr>
 				<td><input type="text"  id="up_category" name="category" value="scroll" hidden=""> </td>
@@ -288,10 +288,13 @@ function scrollList(pNumber) {
                     html += '<div>Title. '+data[i].u_title+'</div>';                  
          	        html += '<div>Date. '+data[i].u_date+'</div>';
          	        html += '<div>Contents. '+data[i].u_contents+'</div>';
+           	        html += '<c:if test="${admin_id ne null}"><div><button onclick="adminDelete('+data[i].idx+')" class="adminBtnRight btn btn-default btn-sm">괸리자 삭제</button></div></c:if>'
+
          	      if(data[i].u_id=='${nbm_id}'){
          	        html += '<div><button class="btn btn-default btnWidth" onclick="update('+data[i].idx+')">UPDATE</button><button class="btn btn-default btnWidth" onclick="deleteBoard('+data[i].idx+') ">DELETE</button></div>';
-         	      }
-         	        html += '</div>';
+         	      }  
+         	      
+         	      html += '</div>';
                 }
                 
                 $('#scrollList').append(html);
@@ -427,6 +430,34 @@ function update(idx) {
 			return false;
 
 		}
+	//관리자 권한으로 삭제
+function adminDelete(idx) {
+	if(confirm('관리자의 권한으로 삭제하시겠습니까?.')){
+		$.ajax({
+			
+			url : '${pageContext.request.contextPath}/adminBoard/boardDelete',
+			type : 'post',
+			data : {
+				idx : idx,
+				category : 'page',
+			
+			},error : function (data) {
+				alert(data);
+			},success : function (data) {
+				//alert(data);
+				
+				if(data=='success'){
+					
+					alert('삭제되었습니다.');
+					location.href='${pageContext.request.contextPath}/pageList';
+				}
+			}
+			
+		});
+		
+	}
+	
+}	
 //async:false-> 비동기 통신을 동기적으로 사요ㅕㅇ
 </script>
 </body>

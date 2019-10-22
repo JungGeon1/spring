@@ -10,33 +10,33 @@ public class PageMoveController {
 
 
 	// 회원가입
-	@RequestMapping("regist")
+	@RequestMapping("/regist")
 	public String regist() {
 		return "nBoard/registForm";
 	}
 
 	// 리스트
-	@RequestMapping("pageList")
+	@RequestMapping("/pageList")
 	public String pageList() {
 
 		return "nBoard/pageList";
 	}
 
 	// pageList입력화면
-	@RequestMapping("insert")
+	@RequestMapping("/insert")
 	public String insert() {
 		return "/nBoard/insertForm";
 	}
 
 	// pageListView페이지
-	@RequestMapping("view")
+	@RequestMapping("/view")
 	public String view(@RequestParam(value = "idx") int idx, Model model) {
 
 		model.addAttribute("idx", idx);
 		return "/nBoard/pageView";
 	}
 
-	@RequestMapping("updatePage")
+	@RequestMapping("/updatePage")
 	public String updatePage(@RequestParam(value = "idx") int idx, Model model) {
 
 		model.addAttribute("idx", idx);
@@ -44,13 +44,13 @@ public class PageMoveController {
 	}
 
 	// 방명록
-	@RequestMapping("scrollList")
+	@RequestMapping("/scrollList")
 	public String ScrollList() {
 		return "/nBoard/scrollList";
 	}
 
 	// 유튜브
-	@RequestMapping("youTube")
+	@RequestMapping("/youTube")
 	public String youTube() {
 
 		return "nBoard/youTubeView";

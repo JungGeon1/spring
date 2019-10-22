@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.nb.domain.NbAdminMemberDto;
 import com.test.nb.domain.NbMemberDto;
+import com.test.nb.service.AdminEmpowerService;
 import com.test.nb.service.NbAdminPageListService;
 import com.test.nb.service.NbAdminPagerDeleteService;
 import com.test.nb.service.NbIdChangeService;
@@ -28,6 +29,11 @@ public class NbAdminPageController {
 	NbPwChangeService pwChangeService;
 	@Autowired
 	NbIdChangeService idChangeService;
+	@Autowired
+	AdminEmpowerService empowerService;
+	
+	
+	
 	// 페이지이동ㄴ
 	@RequestMapping(method = RequestMethod.GET)
 	public String myPage() {
@@ -124,16 +130,16 @@ public class NbAdminPageController {
 	//통합관리자 권한 부여
 		@RequestMapping(value = "/adminEmpower", method = RequestMethod.POST)
 		@ResponseBody
-		public int adminEmpower(
+		public String adminEmpower(
 				@RequestParam("oldAdminId") String oldAdminId,
 				@RequestParam("oldAdminPw") String oldAdminPw,
-				@RequestParam("newAdminIdx") String newAdminIdx
+				@RequestParam("newAdminIdx") int newAdminIdx
 				) {
 			
 			//System.out.println("바인딩 체크"+oldAdminId+"newIdx"+newAdminIdx+"oldAdminpw"+oldAdminPw);
 			int rCnt=0;
-			
-			return rCnt;
+			rCnt=empowerService.adminEmpower(oldAdminId, oldAdminPw, newAdminIdx);
+			return rCnt>0?"success":"fail";
 		}
 			
 

@@ -243,6 +243,8 @@
 							+ '</div>';
 					html += '<div class="infoItem">아이디 : ' + data.admin_id
 							+ '</div>';
+					html += '<div class="infoItem">이메일 : ' + data.admin_email
+							+ '</div>';
 					html += '<div class="infoItem">가입날짜 :' + data.admin_date
 							+ '</div>';
 					if(data.admin_rank==1){		
@@ -460,7 +462,7 @@
 				});
 
 		}
-
+	//통합관리자인지체크
 		function adminRankchk() {
 			var rank = '';
 			$.ajax({
@@ -554,6 +556,11 @@
 		}
 		//회원생성페이지로이동
 		function createAdmin() {
+			var rankChk=adminRankchk();
+			if(rankChk!=1){
+				alert('톱합관리자만 가능한 기능입니다');
+				return;
+			}
 			location.href = '${pageContext.request.contextPath}/firstAdmin/createAdmin';
 		}
 		
@@ -592,8 +599,11 @@
 				},
 				success : function (data) {
 					if(data=='success'){
-						alert(newAdminIdx+'번 관리자가 통합 관리자가로 변경되었습니다.');
+						alert($('#newAdminIdx').val()+'번 관리자가 통합 관리자로 변경되었습니다.');
 						location.href = '${pageContext.request.contextPath}/logout';
+					}else{
+						
+						alert('권한 인계중 이상이 발생하였습니다.');
 					}
 				}
 				

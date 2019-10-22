@@ -8,6 +8,9 @@ public class NbAdminMemberDto {
 	private String admin_name;
 	private String admin_date;
 	private int admin_rank;
+	private String admin_email;
+	
+	
 	public int getAdmin_idx() {
 		return admin_idx;
 	}
@@ -44,15 +47,24 @@ public class NbAdminMemberDto {
 	public void setAdmin_rank(int admin_rank) {
 		this.admin_rank = admin_rank;
 	}
+	
+	public String getAdmin_email() {
+		return admin_email;
+	}
+	public void setAdmin_email(String admin_email) {
+		this.admin_email = admin_email;
+	}
 	@Override
 	public String toString() {
 		return "NbAdminMemberDto [admin_idx=" + admin_idx + ", admin_id=" + admin_id + ", admin_pw=" + admin_pw
 				+ ", admin_name=" + admin_name + ", admin_date=" + admin_date + ", admin_rank=" + admin_rank
-				+ ", getAdmin_idx()=" + getAdmin_idx() + ", getAdmin_id()=" + getAdmin_id() + ", getAdmin_pw()="
-				+ getAdmin_pw() + ", getAdmin_name()=" + getAdmin_name() + ", getAdmin_date()=" + getAdmin_date()
-				+ ", getAdmin_rank()=" + getAdmin_rank() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", admin_email=" + admin_email + ", getAdmin_idx()=" + getAdmin_idx() + ", getAdmin_id()="
+				+ getAdmin_id() + ", getAdmin_pw()=" + getAdmin_pw() + ", getAdmin_name()=" + getAdmin_name()
+				+ ", getAdmin_date()=" + getAdmin_date() + ", getAdmin_rank()=" + getAdmin_rank()
+				+ ", getAdmin_email()=" + getAdmin_email() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
+
 	
 	
 

@@ -78,7 +78,7 @@ public class CommentInsertService {
 			int n_grpno=0;
 			n_grpno=cDto.getN_grpno();
 			selectGord=dao.selectGrpord(n_grpno);
-			System.out.println("selectGord의 값>>"+selectGord);
+			//System.out.println("selectGord의 값>>"+selectGord);
 			cDto.setN_grpord(selectGord);
 			
 			rCnt=dao.insertAscReCm(cDto);

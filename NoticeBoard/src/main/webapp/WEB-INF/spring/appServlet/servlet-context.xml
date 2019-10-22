@@ -83,7 +83,6 @@
 	
 	
 	<beans:bean name="authCheckInterceptor" class="com.test.nb.interceptor.AuthCheckInterceptor"/>
-	<beans:bean name="authCheckInterceptorSessionTrue" class="com.test.nb.interceptor.AuthCheckInterceptorSessionTrue"/>
 	<beans:bean name="authCheckInterceptorAdmin" class="com.test.nb.interceptor.AuthCheckInterceptorAdmin"/>
 	
 	
@@ -100,11 +99,8 @@
 		
 		</interceptor>
 		
-		
-		
 			<!-- 인터셉터 생성 : 관리자관로그인 체크 -->
 		<interceptor>
-			
 			<mapping path="/adminPage/**"/>
 			<beans:ref bean="authCheckInterceptorAdmin"/>
 		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->
@@ -112,15 +108,7 @@
 		</interceptor>
 		
 		
-		<!-- 세션이 남아있는상황에서 다시 접속시 -->
-		<interceptor>
-			
-			<mapping path="/login"/>
-			
-			<beans:ref bean="authCheckInterceptorSessionTrue"/>
-		<!-- 	<exclude-mapping path="/member/mypage/help/**"/> -->
 		
-		</interceptor>
 		
 	</interceptors>
 	

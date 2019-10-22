@@ -5,48 +5,86 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.test.nb.dao.nbAdminMemberDao">
 
 
-	
+
 	<!-- 관리자아이디확인 -->
-		<select id="selectAdminIdChk" resultType="com.test.nb.domain.NbAdminMemberDto">
-			select * from noticetest.noticeadminmember where admin_id=#{param};
-		</select>
-		
+	<select id="selectAdminIdChk"
+		resultType="com.test.nb.domain.NbAdminMemberDto">
+		select * from noticetest.noticeadminmember where admin_id=#{param};
+	</select>
+
 	<!-- 관리자 목록 출력 -->
-		<select id="adminLsit" resultType="com.test.nb.domain.NbAdminMemberDto">
-			select * from noticetest.noticeadminmember;
-		</select>	
+	<select id="adminLsit"
+		resultType="com.test.nb.domain.NbAdminMemberDto">
+		select * from noticetest.noticeadminmember;
+	</select>
 	<!-- 회ㅝㄴ 목록 출력 -->
-		<select id="memberLsit" resultType="com.test.nb.domain.NbMemberDto">
-			select * from noticetest.noticeBoardMember;
-		</select>
+	<select id="memberLsit"
+		resultType="com.test.nb.domain.NbMemberDto">
+		select * from noticetest.noticeBoardMember;
+	</select>
 	<!-- 가입유저삭젝 -->
-		<delete id="memberDelete">
-			delete from noticetest.noticeboardmember where nbm_idx=#{param}; 
-		</delete>
-	<!-- 관리자생성 -->	
-		<insert id="createAdminMember" parameterType="com.test.nb.domain.NbAdminMemberDto">
-		 	insert into noticetest.noticeadminmember
-		 	
-		 	<if test="admin_id=='admin'">
-				 	(admin_id,admin_pw,admin_name,admin_rank)values(#{admin_id},#{admin_pw},#{admin_name},1);
-		 	</if>
-		 	
-		 	<if test="admin_id!='admin'">
-				 	(admin_id,admin_pw,admin_name)values(#{admin_id},#{admin_pw},#{admin_name});
-		 	</if>
-		 	
-		</insert>
+	<delete id="memberDelete">
+		delete from noticetest.noticeboardmember where nbm_idx=#{param};
+	</delete>
+	<!-- 관리자생성 -->
+	<insert id="createAdminMember"
+		parameterType="com.test.nb.domain.NbAdminMemberDto">
+		insert into noticetest.noticeadminmember
+
+		<if test="admin_id=='admin'">
+			(admin_id,admin_pw,admin_name,admin_rank,admin_email)values(#{admin_id},#{admin_pw},#{admin_name},1,#{admin_email});
+		</if>
+
+		<if test="admin_id!='admin'">
+			(admin_id,admin_pw,admin_name,admin_email)values(#{admin_id},#{admin_pw},#{admin_name},#{admin_email});
+		</if>
+
+	</insert>
 	<!-- 비밀번호변경 -->
 	<update id="pwChage" parameterType="map">
-		update noticetest.noticeadminmember set admin_pw=#{pw} where admin_id=#{admin_id};
+		update
+		noticetest.noticeadminmember set admin_pw=#{pw} where
+		admin_id=#{admin_id};
 	</update>
-	
+
 	<!-- 아이디변경 -->
 	<update id="idChage" parameterType="map">
-		update noticetest.noticeadminmember set admin_id=#{newId} where admin_id=#{admin_id};
+		update
+		noticetest.noticeadminmember set admin_id=#{newId} where
+		admin_id=#{admin_id};
 	</update>
-		<!-- 관리자삭젝 -->
-		<delete id="adminDelete">
-			delete from noticetest.noticeadminmember where admin_idx=#{param}; 
-		</delete>	
+	<!-- 관리자삭젝 -->
+	<delete id="adminDelete">
+		delete from noticetest.noticeadminmember where admin_idx=#{param};
+	</delete>
+
+	<!-- 권한해제-->
+	<update id="empowerOldAdmin">
+		update
+		noticetest.noticeadminmember set admin_rank=0 where
+		admin_id=#{param};
+	</update>
+	
+	<!-- 권한부여-->
+	<update id="empowerNewAdmin">
+		update
+		noticetest.noticeadminmember set admin_rank=1 where
+		admin_idx=#{param};
+	</update>
+	
+	
+	<!-- 관리자 비밀번호찾기 아이디 및 메일확인 -->
+	<select id="findAdminPwChk" resultType="com.test.nb.domain.NbAdminMemberDto" parameterType="map">
+		select * from noticetest.noticeadminmember where admin_id=#{admin_id} and admin_email=#{admin_email};
+	</select>
+	<!-- r관리자임시비밀번호생성 -->
+	<update id="upTempPw" parameterType="map">
+		update noticetest.noticeadminmember set admin_pw =#{tempPw}where admin_id=#{admin_id};
+	</update>
+	
+	<select id="findAdminIdList" resultType="com.test.nb.domain.NbFindAdminIdDto" parameterType="map">
+		select admin_id from noticetest.noticeadminmember where admin_name=#{admin_name} and admin_email=#{admin_email};	
+	</select>
+	
+	
 </mapper>

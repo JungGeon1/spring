@@ -19,8 +19,8 @@ public class NbLoginController {
 
 	// 로그인
 	@RequestMapping("/login")
-	public String login() {
-
+	public String login(HttpSession session) {
+		session.invalidate();
 		return "nBoard/login/loginForm";
 	}
 
@@ -66,8 +66,8 @@ public class NbLoginController {
 	
 		//관리자 로그인 페이지 이동
 		@RequestMapping("/login/admin")
-		public String loginAdmin() {
-
+		public String loginAdmin(HttpSession session) {
+			session.invalidate();
 			return "nBoard/login/adminLoginForm";
 		}
 		
