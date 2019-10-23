@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.nb.domain.NbAdminMemberDto;
 import com.test.nb.domain.NbMemberDto;
-import com.test.nb.service.AdminEmpowerService;
-import com.test.nb.service.NbAdminPageListService;
-import com.test.nb.service.NbAdminPagerDeleteService;
-import com.test.nb.service.NbIdChangeService;
-import com.test.nb.service.NbPwChangeService;
+import com.test.nb.service.accountService.NbIdChangeService;
+import com.test.nb.service.accountService.NbPwChangeService;
+import com.test.nb.service.adminService.AdminEmpowerService;
+import com.test.nb.service.adminService.NbAdminPageListService;
+import com.test.nb.service.adminService.NbAdminPagerDeleteService;
 
 @Controller
 @RequestMapping("/adminPage")

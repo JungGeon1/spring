@@ -17,13 +17,13 @@ import com.test.nb.domain.NbMypageBoardInfoDto;
 import com.test.nb.domain.MainImgClickCommentDto;
 import com.test.nb.domain.NbInfoDto;
 import com.test.nb.domain.NbMemberDto;
-import com.test.nb.service.NbMainImgClickCommentService;
-import com.test.nb.service.NbMypageBoardInfoService;
-import com.test.nb.service.NbMypageDeleteService;
-import com.test.nb.service.NbMypageListService;
-import com.test.nb.service.NbPwChangeService;
-import com.test.nb.service.NbMypageService;
-import com.test.nb.service.NbReadCntListService;
+import com.test.nb.service.MyPageService.NbMypageBoardInfoService;
+import com.test.nb.service.MyPageService.NbMypageDeleteService;
+import com.test.nb.service.MyPageService.NbMypageListService;
+import com.test.nb.service.MyPageService.NbMypageService;
+import com.test.nb.service.accountService.NbPwChangeService;
+import com.test.nb.service.boardService.NbReadCntListService;
+import com.test.nb.service.mainPageService.NbMainImgClickCommentService;
 
 @Controller
 @RequestMapping("/myPage")

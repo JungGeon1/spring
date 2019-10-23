@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.test.nb.service.NbDeleteService;
+import com.test.nb.service.boardService.NbDeleteService;
 
 @Controller
 @RequestMapping("/adminBoard")

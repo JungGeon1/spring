@@ -23,13 +23,13 @@ import com.test.nb.domain.InsertInfoDto;
 import com.test.nb.domain.NbInfoDto;
 import com.test.nb.domain.SearchParamDto;
 import com.test.nb.domain.ViewPageDataDto;
-import com.test.nb.service.NbBoardCntService;
-import com.test.nb.service.NbDeleteService;
-import com.test.nb.service.NbInsertService;
-import com.test.nb.service.NbListService;
-import com.test.nb.service.UpdateService;
-import com.test.nb.service.ViewPageService;
-import com.test.nb.service.ViewsUpService;
+import com.test.nb.service.boardService.NbBoardCntService;
+import com.test.nb.service.boardService.NbDeleteService;
+import com.test.nb.service.boardService.NbInsertService;
+import com.test.nb.service.boardService.NbListService;
+import com.test.nb.service.boardService.UpdateService;
+import com.test.nb.service.boardService.ViewPageService;
+import com.test.nb.service.boardService.ViewsUpService;
 
 @RestController
 @RequestMapping("/rest")

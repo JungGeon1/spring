@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.nb.domain.MainImgClickCommentDto;
 import com.test.nb.domain.NbInfoDto;
-import com.test.nb.service.NbMainBestListService;
-import com.test.nb.service.NbMainImgClickCommentService;
-import com.test.nb.service.NbReadCntListService;
+import com.test.nb.service.boardService.NbReadCntListService;
+import com.test.nb.service.mainPageService.NbMainBestListService;
+import com.test.nb.service.mainPageService.NbMainImgClickCommentService;
 
 @Controller
 @RequestMapping("/start")

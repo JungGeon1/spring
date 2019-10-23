@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-import com.test.nb.service.NbLoginService;
+import com.test.nb.service.accountService.NbLoginService;
 
 @Controller
 public class NbLoginController {

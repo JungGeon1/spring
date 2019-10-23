@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.nb.domain.CommentDto;
-import com.test.nb.service.CommentDeleteService;
-import com.test.nb.service.CommentInsertService;
-import com.test.nb.service.CommentListService;
-import com.test.nb.service.NbInsertService;
+import com.test.nb.service.boardService.NbInsertService;
+import com.test.nb.service.commentService.CommentDeleteService;
+import com.test.nb.service.commentService.CommentInsertService;
+import com.test.nb.service.commentService.CommentListService;
 
 @RestController
 @RequestMapping("/rest/comment")

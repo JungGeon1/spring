@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.nb.domain.NbFindAdminIdDto;
-import com.test.nb.service.NbFindIdChkService;
-import com.test.nb.service.NbFindPwIdChkService;
+import com.test.nb.service.accountService.NbFindIdChkService;
+import com.test.nb.service.accountService.NbFindPwIdChkService;
 
 
 @Controller

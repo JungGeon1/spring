@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.nb.domain.NbMemberDto;
-import com.test.nb.service.NbMemberRegService;
+import com.test.nb.service.MyPageService.NbMemberRegService;
 
 @RestController
 @RequestMapping("/rest/member")

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.test.nb.dao.nbAdminMemberDao;
 import com.test.nb.domain.NbAdminMemberDto;
 import com.test.nb.domain.NbMemberDto;
-import com.test.nb.service.NbAdminPageListService;
-import com.test.nb.service.NbCreateAdminService;
+import com.test.nb.service.adminService.NbAdminPageListService;
+import com.test.nb.service.adminService.NbCreateAdminService;
 
 @Controller
 @RequestMapping(value = "/firstAdmin")
