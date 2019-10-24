@@ -131,7 +131,11 @@ td{
 									<tr>
 										<td>이름</td>
 										<td><input class="form-control textWidthLarge" type="text" id="nbm_name" name="nbm_name" required>
-											<span id="nameSpan"></span></td>
+											
+									</tr>
+									<tr>
+										<td></td>
+										<td><span id="nameSpan"></span></td>
 									</tr>
 									<tr>
 										<td>주소</td>

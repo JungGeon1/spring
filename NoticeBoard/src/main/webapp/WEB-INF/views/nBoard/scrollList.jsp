@@ -49,7 +49,7 @@ height: 100%:
 .itemBox{
 	width: 100%;
 	word-break: break-all;
-	border :2px solid #ddd;
+	border-bottom  :2px solid #ddd;
 	/* background-color: #ddd; */
 	margin :0 auto;
 	margin-bottom: 20px;
