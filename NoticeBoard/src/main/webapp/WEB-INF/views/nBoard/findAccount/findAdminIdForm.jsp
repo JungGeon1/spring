@@ -20,7 +20,7 @@
 <meta name="viewport" content="width=device-width" />
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>Find Admin Id</title>
 <style>
 #header {
 	text-align: center;

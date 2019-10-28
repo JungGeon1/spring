@@ -16,22 +16,22 @@ public class NbBoardCntService {
 	
 	
 	//전체 포토보드 수
-	public int totalBoard() {
+	public int totalBoard(String category) {
 		dao= template.getMapper(nbDao.class);
 		
 		int rCnt= 0;
 		
-		rCnt= dao.totalBoardCnt();
+		rCnt= dao.totalBoardCnt(category);
 		
 		return rCnt;
 		}
 	//오늘 작성한 보드수
-	public int todayBoard() {
+	public int todayBoard(String category) {
 		dao= template.getMapper(nbDao.class);
 		
 		int rCnt= 0;
 		
-		rCnt= dao.totalTodayBoardCnt();
+		rCnt= dao.totalTodayBoardCnt(category);
 		
 		return rCnt;
 		

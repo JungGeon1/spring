@@ -16,13 +16,13 @@ public class ViewPageService {
 	
 	nbDao nbIf;
 	//뷰페이지 정보
-	public NbInfoDto viewData(ViewPageDataDto pageData) {
+	public NbInfoDto viewData(int idx) {
 		
 		nbIf= template.getMapper(nbDao.class);
 		
 		NbInfoDto nbInfo= new NbInfoDto();
 		//System.out.println(pageData.toString());	
-		nbInfo=nbIf.selectViewPage(pageData);
+		nbInfo=nbIf.selectViewPage(idx);
 		//System.out.println("ViewPageData체크>>>"+nbInfo.toString());
 		return nbInfo;
 	}

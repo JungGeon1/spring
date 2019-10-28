@@ -137,16 +137,9 @@ public class NbController {
 	@CrossOrigin
 	@GetMapping("/viewPage")
 	public ResponseEntity<NbInfoDto> getViewPage(
-			@RequestParam(value = "category") String category,
-			@RequestParam(value = "idx")int idx
+				@RequestParam(value = "idx")int idx
 			){
-		
-		ViewPageDataDto pageData= new ViewPageDataDto();
-		
-		pageData.setCategory(category);
-		pageData.setIdx(idx);
-		
-		return new ResponseEntity<NbInfoDto>(viewService.viewData(pageData),HttpStatus.OK);
+				return new ResponseEntity<NbInfoDto>(viewService.viewData(idx),HttpStatus.OK);
 	}
 	@CrossOrigin
 	@PutMapping("/viewUp/{idx}")
@@ -161,13 +154,12 @@ public class NbController {
 	@CrossOrigin
 	@DeleteMapping("/delete/{idx}")
 	public ResponseEntity<String> getDelete(
-			@RequestParam(value = "category") String category,
-			@PathVariable String idx
+			@PathVariable int idx
 			){
 		
 		
 		int rCnt=0;	
-		rCnt=deleteService.deleteBoard(idx,category);
+		rCnt=deleteService.deleteBoard(idx);
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	
@@ -177,7 +169,7 @@ public class NbController {
 			InsertInfoDto info,
 			HttpServletRequest request
 			){
-		//System.out.println("바인딩 체크>>"+info.toString());
+		System.out.println("바인딩 체크>>"+info.toString());
 		
 		int rCnt=0;
 		rCnt=UpdateService.updateNb(request, info);
@@ -185,22 +177,26 @@ public class NbController {
 		return new ResponseEntity<String>(rCnt>0?"success":"fail",HttpStatus.OK);
 	}
 	
-	
+	//해당게시판의 총부드수
 	@CrossOrigin
 	@GetMapping("/totalBoardCnt")
-	public ResponseEntity<Integer>totalBoardCnt(){
+	public ResponseEntity<Integer>totalBoardCnt(
+			@RequestParam(value = "category" )String category
+			){
 		
 		int rCnt=0;
-		rCnt=boardCntService.totalBoard();		
+		rCnt=boardCntService.totalBoard(category);		
 		return new ResponseEntity<Integer>(rCnt,HttpStatus.OK);
 	}
-	
+	//해당게시판의 그날 추가된 보드수
 	@CrossOrigin
 	@GetMapping("/todayBoardCnt")
-	public ResponseEntity<Integer>todayBoardCnt(){
+	public ResponseEntity<Integer>todayBoardCnt(
+			@RequestParam(value = "category" )String category
+			){
 		
 		int rCnt=0;
-		rCnt=boardCntService.todayBoard();	
+		rCnt=boardCntService.todayBoard(category);	
 		
 		return new ResponseEntity<Integer>(rCnt,HttpStatus.OK);
 	}

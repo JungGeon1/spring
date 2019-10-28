@@ -130,7 +130,7 @@ td{
 									</tr>
 									<tr>
 										<td>이름</td>
-										<td><input class="form-control textWidthLarge" type="text" id="nbm_name" name="nbm_name" required>
+										<td><input class="form-control textWidthLarge" type="text" id="nbm_name" name="nbm_name" required></td>
 											
 									</tr>
 									<tr>
@@ -141,10 +141,10 @@ td{
 										<td>주소</td>
 										<td>
 										
-											<input type="text" class="form-control textWidth" id="postcode"  name="postcode" placeholder="우편번호" required>
+											<input type="text" readonly="readonly" class="form-control textWidth" id="postcode"  name="postcode" placeholder="우편번호" required>
 											<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-default">
 											<br>
-											<input type="text" class="form-control textWidthLarge" id="address" name="address"  placeholder="주소" required><br>
+											<input type="text" readonly="readonly" class="form-control textWidthLarge" id="address" name="address"  placeholder="주소" required><br>
 											<input type="text" class="form-control textWidthLarge" id="detailAddress" name="detailAddress" placeholder="상세주소" required>
 										<!-- <input class="form-control" type="text" id="address" name="address" required> -->
 										</td>
@@ -169,6 +169,9 @@ td{
 <%@include file="/WEB-INF/views/frame/footer.jsp" %>
 <script>
 $(document).ready(function(){
+	/* if($('#nbm_pw').val().length<1&&$('#nbm_pw').val()==''){
+		location.href='${pageContext.request.contextPath}/login';
+	} */
 	
 	
 })

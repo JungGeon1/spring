@@ -28,7 +28,7 @@ public class fileDownController {
 	public String bbsService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         // 서버경로
-		String path = "/uploadfile";
+		String path = "/uploadAdminfile";
 		// 절대경로
 		String saveDirectory  = req.getSession().getServletContext().getRealPath(path);
         String filename = req.getParameter("fileName");

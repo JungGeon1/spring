@@ -25,7 +25,7 @@
 <script src="lang/summernote-ko-KR.js"></script>
 <!-- 카카오 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=83c20064cc01d434b441d9ae9303903d&libraries=services"></script>
-<title>Insert title here</title>
+<title>UpdateForm</title>
 <style>
 #header{
 text-align: center;
@@ -118,8 +118,7 @@ width: 100%;
 		<form id="updateForm">
 			<table>
 				<tr>
-					<td><input type="text" id="category" name="category"
-						value="page" hidden=""></td>
+					<td><input type="text" id="category" name="category"value="${category}" hidden=""></td>
 				</tr>
 
 				<tr>
@@ -231,7 +230,7 @@ width: 100%;
 						//alert(data);
 						if (data == 'success') {
 							alert('수정되었습니다');
-							location.href = 'view?idx=' + $('#idx').val() + '';
+							location.href = 'view?category='+$('#category').val()+'&idx=' + $('#idx').val() + '';
 						}
 					}
 

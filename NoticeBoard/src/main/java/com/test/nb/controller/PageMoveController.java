@@ -17,35 +17,61 @@ public class PageMoveController {
 
 	// 리스트
 	@RequestMapping("/pageList")
-	public String pageList() {
-
+	public String pageList(
+			@RequestParam(value = "category")String category,
+			Model model
+			) {
+		model.addAttribute("category",category);
+		return "nBoard/pageList";
+	}// 리스트
+	@RequestMapping("/storyList")
+	public String storyList(
+			@RequestParam(value = "category")String category,
+			Model model
+			) {
+		model.addAttribute("category",category);
 		return "nBoard/pageList";
 	}
 
 	// pageList입력화면
 	@RequestMapping("/insert")
-	public String insert() {
+	public String insert(
+		@RequestParam(value = "category")String category,
+		Model model
+			) {
+		model.addAttribute("category",category);
 		return "/nBoard/insertForm";
-	}
+	};
 
 	// pageListView페이지
 	@RequestMapping("/view")
-	public String view(@RequestParam(value = "idx") int idx, Model model) {
+	public String view(
+			@RequestParam(value = "idx") int idx, 
+			@RequestParam(value = "category") String category,
+			Model model) {
 
 		model.addAttribute("idx", idx);
+		model.addAttribute("category",category);
 		return "/nBoard/pageView";
 	}
 
 	@RequestMapping("/updatePage")
-	public String updatePage(@RequestParam(value = "idx") int idx, Model model) {
-
+	public String updatePage(
+			@RequestParam(value = "idx") int idx, 
+			@RequestParam(value = "category")String category,
+			Model model) {
+		model.addAttribute("category",category);
 		model.addAttribute("idx", idx);
 		return "/nBoard/updateForm";
 	}
 
 	// 방명록
 	@RequestMapping("/scrollList")
-	public String ScrollList() {
+	public String ScrollList(
+			@RequestParam(value = "category")String category,
+			Model model
+			) {
+		model.addAttribute("category",category);
 		return "/nBoard/scrollList";
 	}
 

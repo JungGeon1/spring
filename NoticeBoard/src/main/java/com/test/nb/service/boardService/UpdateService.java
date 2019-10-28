@@ -28,7 +28,7 @@ public class UpdateService {
 			int rCnt=0;
 			
 			nbIf=template.getMapper(nbDao.class);
-			if(info.getU_address().length()<1) {
+			if(info.getU_address()==null|| info.getU_address().length()<1) {
 				//검색어가 없을시 공백을제거해서 널값으로 만들어준다
 				info.setU_address(null); 
 				

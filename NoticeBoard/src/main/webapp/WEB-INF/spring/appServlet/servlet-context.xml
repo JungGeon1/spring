@@ -91,6 +91,10 @@
 		<!-- 인터셉터 생성 : 로그인 체크 -->
 		<interceptor>
 			<mapping path="/pageList/**"/>
+			<mapping path="/storyList/**"/>
+			<mapping path="/updatePage/**"/>
+			<mapping path="/view/**"/>
+			<mapping path="/insert/**"/>
 			<mapping path="/myPage/**" />
 			<mapping path="/chat/**" />
 			

@@ -21,7 +21,7 @@
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'name='viewport' />
 <meta name="viewport" content="width=device-width" />
 <meta charset="UTF-8">
-<title>Board</title>
+<title>Admin Board</title>
 <style>
 
 #header {
@@ -32,6 +32,7 @@
 	width: 80%;
 	margin: 0 auto;
 	overflow: hidden;
+	height:900px;
 	margin-top: 50px;
 }
 
@@ -72,7 +73,7 @@ td {
 }.carImg{
 	width: 300px;
 	position: relative;
-	bottom: 40px;
+	bottom: 70px;
 }.todayBoard{
 	
 	font-size: 3em;
@@ -85,10 +86,6 @@ td {
 	text-align: center;
 	margin-left: 100px;
 
-}.subTitle{
-	
-	text-align: center;
-	margin-bottom: 30px;
 }
 </style>
 </head>
@@ -99,12 +96,10 @@ td {
 
 
 	<%@include file="/WEB-INF/views/frame/nav.jsp"%>
-	
+
 	<div id="contents">
-		<div><h2 class="subTitle" id="subTitle"></h2></div>
-		<c:if test="${nbm_id ne null}">
-		
-			<a href="<c:url value="/insert?category=${category}"/>" class="btn btn-default btnWidth">INSERT</a>
+		<c:if test="${admin_id ne null}">
+			<a href="<c:url value="/adminBoard/adminInsertForm"/>" class="btn btn-default btnWidth">INSERT</a>
 		</c:if>
 		
 		<div id="list">
@@ -115,7 +110,7 @@ td {
 		</div>
 		<div>
 			<select  class="form-control displayInline sSelectWidth" name="stype" id="stype">
-				<option value="id">E-Mail</option>
+				<option value="id">ID</option>
 				<option value="title">Title</option>
 				<option value="date">Date</option>
 			</select>
@@ -125,8 +120,6 @@ td {
 		<div id="paging"></div>
 		<div class="slideLeft">
 			<img class="carImg"  src="<c:url value="/images/car.png"/>">
-			<span class="todayBoard" id="todayBoard"></span>
-			<span class="totalBoard" id="totalBoard"></span>
 		</div>
 	</div>
 	
@@ -138,58 +131,43 @@ td {
 // 파일 로드시 리스트출려이랑 페이지네이션 실행
 $(document).ready(function() {
 	var p=1;
-	uperCase() ;
 	pageList(p);
 	paging(1);
-	totalBoardCnt();
-	todayBoardCnt();
 	
 	
 });
+
+
 //검색시 검색조건에 따라 리스트랑 페이지네이션 재실행
 function search() {
-	uperCase();
 	pageList(1);
 	paging(1);
-	totalBoardCnt();
-	todayBoardCnt();
-	
-}
 
-function uperCase() {
-	var subTitle='';
 	
-	subTitle+='${category}'.toUpperCase();
-	subTitle+=' BOARD';
-	if('${category}'=='page'){
-		subTitle='PHOTO BOARD';
-	}
-	//alert(subTitle);
-	$('#subTitle').html(subTitle);
 }
 //리스트출력
 function pageList(pNumber) {
 	
 	
 	$.ajax({
-		url : '${pageContext.request.contextPath}/rest/pList?p='+pNumber+'&category=${category}&stype='+$('#stype').val()+'&keyword='+$('#keyword').val(),
+		url : '${pageContext.request.contextPath}/adminBoard/list?p='+pNumber+'&stype='+$('#stype').val()+'&keyword='+$('#keyword').val(),
 		type: 'GET',
 		error : function(error) {
 			alert(error);
 		},success : function(data){
 			   var html = '';
 			   
-			   html+='<tr><td>No</td><td>E-Mail</td><td>Title(comment)</td><td>Date</td><td>Views</td>';
+			   html+='<tr><td>No</td><td>ID</td><td>Title</td><td>Date</td><td>Views</td>';
 			   html+='<c:if test="${admin_id ne null}"><td>DELETE</td></c:if></tr>'		
                 for(var i=0; i<data.length;i++){
-                	
+              
                     html += '<tr>';
-                    html += '<td>'+(data[i].pListCnt-i)+'</td>';
-                    html += '<td>'+data[i].u_id+'</td>';
-                    html += '<td><a href="/nb/view?category=${category}&idx='+data[i].idx+'" >'+data[i].u_title+'</a>  ('+cCount(data[i].idx)+')</td>';
-         	        html += '<td>'+data[i].u_date+'</td>';
-                    html += '<td>'+data[i].u_readcount+'</td>';
-                    html += '<c:if test="${admin_id ne null}"><td><button onclick="adminDelete('+data[i].idx+')" class="adminBtnRight btn btn-default btn-sm">관리자삭제</button></td></c:if>'
+                    html += '<td>'+(data[i].listIdx-i)+'</td>';
+                    html += '<td>'+data[i].adminBoard_id+'</td>';
+                    html += '<td><a href="${pageContext.request.contextPath}/adminBoard/adminBoardView?idx='+data[i].adminBoard_idx+'" >'+data[i].adminBoard_title+'</a></td>';
+         	        html += '<td>'+data[i].adminBoard_date+'</td>';
+                    html += '<td>'+data[i].adminBoard_views+'</td>';
+                    html += '<c:if test="${admin_id ne null}"><td><button onclick="adminDelete('+data[i].adminBoard_idx+')" class="adminBtnRight btn btn-default btn-sm">관리자삭제</button></td></c:if>';
                     html += '</tr>\n';
                 }
                 
@@ -205,7 +183,7 @@ function pageList(pNumber) {
 	function paging(idx) {
 
 		$.ajax({
-			url : '${pageContext.request.contextPath}/rest/pCount?category=${category}&stype=' + $('#stype').val() + '&keyword=' + $('#keyword').val(),
+			url : '${pageContext.request.contextPath}/adminBoard/pCount?category=page&stype=' + $('#stype').val() + '&keyword=' + $('#keyword').val(),
 			type : 'GET',
 			error : function(error) {
 				alert(error);
@@ -256,76 +234,18 @@ function pageList(pNumber) {
 		paging(idx);
 
 	}
-	//댓글 갯수출력 -- 값을 반환해야하기떄문에 동기방식으로 변경
-	function cCount(idx) {
-		var cCnt = 0;
-		$.ajax({
-			url : '${pageContext.request.contextPath}/rest/comment/cCount/' + idx,
-			type : 'GET',
-			async : false,
-			error : function(error) {
-				alert(error);
-			},
-			success : function(data) {
-				cCnt = data;
-
-			}
-
-		});
-		return cCnt;
-	}
-
-	//총 보드수
-	function totalBoardCnt() {
-
-		$.ajax({
-			url : '${pageContext.request.contextPath}/rest/totalBoardCnt?category=${category}',
-			type : 'GET',
-			error : function(error) {
-				//alert(error);
-			},
-			success : function(data) {
-				//alert(data);
-				var html = '';
-				html += '그동안 쌓인 보드 수 : ';
-				html += data;
-
-				$('#totalBoard').html(html);
-			}
-
-		});
-	}
-	//오늘작성한 보드수
-	function todayBoardCnt() {
-
-		$.ajax({
-			url : '${pageContext.request.contextPath}/rest/todayBoardCnt?category=${category}',
-			type : 'GET',
-			error : function(error) {
-				//alert(error);
-			},
-			success : function(data) {
-				//alert(data);
-				var html = '';
-				html += '오늘 추가된 보드 수 : ';
-				html += data;
-
-				$('#todayBoard').html(html);
-			}
-
-		});
-	}
-
 	
+
+	//관리자게시글 삭제
 	function adminDelete(idx) {
+		
 		if(confirm('관리자의 권한으로 삭제하시겠습니까?.')){
 			$.ajax({
 				
-				url : '${pageContext.request.contextPath}/adminBoard/boardDelete',
+				url : '${pageContext.request.contextPath}/adminBoard/adminBoardDelete',
 				type : 'post',
 				data : {
 					idx : idx,
-					category : 'page',
 				
 				},error : function (data) {
 					alert(data);
@@ -335,7 +255,7 @@ function pageList(pNumber) {
 					if(data=='success'){
 						
 						alert('삭제되었습니다.');
-						location.href='${pageContext.request.contextPath}/pageList';
+						location.href='${pageContext.request.contextPath}/adminBoard';
 					}
 				}
 				

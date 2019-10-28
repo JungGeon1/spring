@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="headerWrap">
 	<div id="header">
-		<h1>TRAVEL NOTICE BOARD</h1>
+		<h1>NOTICE BOARD</h1>
 	</div>
 
 </div>

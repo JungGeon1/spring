@@ -73,16 +73,16 @@ td{
 									
 <table class="chattingTable">
 <tr>
-	<td><h1>CHATTING</h1><td>
+	<td><h1>CHATTING</h1></td>
 </tr>
 <tr>
-	<td><div class="textWidthChatBox" id="chat_box"></div><td>
+	<td><div class="textWidthChatBox" id="chat_box"></div></td>
 </tr>
 <tr>
-	<td><input class="form-control textWidthLarge" type="text" id="msg"  required placeholder="내용을 입력해 주세요"><td>
+	<td><input class="form-control textWidthLarge" type="text" id="msg"  required placeholder="내용을 입력해 주세요"></td>
 </tr>
 <tr>
-	<td><input  type="button"  class="btn btn-default btn-sm" id="msg_process" value="전송" ><td>
+	<td><input  type="button"  class="btn btn-default btn-sm" id="msg_process" value="전송" ></td>
 </tr>
 
 

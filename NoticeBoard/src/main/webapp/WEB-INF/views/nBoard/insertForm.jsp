@@ -25,7 +25,7 @@
 <!-- 카카오 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=83c20064cc01d434b441d9ae9303903d&libraries=services"></script>
 <script src="lang/summernote-ko-KR.js"></script>
-<title>Insert title here</title>
+<title>Insert Form</title>
 <style>
 
 
@@ -33,10 +33,7 @@
 #header{
 text-align: center;
 }
-.li{
-float: right;
-padding-right: 40px;
-}.both {
+.both {
 	clear: both;
 }#contents{
 	width: 80%;
@@ -46,6 +43,7 @@ padding-right: 40px;
 width: 100%;
 }#insertBox{
 float:left;
+
 
 }.img-wrap{
 	float:right;
@@ -119,7 +117,7 @@ float:left;
 <form id="insertForm">
 		<table>
 			<tr>
-				<td><input type="text"  id="category" name="category" value="page" hidden> </td>
+				<td><input type="text"  id="category" name="category" value="${category}" hidden> </td>
 			</tr>
 			
 			<tr>
@@ -176,7 +174,7 @@ float:left;
 <%@include file="/WEB-INF/views/frame/footer.jsp" %>
 <script>
 $(document).ready(function(){
-	//에디터툴 -> 사진업로드 가능하게 수정예정
+	//에디터툴
 	 $('#u_contents').summernote({
          height: 300,
          width:700,	// set editor height
@@ -251,7 +249,7 @@ function read(input) {
 
 				if (data == 'success') {
 					alert('게시글이 작성되었습니다. 리스트로 이동합니다');
-					location.href = '/nb/pageList'
+					location.href = '/nb/pageList?category=${category}'
 				}
 			}
 

@@ -9,10 +9,20 @@
 		<c:if test="${admin_id eq null}">
 		<li role="presentation" id="nav1"><a href="<c:url value="/myPage/start"/>" title="로그인 후 이용 가능합니다">START</a></li>
 		</c:if>
-		<li role="presentation" id="nav2"><a href="<c:url value="/pageList"/>" title="로그인 후 이용 가능합니다">PHOTO BOARD</a></li>
-		<li role="presentation" id="nav3"><a href="<c:url value="/chat"/>" title="로그인 후 이용 가능합니다">CHATTING</a></li>
-		<li role="presentation" id="nav3"><a href="<c:url value="/scrollList"/>" >GUEST BOOK</a></li>
-		<li role="presentation" id="nav4"><a href="<c:url value="/youTube"/>">SEARCH VOIDEO</a></li>
+		
+		<li  role="presentation" class="dropdown liLeft" >
+  		  <a class="dropdown-toggle liLeft" data-toggle="dropdown" href="#" role="button" aria-expanded="false">BOARD <span class="caret"></span> </a>
+ 			<ul class="dropdown-menu boxLeft" role="menu">
+ 					<li role="presentation" class="liCenter"><a href="<c:url value="/pageList?category=page"/>" title="로그인 후 이용 가능합니다">PHOTO BOARD</a></li>
+    				<li role="presentation" class="liCenter"><a href="<c:url value="/storyList?category=story"/>" title="로그인 후 이용 가능합니다">STORY BOARD</a></li>
+  
+    		</ul>
+ 		</li>
+		
+		<li role="presentation" class="liLeft"><a href="<c:url value="/chat"/>" title="로그인 후 이용 가능합니다">CHATTING</a></li>
+		<li role="presentation" class="liLeft"><a href="<c:url value="/scrollList?category=scroll"/>" >GUEST BOOK</a></li>
+		<li role="presentation" class="liLeft"><a href="<c:url value="/adminBoard"/>" >ADMIN BOARD</a></li>
+		<li role="presentation" class="liLeft"><a href="<c:url value="/youTube"/>">SEARCH VOIDEO</a></li>
 		<li role="presentation" class="dropdown" id="dropDown">
   		  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">SIGN <span class="caret"></span> </a>
  			<ul class="dropdown-menu" role="menu">
@@ -50,6 +60,6 @@
 		
 	</ul>
 	
-	
+		
 	
 </div>

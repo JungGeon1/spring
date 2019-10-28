@@ -27,7 +27,7 @@
 
 
 #leftBox {
-	width: 550px;
+	width: 750px;
 	height: 710px;
 	/* 	border: 1px solid #ddd; */
 	float: left;

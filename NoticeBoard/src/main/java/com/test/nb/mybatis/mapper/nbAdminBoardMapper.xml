@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.nb.dao.nbAdminBoardDao">
+
+
+<!-- 게시글등록 -->
+<insert id="insertAdminBoard" parameterType="com.test.nb.domain.NbAdminBoardDto">
+	insert into noticetest.noticeadminboard(adminBoard_id,adminBoard_title,adminBoard_content,adminBoard_email,adminBoard_file) values(#{adminBoard_id},#{adminBoard_title},#{adminBoard_content},#{adminBoard_email},#{adminBoard_file});
+</insert>
+
+
+
+
+<!-- 게시판 갯수 -->
+<select id="selectList" parameterType="com.test.nb.domain.SearchParamDto" resultType="int">
+	select count(*) from noticetest.noticeadminboard
+	<where>
+				<if test="stype == 'id'">
+					adminBoard_id LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'title'">
+					adminBoard_title LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'date'">
+					adminBoard_date LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+
+	</where>
+	
+</select>
+
+<!-- 게시판리스트 -->
+<select id="adminBoardList"   parameterType="map"  resultType="com.test.nb.domain.NbAdminBoardDto">
+	select * from noticetest.noticeadminboard 
+	
+	<where>
+		<if test="search.stype != null">
+				and
+				<if test="search.stype == 'id'">
+					adminBoard_id LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'title'">
+					adminBoard_title LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				<if test="search.stype == 'date'">
+					adminBoard_date LIKE CONCAT('%', #{search.keyword}, '%')
+				</if>
+				
+
+			</if>
+	</where>
+	order by  adminBoard_idx desc limit #{viewData.startIdx}, #{viewData.lastIdx};
+</select>
+<!-- 관리자게시글삭제 -->
+<delete id="adminDeleteBoard">
+	delete from noticetest.noticeadminboard where adminBoard_idx=#{param};
+</delete>
+
+
+<!-- 관리자게시판정보-->
+<select id="adminBoardInfo" resultType="com.test.nb.domain.NbAdminBoardDto" >
+	select * from noticetest.noticeadminboard where adminBoard_idx=#{param};
+</select>
+
+<!-- 조회수증가 -->
+
+<update id="viewUp">
+	update noticetest.noticeadminboard set adminBoard_views=adminBoard_views+1 where adminBoard_idx=#{param};
+</update>
+
+</mapper>

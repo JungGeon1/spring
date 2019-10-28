@@ -179,7 +179,7 @@ width: 100%;
 			<div class="boardinner wordBreak" id="textBox"></div>
 			<div class="boardinner" id="imgBox"></div>
 			<div class="both left" id="viewBtnBox"> 
-				<button class="btn btn-default" onclick="location.href='/nb/updatePage?idx=${idx}'">수정</button>
+				<button class="btn btn-default" onclick="location.href='/nb/updatePage?category=${category}&idx=${idx}'">수정</button>
 				<button class="btn btn-default" onclick="deleteBoard()">삭제</button>
 			</div>
 <div id="mapBox">			
@@ -231,7 +231,7 @@ width: 100%;
 		function getViewData(idx) {
 
 			$.ajax({
-						url : 'rest/viewPage?category=page&idx=' + idx,
+						url : 'rest/viewPage?idx=' + idx,
 						type : 'GET',
 						error : function(error) {
 							alert(error);
@@ -281,14 +281,14 @@ width: 100%;
 			var idx = $('#idx').val();
 			if (confirm('삭제하시겠습니까')) {
 				$.ajax({
-					url : 'rest/delete/' + idx + '?category=page',
+					url : 'rest/delete/' + idx ,
 					type : 'delete',
 					error : function(error) {
 						alert(error);
 					},
 					success : function(data) {
 						alert('삭제되었습니다. 리스트로 이동합니다.');
-						location.href = '/nb/pageList';
+						location.href = '/nb/pageList?category=${category}';
 					}
 
 				});

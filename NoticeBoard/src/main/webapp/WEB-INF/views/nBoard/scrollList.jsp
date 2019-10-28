@@ -66,7 +66,6 @@ width: 100%;
     right: 2%;
     bottom: 30px;
     display: none;
-    
     font-size:80px;  
  
 }#updateBox{
@@ -107,7 +106,7 @@ display: none;
 	<form id="insertForm">
 		<table>
 			<tr>
-				<td><input type="text"  id="category" name="category" value="scroll" hidden> </td>
+				<td><input type="text"  id="category" name="category" value="${category}" hidden> </td>
 			</tr>
 			
 			<tr>
@@ -138,24 +137,24 @@ display: none;
 		
 		<table>
 			<tr>
-				<td><input id="up_idx" type="text" hidden=""></td>
+				<td><input id="up_idx" name="idx" type="text" class="form-control" readonly="readonly" ></td>
 			</tr>
 			<tr>
-				<td><input type="text"  id="up_category" name="category" value="scroll" hidden=""> </td>
-			</tr>
-			
-			<tr>
-				
-				<td><input type="text"  id="up_id" name="u_id" required placeholder="작성자" > </td>
+				<td><input type="text"  id="up_category" name="category" value="${category}" hidden=""> </td>
 			</tr>
 			
 			<tr>
 				
-				<td><input type="text" id="up_title" name="u_title" required placeholder="제목을 입력해주세요"> </td>
+				<td><input type="text"  id="up_id" class="form-control" name="u_id" required placeholder="작성자"  readonly="readonly"> </td>
+			</tr>
+			
+			<tr>
+				
+				<td><input type="text" id="up_title" class="form-control" name="u_title" required placeholder="제목을 입력해주세요"> </td>
 			</tr>
 			<tr>
 				
-				<td><textarea id="up_contents"  name="u_contents" placeholder="내용을 입력해주세요"></textarea></td>
+				<td><textarea id="up_contents" name="u_contents" placeholder="내용을 입력해주세요"></textarea></td>
 			</tr>
 			
 			<tr>
@@ -234,10 +233,6 @@ $(document).ready(function(){
 	 });
 	
 });
-
-
-
-	
 	/* 스크롤 top 이벤트 */
 	$(window).scroll(function (){
 		if($(this).scrollTop()>500){
@@ -256,7 +251,7 @@ $(document).ready(function(){
 	function paging() {
 		var totalPage=0;
 		$.ajax({
-			url:'rest/pCount?category=page&stype=&keyword=',
+			url:'${pageContext.request.contextPath}/rest/pCount?category=${category}&stype=&keyword=',
 			type:'GET',
 			//페이지값리턴을 위해 동기로 변경
 			async:false,
@@ -273,7 +268,7 @@ $(document).ready(function(){
 function scrollList(pNumber) {
 
 	$.ajax({
-		url : '${pageContext.request.contextPath}/rest/pList?p='+pNumber+'&category=scroll&stype=&keyword=',
+		url : '${pageContext.request.contextPath}/rest/pList?p='+pNumber+'&category=${category}&stype=&keyword=',
 		type: 'GET',
 		error : function(error) {
 			alert(error);
@@ -340,7 +335,7 @@ $('#insertForm').submit(function() {
 		contentType : false, //파일 전송 시 필수
 		success : function (data) {
 			alert('등록되었습니다.');
-			location.href = '/nb/scrollList';
+			location.href = '/nb/scrollList?category=${category}';
 		
 		}
 		
@@ -354,14 +349,14 @@ $('#insertForm').submit(function() {
 		
 			if (confirm('삭제하시겠습니까')) {
 				$.ajax({
-					url : '${pageContext.request.contextPath}/rest/delete/' + idx + '?category=scroll',
+					url : '${pageContext.request.contextPath}/rest/delete/' + idx,
 					type : 'delete',
 					error : function(error) {
 						alert(error);
 					},
 					success : function(data) {
 						alert('삭제되었습니다.');
-						location.href = '/nb/scrollList';
+						location.href = '/nb/scrollList?category=${category}';
 					}
 
 				});
@@ -382,15 +377,21 @@ $('#updateForm').submit(function() {
 		
 
 		$.ajax({
-			url : 'rest/update',
+			url : '/nb/rest/update',
 			type : 'post',
 			data : formData,
-
+			processData : false, //파일 전송 시 필수
+			contentType : false, //파일 전송 시 필수
+			erorr : function (error) {
+				alert(error);
+			},
 			success : function(data) {
 				//alert(data);
 				if (data == 'success') {
 					alert('수정되었습니다');
-					location.href = '/nb/scrollList';
+					location.href = '/nb/scrollList?category=${category}';
+				}else{
+					alert('실패');
 				}
 			}
 
@@ -403,7 +404,7 @@ $('#updateForm').submit(function() {
 function update(idx) {
 
 			$.ajax({
-						url : '${pageContext.request.contextPath}/rest/viewPage?category=scroll&idx=' + idx,
+						url : '${pageContext.request.contextPath}/rest/viewPage?category=${category}l&idx=' + idx,
 						type : 'GET',
 						error : function(error) {
 							alert(error);
@@ -418,7 +419,7 @@ function update(idx) {
 							$('#up_title').val(data.u_title);
 							//$('#u_contents').val(data.u_contents); 
 							$('#up_contents').summernote('editor.insertText',data.u_contents);
-							$('#idx').val(idx);
+							$('#up_idx').val(data.idx);
 							
 							$('html,body').animate({
 								scrollTop :0
@@ -439,7 +440,7 @@ function adminDelete(idx) {
 			type : 'post',
 			data : {
 				idx : idx,
-				category : 'page',
+				category : '${category}',
 			
 			},error : function (data) {
 				alert(data);
@@ -449,7 +450,7 @@ function adminDelete(idx) {
 				if(data=='success'){
 					
 					alert('삭제되었습니다.');
-					location.href='${pageContext.request.contextPath}/pageList';
+					location.href='${pageContext.request.contextPath}/scrollList?category=${category}';
 				}
 			}
 			
