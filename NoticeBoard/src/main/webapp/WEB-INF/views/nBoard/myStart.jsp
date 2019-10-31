@@ -94,15 +94,7 @@ overflow: hidden
 	
 	z-index: 2;
 }
-#light{
-display:none;
-position: absolute;
-z-index: 1;
-width: 500px;
-top :380px;
-left: -100px;
-cursor: pointer;
-}
+
  .img{
         position: relative;
         background-image: url(/images/holiday2.jpg);                                                               
@@ -168,7 +160,7 @@ cursor: pointer;
 
 
 	<%@include file="/WEB-INF/views/frame/nav.jsp"%>
-	<img id="light" class="stretchLeft" onclick="goMclick()" src="<c:url value="/images/light.png"/>">
+
 	<div id="contents">
 		<div id="content">
 			<div id="leftBox">
@@ -307,7 +299,7 @@ cursor: pointer;
 					html +='<div class="caption">';
 					html +='<h3>'+data[i].u_title+'</h3>';
 					html +='<p>'+data[i].u_contents+'</p>';
-					html +='<p><a href="/nb/view?idx=' + data[i].idx+ '" class="btn btn-primary" role="button">보러가기</a> </p>';
+					html +='<p><a href="/nb/view?category=page&idx=' + data[i].idx+ '" class="btn btn-primary" role="button">보러가기</a> </p>';
 					html +='</div></div></div>';
 				}
 
@@ -317,47 +309,11 @@ cursor: pointer;
 		});
 	}
 	
-	//자동차 불키기
-	function light() {
-		var windowWidth = $( window ).width();
-		//alert(windowWidth);
 		
-		if(windowWidth<1840){
-			
-			alert('불을 킬 공간이 없어요..! 창을 키워주세요!');
-			return ;
-		}
-		if($('#light').is(":visible")){
-		     // display : none가 아닐 경우
-			$('#light').css('display','none');
-			return;
-		}else{
-			$('#light').css('display','inline');
-			
 	
-		}
-	}
-	$(window).resize(function (){
-		  // width값을 가져오기
-		  var width_size = window.outerWidth;
-		  
-		  // 1840이하인지 if문으로 확인
-		  //1840이하면 자동차 불 이미지를 제거
-		  if (width_size <= 1900) {
-			 
-					$('#light').css('display','none');
-				
-				}
-		  
-		})
+	
 
 
-	function goMclick() {
-		
-		window.open('http://www.toursoft.co.kr/'); 
-
-		
-	}
 	function imgClickCmt() {
 		var html='';
 		

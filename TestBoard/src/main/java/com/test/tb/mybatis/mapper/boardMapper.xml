@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.tb.dao.boardDao">
+
+	<insert id="boardInsert"
+		parameterType="com.test.tb.domain.BoardTblDto">
+		INSERT INTO 
+		db_owner.BOARDTBL(B_TITLE,B_CONTENTS,B_ID,B_GRPNO)
+		VALUES(#{b_title},#{b_contents},#{b_id},
+		(SELECT 
+		COUNT(*) 
+		FROM db_owner.BOARDTBL
+		WHERE 
+		B_DEPTH=1
+		)+1);
+	</insert>
+
+	<!-- 리스트 -->
+	<select id="selectList" resultType="com.test.tb.domain.BoardTblDto">
+	<!-- <![CDATA][쿼리문]>  MYBATIS는 부등호를 쿼리로 인지하기에 쿼리문에 부등호가 들어갈시 작성해야한다-->
+	<![CDATA[  
+		SELECT 
+		B_IDX,
+		a.B_TITLE,
+		(
+			SELECT 
+			COUNT(*)
+			FROM 
+			db_owner.COMMENTTBL c
+			WHERE 
+			c.C_BIDX=a.b_idx
+		)AS B_COMMENTCNT,
+		(
+			SELECT 
+			COUNT(*) 
+			FROM 
+			db_owner.BOARDTBL B 
+			WHERE 0=0
+			AND A.B_GRPNO = B.B_GRPNO 
+			AND A.B_DEPTH < B.B_DEPTH 
+			AND A.B_GRPORD < 
+				(	
+					SELECT 
+					CASE 
+					WHEN A.B_DEPTH !=1 
+					THEN MIN(B_GRPORD) 
+					ELSE 7 END
+					FROM
+					db_owner.BOARDTBL C
+					WHERE  0=0
+					AND B.B_DEPTH=C.B_DEPTH
+					AND B.B_GRPORD < C.B_GRPORD 
+				)
+ 		) AS  B_RBOARD,
+		B_CONTENTS,
+		B_ID,
+		CONVERT(CHAR(10),B_DATE,23)AS B_DATE ,
+		B_GRPNO,
+		B_GRPORD,
+		B_DEPTH
+		FROM db_owner.BOARDTBL a
+		ORDER BY B_GRPNO DESC, B_GRPORD ASC;
+		 ]]>
+	</select>
+
+
+	<select id="OrgBoardInfo" resultType="com.test.tb.domain.BoardTblDto">
+		SELECT 
+		B_IDX ,
+		B_TITLE,
+		B_CONTENTS,
+		B_ID,
+		CONVERT(CHAR(10),B_DATE,23)AS B_DATE,
+		B_GRPNO,
+		B_GRPORD,
+		B_DEPTH
+		FROM db_owner.BOARDTBL 
+		WHERE
+		B_IDX=#{param};
+	</select>
+
+	<select id="selectGrpord" parameterType="com.test.tb.domain.BoardTblDto" resultType="int">
+		SELECT 
+		COALESCE(MIN(B_GRPORD),0) 
+		FROM db_owner.BOARDTBL
+		WHERE
+		B_GRPNO=#{b_grpno} AND B_GRPORD> #{b_grpord} AND #{b_depth}>=B_DEPTH;
+	</select>
+
+	<select id="selectMaxOrd" resultType="int">
+		SELECT 
+		COALESCE(MAX(B_GRPORD),0)+1 
+		FROM db_owner.BOARDTBL 
+		WHERE 
+		B_GRPNO =#{param};
+	</select>
+
+	<update id="upGrpOrd" parameterType="map">
+		UPDATE
+		db_owner.BOARDTBL 
+		SET
+		B_GRPORD = B_GRPORD+1
+		WHERE 
+		B_GRPNO=#{b_grpno} AND B_GRPORD>=#{selectGrpOrd};
+	</update>
+	<insert id="reInsert"
+		parameterType="com.test.tb.domain.BoardTblDto">
+		INSERT INTO db_owner.BOARDTBL
+		(B_TITLE,B_CONTENTS,B_ID,B_GRPNO,B_GRPORD,B_DEPTH) 
+		VALUES
+		(#{b_title},#{b_contents},#{b_id},#{b_grpno},#{b_grpord},#{b_depth}+1);
+	</insert>
+
+
+	<select id="allBoardCnt" resultType="int">
+		SELECT 
+		COUNT(*) 
+		FROM db_owner.BOARDTBL;
+	</select>
+
+
+	<update id="updateBoard">
+		UPDATE 
+		db_owner.BOARDTBL 
+		SET 
+		B_TITLE=#{b_title}, B_CONTENTS=#{b_contents}
+		WHERE B_IDX=#{b_idx};
+	</update>
+
+	<delete id="deleteBoard">
+		DELETE 
+		FROM db_owner.BOARDTBL 
+		WHERE
+	    B_IDX=#{param};
+	</delete>
+
+</mapper>

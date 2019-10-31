@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.tb.dao.adminDao">
+
+	<insert id="adminInsert" parameterType="com.test.tb.domain.AdminTblDto">
+			INSERT INTO 
+			db_owner.ADMINTBL (A_ID,A_PW) 
+			VALUES(#{a_id},#{a_pw});													
+	</insert>
+	
+	
+	<select id="adminInfo" resultType="com.test.tb.domain.AdminTblDto">
+			SELECT
+			A_IDX,
+			A_ID,
+			A_PW,
+			A_DATE
+			FROM db_owner.ADMINTBL
+			WHERE 
+			A_ID=#{param};
+	</select>
+
+</mapper>

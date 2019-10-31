@@ -258,7 +258,7 @@
 					html +='<div class="caption">';
 					html +='<h3>'+data[i].u_title+'</h3>';
 					html +='<p>'+data[i].u_contents+'</p>';
-					html +='<p><a href="/nb/view?idx=' + data[i].idx+ '" class="btn btn-primary" role="button">보러가기</a> </p>';
+					html +='<p><a href="/nb/view?category=page&idx=' + data[i].idx+ '" class="btn btn-primary" role="button">보러가기</a> </p>';
 					html +='</div></div></div>';
 				}
 
