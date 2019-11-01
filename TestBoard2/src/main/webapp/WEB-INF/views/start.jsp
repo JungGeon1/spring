@@ -57,7 +57,7 @@
 <div class="contentBox">
 	<div class="btnBox">
 		<button class="btn btn-primary" onclick="adminForm()">관리자 추가</button>
-		<button class="btn btn-primary" onclick="boardForm()">게시판 추가</button>
+		<button class="btn btn-primary" onclick="boardForm()">글쓰기</button>
 	</div>
 	<div id="adminInsertBox">
 		<form id="insert">
@@ -72,11 +72,11 @@
 				
 				<tr>
 					<td>아이디:</td>
-					<td><input id="a_id" name="a_id" type="text"></td>
+					<td><input id="a_id" name="a2_id" type="text"></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input id="a_pw" name="a_pw" type="text"></td>
+					<td><input id="a_pw" name="a2_pw" type="text"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -100,15 +100,15 @@
 				<tbody>
 				<tr>
 					<td>작성자:</td>
-					<td><input id="b_id" name="b_id" type="text"></td>
+					<td><input id="b_id" name="b2_id" type="text"></td>
 				</tr>
 				<tr>
 					<td>글제목:</td>
-					<td><input id="b_title" name="b_title" type="text"></td>
+					<td><input id="b_title" name="b2_title" type="text"></td>
 				</tr>
 				<tr>
 					<td>글내용:</td>
-					<td><textarea id="b_contents" name="b_contents" class="textArea"></textarea></td>
+					<td><textarea id="b_contents" name="b2_contents" class="textArea"></textarea></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -136,15 +136,15 @@
 				</tr>
 				<tr>
 					<td>작성자:</td>
-					<td><input id="rb_id" name="b_id" type="text"></td>
+					<td><input id="rb_id" name="b2_id" type="text"></td>
 				</tr>
 				<tr>
 					<td>글제목:</td>
-					<td><input id="rb_title" name="b_title" type="text"></td>
+					<td><input id="rb_title" name="b2_title" type="text"></td>
 				</tr>
 				<tr>
 					<td>글내용:</td>
-					<td><textarea id="rb_contents" name="b_contents" class="textArea"></textarea></td>
+					<td><textarea id="rb_contents" name="b2_contents" class="textArea"></textarea></td>
 					
 				</tr>
 				<tr>
@@ -168,24 +168,24 @@
 				<tbody>
 				<tr>
 					<td>글번호:</td>
-					<td><input id="up_idx" name="b_idx" type="text" readonly="readonly"></td>
+					<td><input id="up_idx" name="b2_idx" type="text" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>작성자:</td>
-					<td><input id="up_id" name="b_id" type="text" readonly="readonly"></td>
+					<td><input id="up_id" name="b2_id" type="text" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>글제목:</td>
-					<td><input id="up_title" name="b_title" type="text"></td>
+					<td><input id="up_title" name="b2_title" type="text"></td>
 				</tr>
 				<tr>
 					<td>글내용:</td>
-					<td><textarea id="up_contents" name="b_contents" class="textArea"></textarea></td>
+					<td><textarea id="up_contents" name="b2_contents" class="textArea"></textarea></td>
 					
 				</tr>
 				<tr>
 					<td>비밀번호:</td>
-					<td><input id="up_pw" name="b_pw" type="password"></td>
+					<td><input id="up_pw" name="b2_pw" type="password"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -208,20 +208,20 @@
 				<tbody>
 				<tr>
 					<td>글 번호:</td>
-					<td><input id="del_idx" name="b_idx" type="text" readonly="readonly"></td>
+					<td><input id="del_idx" name="b2_idx" type="text" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>작성자:</td>
-					<td><input id="del_id" name="b_id" type="text" readonly="readonly"></td>
+					<td><input id="del_id" name="b2_id" type="text" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>글 제목:</td>
-					<td><input id="del_title" name="b_idx" type="text" readonly="readonly"></td>
+					<td><input id="del_title" name="b2_idx" type="text" readonly="readonly"></td>
 				</tr>
 				
 				<tr>
 					<td>비밀번호:</td>
-					<td><input id="del_pw" name="b_pw" type="password"></td>
+					<td><input id="del_pw" name="b2_pw" type="password"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -236,7 +236,7 @@
 	<div class="board">
 	<table class="table table-hover">
 
-      <caption><h1>BOARD</h1></caption>
+      <caption><h1>BOARD2</h1></caption>
    	 	 <colgroup>
 			<col style="width: 60px;"/>
 			<col/>
@@ -396,15 +396,15 @@
 					//alert(data[i].b_depth*15);
 				html +='<tr>';
 				html +='<td>'+(boardCnt-i)+'</td>';
-				html +='<td style="text-align:left"><a href="/tb/viewPage?idx='+data[i].b_idx+'">'
-						+data[i].b_title+'&nbsp;&nbsp;&nbsp;&nbsp;['+data[i].b_commentCnt+']'
-						+'&nbsp;&nbsp;&nbsp;&nbsp;['+data[i].b_rBoard+']</a></td>';			
-				html +='<td>'+data[i].b_id+'</td>';
-				html +='<td>'+data[i].b_date+'</td>';
+				html +='<td style="text-align:left"><a href="/tb/viewPage?idx='+data[i].b2_idx+'">'
+						+data[i].b2_title+'&nbsp;&nbsp;&nbsp;&nbsp;['+data[i].b2_commentCnt+']'
+						+'&nbsp;&nbsp;&nbsp;&nbsp;['+data[i].b2_rBoard+']</a></td>';			
+				html +='<td>'+data[i].b2_id+'</td>';
+				html +='<td>'+data[i].b2_date+'</td>';
 				html +='<td><div class="btn-group btn-group-sm" role="group" aria-label="...">';
-				html +='<button class="btn btn-default" onclick="reBoard('+data[i].b_idx+')">답글</button>'
-				html +='<button class="btn btn-default" onclick="updateBoard('+data[i].b_idx+')">수정</button>'
-				html +='<button class="btn btn-default" onclick="delBoard('+data[i].b_idx+')">삭제</button></div></td>';
+				html +='<button class="btn btn-default" onclick="reBoard('+data[i].b2_idx+')">답글</button>'
+				html +='<button class="btn btn-default" onclick="updateBoard('+data[i].b2_idx+')">수정</button>'
+				html +='<button class="btn btn-default" onclick="delBoard('+data[i].b2_idx+')">삭제</button></div></td>';
 				html +='</tr>';
 				}
 				$('#tableList').html(html);
@@ -447,10 +447,10 @@ function updateBoard(idx) {
 					alert(error)
 				},success : function (data) {
 					//alert(data.b_id);
-					$('#up_idx').val(data.b_idx);
-					$('#up_id').val(data.b_id);
-					$('#up_title').val(data.b_title);
-					$('#up_contents').val(data.b_contents);
+					$('#up_idx').val(data.b2_idx);
+					$('#up_id').val(data.b2_id);
+					$('#up_title').val(data.b2_title);
+					$('#up_contents').val(data.b2_contents);
 				}	
 												
 			});
@@ -508,9 +508,9 @@ function delBoard(idx){
 				alert(error)
 			},success : function (data) {
 				//alert(data.b_id);
-				$('#del_idx').val(data.b_idx);
-				$('#del_id').val(data.b_id);
-				$('#del_title').val(data.b_title);
+				$('#del_idx').val(data.b2_idx);
+				$('#del_id').val(data.b2_id);
+				$('#del_title').val(data.b2_title);
 			}	
 											
 		});

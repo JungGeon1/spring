@@ -13,14 +13,12 @@ public interface boardDao {
 	public List<BoardTblDto>selectList();
 	//원글정보
 	public BoardTblDto OrgBoardInfo(int o_no);
-	//답글 쿼리1
-	public int selectGrpord(BoardTblDto dto);
-	//답글 쿼리1-1
-	public int selectMaxOrd(int b_grpno);
-	//답글 쿼리1-2
-	public int upGrpOrd(Map<String,Integer> map); 
-	//답글 입력
-	public int reInsert(BoardTblDto dto);
+	//중복되는 depth구하기
+	public int selectDepth(int b2_depth);
+	//MAXDEPTH
+	public int maxDepth(int b2_grpno);
+	//답글입력
+	public int reBoardInsert(BoardTblDto dto);
 	//게시판 총 갯수
 	public int allBoardCnt();
 	//게시판 수정

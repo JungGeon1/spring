@@ -25,10 +25,10 @@ public class BoardUpdateService {
 		int rCnt=0;
 		
 		AdminTblDto adminDto= new AdminTblDto();
-		adminDto=aDao.adminInfo(dto.getB_id());
+		adminDto=aDao.adminInfo(dto.getB2_id());
 		//  현재 비밀번호체크 암호화X
 		
-		if(dto.getB_pw()!=null&&adminDto.getA_pw()!=null&&dto.getB_pw().equals(adminDto.getA_pw())) {
+		if(dto.getB2_pw()!=null&&adminDto.getA2_pw()!=null&&dto.getB2_pw().equals(adminDto.getA2_pw())) {
 			System.out.println("왔어");
 			rCnt=bDao.updateBoard(dto);
 			System.out.println("업데이트체크>>"+rCnt);

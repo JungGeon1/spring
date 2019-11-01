@@ -30,7 +30,7 @@ public class CommentDeleteService {
 		adminDto=aDao.adminInfo(dto.getC_id());
 		//  현재 비밀번호체크 암호화X
 		
-		if(dto.getC_pw()!=null&&adminDto.getA_pw()!=null&&dto.getC_pw().equals(adminDto.getA_pw())) {
+		if(dto.getC_pw()!=null&&adminDto.getA2_pw()!=null&&dto.getC_pw().equals(adminDto.getA2_pw())) {
 	
 			rCnt=cDao.deleteComment(dto.getC_idx());
 		

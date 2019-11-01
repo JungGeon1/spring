@@ -6,20 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="adminInsert" parameterType="com.test.tb.domain.AdminTblDto">
 			INSERT INTO 
-			db_owner.ADMINTBL (A_ID,A_PW) 
-			VALUES(#{a_id},#{a_pw});													
+			ADMINTBL2 (A2_ID,A2_PW) 
+			VALUES(#{a2_id},#{a2_pw});													
 	</insert>
 	
 	
 	<select id="adminInfo" resultType="com.test.tb.domain.AdminTblDto">
 			SELECT
-			A_IDX,
-			A_ID,
-			A_PW,
-			A_DATE
-			FROM db_owner.ADMINTBL
+			A2_IDX,
+			A2_ID,
+			A2_PW,
+			A2_DATE
+			FROM
+			ADMINTBL2
 			WHERE 
-			A_ID=#{param};
+			A2_ID=#{param};
 	</select>
 
 </mapper>

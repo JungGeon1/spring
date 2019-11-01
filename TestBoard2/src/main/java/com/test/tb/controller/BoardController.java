@@ -54,6 +54,7 @@ public class BoardController {
 		return rCnt>0?"success":"fail";
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public List<BoardTblDto> getList(){

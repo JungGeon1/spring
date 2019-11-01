@@ -38,20 +38,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM 
 			db_owner.BOARDTBL B 
 			WHERE 0=0
-			AND A.B_GRPNO = B.B_GRPNO 
-			AND A.B_DEPTH < B.B_DEPTH 
-			AND A.B_GRPORD < 
+			AND A.B_GRPNO=B.B_GRPNO 
+			AND A.B_DEPTH<B.B_DEPTH
+			AND A.B_GRPORD<
 				(	
 					SELECT 
 					CASE 
 					WHEN A.B_DEPTH !=1 
 					THEN MIN(B_GRPORD) 
-					ELSE 7 END
+					ELSE (
+						SELECT MAX(B_GRPNO)
+						FROM boardtbl
+						WHERE b_grpno=A.B_GRPNO
+					)
+					 END
 					FROM
 					db_owner.BOARDTBL C
 					WHERE  0=0
 					AND B.B_DEPTH=C.B_DEPTH
-					AND B.B_GRPORD < C.B_GRPORD 
+					AND B.B_GRPORD<C.B_GRPORD 
 				)
  		) AS  B_RBOARD,
 		B_CONTENTS,

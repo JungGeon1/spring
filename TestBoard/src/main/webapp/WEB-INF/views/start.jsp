@@ -57,7 +57,7 @@
 <div class="contentBox">
 	<div class="btnBox">
 		<button class="btn btn-primary" onclick="adminForm()">관리자 추가</button>
-		<button class="btn btn-primary" onclick="boardForm()">게시판 추가</button>
+		<button class="btn btn-primary" onclick="boardForm()">글쓰기</button>
 	</div>
 	<div id="adminInsertBox">
 		<form id="insert">
@@ -323,7 +323,7 @@
 			error : function (error) {
 				alert(error)
 			},success : function (data) {
-				alert(data);
+				//alert(data);
 				$('#boardInsert')[0].reset();
 				getList();
 				if($('#boardInsertBox').is(":visible")){
@@ -361,7 +361,7 @@
 			error : function (error) {
 				alert(error)
 			},success : function (data) {
-				alert(data);
+				//alert(data);
 				getList();
 				$('#boardReInsert')[0].reset();
 			

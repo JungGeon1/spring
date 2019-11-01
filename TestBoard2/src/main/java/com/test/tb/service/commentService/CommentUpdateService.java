@@ -31,7 +31,7 @@ public class CommentUpdateService {
 		adminDto=aDao.adminInfo(dto.getC_id());
 		//  현재 비밀번호체크 암호화X
 		
-		if(dto.getC_pw()!=null&&adminDto.getA_pw()!=null&&dto.getC_pw().equals(adminDto.getA_pw())) {
+		if(dto.getC_pw()!=null&&adminDto.getA2_pw()!=null&&dto.getC_pw().equals(adminDto.getA2_pw())) {
 			//System.out.println("왔어");
 			rCnt=cDao.updateComment(dto);
 			System.out.println("업데이트체크>>"+rCnt);

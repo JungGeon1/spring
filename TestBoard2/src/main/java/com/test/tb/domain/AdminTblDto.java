@@ -1,38 +1,39 @@
 package com.test.tb.domain;
 
 public class AdminTblDto {
-	private int a_idx;
-	private String a_id;
-	private String a_pw;
-	private String a_date;
-	public int getA_idx() {
-		return a_idx;
+	private int a2_idx;
+	private String a2_id;
+	private String a2_pw;
+	private String a2_date;
+	public int getA2_idx() {
+		return a2_idx;
 	}
-	public void setA_idx(int a_idx) {
-		this.a_idx = a_idx;
+	public void setA2_idx(int a2_idx) {
+		this.a2_idx = a2_idx;
 	}
-	public String getA_id() {
-		return a_id;
+	public String getA2_id() {
+		return a2_id;
 	}
-	public void setA_id(String a_id) {
-		this.a_id = a_id;
+	public void setA2_id(String a2_id) {
+		this.a2_id = a2_id;
 	}
-	public String getA_pw() {
-		return a_pw;
+	public String getA2_pw() {
+		return a2_pw;
 	}
-	public void setA_pw(String a_pw) {
-		this.a_pw = a_pw;
+	public void setA2_pw(String a2_pw) {
+		this.a2_pw = a2_pw;
 	}
-	public String getA_date() {
-		return a_date;
+	public String getA2_date() {
+		return a2_date;
 	}
-	public void setA_date(String a_date) {
-		this.a_date = a_date;
+	public void setA2_date(String a2_date) {
+		this.a2_date = a2_date;
 	}
 	@Override
 	public String toString() {
-		return "AdminTblDto [a_idx=" + a_idx + ", a_id=" + a_id + ", a_pw=" + a_pw + ", a_date=" + a_date + "]";
+		return "AdminTblDto [a2_idx=" + a2_idx + ", a2_id=" + a2_id + ", a2_pw=" + a2_pw + ", a2_date=" + a2_date + "]";
 	}
+	
 	
 	
 	

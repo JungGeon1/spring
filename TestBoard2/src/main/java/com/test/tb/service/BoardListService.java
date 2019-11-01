@@ -24,23 +24,21 @@ public class BoardListService {
 
 		list=dao.selectList();
 		for(BoardTblDto dto  : list ) {
-			if(dto.getB_depth()>1) {
+			if(dto.getB2_depth()>0) {
 				StringBuffer sb= new StringBuffer();
 				String sp= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				for(int i=2;i<=dto.getB_depth();i++){
+				for(int i=1;i<=dto.getB2_depth();i++){
 					sb.append(sp);
 				}
 				sb.append("ㄴ[답글]");
-				sb.append(dto.getB_title());
-				dto.setB_title(sb.toString());
+				sb.append(dto.getB2_title());
+				dto.setB2_title(sb.toString());
 			}
 			
 		}
 		
 		return list;
 	}
-	
-	
 	
 	//총갯수
 	public int allBoardcnt() {

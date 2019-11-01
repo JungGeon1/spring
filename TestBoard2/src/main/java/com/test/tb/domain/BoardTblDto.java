@@ -1,71 +1,69 @@
 package com.test.tb.domain;
 
 public class BoardTblDto {
-	private int b_idx;
-	private String b_title;
-	private String b_contents;
-	private String b_id;
-	private String b_date;
-	private int b_grpno;
-	private int b_grpord;
-	private int b_depth;
+	private int b2_idx;
+	private String b2_title;
+	private String b2_contents;
+	private String b2_id;
+	private String b2_date;
+	private int b2_grpno;
+	private int b2_grpord;
+	private int b2_depth;
 	//답글 달 시에만 사용
 	private int o_no;
 	//수정시에만 사용
-	private String b_pw;
+	private String b2_pw;
 	//달린댓글수
-	private int b_commentCnt;
+	private int b2_commentCnt;
 	//달린 답글수
-	private int b_rBoard; 
-	
-	
-	public int getB_idx() {
-		return b_idx;
+	private int b2_rBoard;
+	public int getB2_idx() {
+		return b2_idx;
 	}
-	public void setB_idx(int b_idx) {
-		this.b_idx = b_idx;
+	public void setB2_idx(int b2_idx) {
+		this.b2_idx = b2_idx;
 	}
-	public String getB_title() {
-		return b_title;
+	public String getB2_title() {
+		return b2_title;
 	}
-	public void setB_title(String b_title) {
-		this.b_title = b_title;
+	public void setB2_title(String b2_title) {
+		this.b2_title = b2_title;
 	}
-	public String getB_contents() {
-		return b_contents;
+	public String getB2_contents() {
+		return b2_contents;
 	}
-	public void setB_contents(String b_contents) {
-		this.b_contents = b_contents;
+	public void setB2_contents(String b2_contents) {
+		this.b2_contents = b2_contents;
 	}
-	public String getB_id() {
-		return b_id;
+	public String getB2_id() {
+		return b2_id;
 	}
-	public void setB_id(String b_id) {
-		this.b_id = b_id;
+	public void setB2_id(String b2_id) {
+		this.b2_id = b2_id;
 	}
-	public String getB_date() {
-		return b_date;
+	public String getB2_date() {
+		return b2_date;
 	}
-	public void setB_date(String b_date) {
-		this.b_date = b_date;
+	public void setB2_date(String b2_date) {
+		this.b2_date = b2_date;
 	}
-	public int getB_grpno() {
-		return b_grpno;
+	public int getB2_grpno() {
+		return b2_grpno;
 	}
-	public void setB_grpno(int b_grpno) {
-		this.b_grpno = b_grpno;
+	public void setB2_grpno(int b2_grpno) {
+		this.b2_grpno = b2_grpno;
 	}
-	public int getB_grpord() {
-		return b_grpord;
+	public int getB2_grpord() {
+		return b2_grpord;
 	}
-	public void setB_grpord(int b_grpord) {
-		this.b_grpord = b_grpord;
+	public void setB2_grpord(int b2_grpord) {
+		this.b2_grpord = b2_grpord;
 	}
-	public int getB_depth() {
-		return b_depth;
+	public int getB2_depth() {
+		return b2_depth;
 	}
-	public void setB_depth(int b_depth) {
-		this.b_depth = b_depth;
+	public void setB2_depth(int b2_depth) {
+		this.b2_depth = b2_depth;
 	}
 	public int getO_no() {
 		return o_no;
@@ -73,35 +71,32 @@ public class BoardTblDto {
 	public void setO_no(int o_no) {
 		this.o_no = o_no;
 	}
-	public String getB_pw() {
-		return b_pw;
+	public String getB2_pw() {
+		return b2_pw;
 	}
-	public void setB_pw(String b_pw) {
-		this.b_pw = b_pw;
+	public void setB2_pw(String b2_pw) {
+		this.b2_pw = b2_pw;
 	}
-	
-	public int getB_commentCnt() {
-		return b_commentCnt;
+	public int getB2_commentCnt() {
+		return b2_commentCnt;
 	}
-	public void setB_commentCnt(int b_commentCnt) {
-		this.b_commentCnt = b_commentCnt;
+	public void setB2_commentCnt(int b2_commentCnt) {
+		this.b2_commentCnt = b2_commentCnt;
 	}
-	public int getB_rBoard() {
-		return b_rBoard;
+	public int getB2_rBoard() {
+		return b2_rBoard;
 	}
-	public void setB_rBoard(int b_rBoard) {
-		this.b_rBoard = b_rBoard;
+	public void setB2_rBoard(int b2_rBoard) {
+		this.b2_rBoard = b2_rBoard;
 	}
 	@Override
 	public String toString() {
-		return "BoardTblDto [b_idx=" + b_idx + ", b_title=" + b_title + ", b_contents=" + b_contents + ", b_id=" + b_id
-				+ ", b_date=" + b_date + ", b_grpno=" + b_grpno + ", b_grpord=" + b_grpord + ", b_depth=" + b_depth
-				+ ", o_no=" + o_no + ", getB_idx()=" + getB_idx() + ", getB_title()=" + getB_title()
-				+ ", getB_contents()=" + getB_contents() + ", getB_id()=" + getB_id() + ", getB_date()=" + getB_date()
-				+ ", getB_grpno()=" + getB_grpno() + ", getB_grpord()=" + getB_grpord() + ", getB_depth()="
-				+ getB_depth() + ", getO_no()=" + getO_no() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
-	}
+		return "BoardTblDto [b2_idx=" + b2_idx + ", b2_title=" + b2_title + ", b2_contents=" + b2_contents + ", b2_id="
+				+ b2_id + ", b2_date=" + b2_date + ", b2_grpno=" + b2_grpno + ", b2_grpord=" + b2_grpord + ", b2_depth="
+				+ b2_depth + ", o_no=" + o_no + ", b2_pw=" + b2_pw + ", b2_commentCnt=" + b2_commentCnt + ", b2_rBoard="
+				+ b2_rBoard + "]";
+	} 
+	
 	
 	
 	
