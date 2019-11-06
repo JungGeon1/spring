@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.tb.dao.subjectScoreDao">
+
+	<!-- 점수입력 -->
+	<insert id="scoreInsert" parameterType="com.test.tb.domain.SubjectScoreTblDto">
+		 INSERT INTO 
+		 dbo.SUBJECTSCORETBL(
+		 SCORE_YEAR,
+		 SCORE_SEMESTER,
+		 SCORE_ID,
+		 SCORE_SUBJECT,
+		 SCORE_SCORE
+		 ) VALUES(		
+		#{score_year},#{score_semester},#{score_id},#{score_subject},#{score_score});
+	</insert>
+	<!-- 입력쪽리스트 -->
+	<select id="scoreList" resultType="com.test.tb.domain.SubjectScoreTblDto">
+		SELECT
+		ROW_NUMBER()OVER(
+				ORDER BY SCORE_YEAR DESC,
+						 SCORE_SEMESTER DESC, 
+						 SCORE_IDX DESc
+						 )AS SCORE_ROWNUM,
+		SCORE_IDX,
+		SCORE_YEAR,
+		SCORE_SEMESTER,
+		SCORE_ID,
+		SCORE_SUBJECT,
+		SCORE_SCORE
+		FROM dbo.SUBJECTSCORETBL
+		ORDER BY SCORE_YEAR DESC,
+				 SCORE_SEMESTER DESC, 
+				 SCORE_IDX DESC
+	</select>
+	<!-- 점수전체수정 -->
+	<update id="listEdit" parameterType="com.test.tb.domain.SubjectScoreTblDto">
+		
+		UPDATE DBO.SUBJECTSCORETBL 
+		SET SCORE_YEAR =#{score_year},
+			SCORE_SEMESTER=#{score_semester},
+			SCORE_ID=#{score_id},
+			SCORE_SUBJECT=#{score_subject},
+			SCORE_SCORE=#{score_score}
+		WHERE 0=0
+		AND SCORE_IDX=#{score_idx};
+	</update>
+	<!-- 조회쪽토탈정보 -->
+	<select id="totalInfo" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
+		SELECT 
+			COUNT(DISTINCT SCORE_ID)AS SCORE_TOTALCNT,
+			COUNT(DISTINCT SCORE_SUBJECT)AS SCORE_TOTALSUBJECT,
+			COALESCE(AVG(SCORE_SCORE),0)AS SCORE_TOTALAVG
+		FROM DBO.SUBJECTSCORETBL 
+		WHERE 0=0 
+		AND SCORE_YEAR=#{score_year}
+		AND SCORE_SEMESTER=#{score_semester}
+	</select>
+	
+	<!-- 조회쪽 리스트 -->
+	<select id="searchList" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
+		SELECT 
+			ROW_NUMBER()OVER(
+				ORDER BY COALESCE(AVG(SCORE_SCORE),0)DESC
+			)AS SCORE_ROWNUM,
+			SCORE_ID,
+			SUM(SCORE_SCORE)AS SCORE_TOTALSCORE,
+			COALESCE(AVG(SCORE_SCORE),0)AS SCORE_TOTALAVG,
+			COUNT(DISTINCT SCORE_SUBJECT)AS SCORE_SUBJECTCNT,
+			DENSE_RANK()OVER(
+				ORDER BY COALESCE(AVG(SCORE_SCORE),0)DESC
+			)AS SCORE_RANK,
+			
+			CONVERT (
+						VARCHAR(20),
+						CONVERT(FLOAT,COALESCE(AVG(SCORE_SCORE),0))/
+						(
+						SELECT SUM(SCORE_AVG)
+						FROM 
+							(
+								SELECT 
+								SCORE_ID,
+								AVG(SCORE_SCORE) AS SCORE_AVG
+								FROM DBO.SUBJECTSCORETBL 
+								WHERE 0=0 
+								AND SCORE_YEAR=#{score_year}
+								AND SCORE_SEMESTER=#{score_semester}
+								GROUP BY SCORE_ID
+							)GROUPAVG 
+						)*100 
+					)AS SCORE_SHARE
+			FROM DBO.SUBJECTSCORETBL 
+		WHERE 0=0 
+		AND SCORE_YEAR=#{score_year}
+		AND SCORE_SEMESTER=#{score_semester}
+		GROUP BY SCORE_ID
+		ORDER BY COALESCE(AVG(SCORE_SCORE),0)DESC;
+	</select>	
+	
+	
+	<select id="subjectInfo" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
+		SELECT
+			'2' AS SCORE_SORT,
+			'평균' AS SCORE_NAME,
+			AVG(CASE WHEN SCORE_SUBJECT='국어' THEN SCORE_SCORE END)AS SCORE_KOR,
+			AVG(CASE WHEN SCORE_SUBJECT='영어' THEN SCORE_SCORE END)AS SCORE_ENG,
+			AVG(CASE WHEN SCORE_SUBJECT='수학' THEN SCORE_SCORE END)AS SCORE_MAT,
+			AVG(CASE WHEN SCORE_SUBJECT='사회' THEN SCORE_SCORE END)AS SCORE_SOC,
+			AVG(CASE WHEN SCORE_SUBJECT='과학' THEN SCORE_SCORE END)AS SCORE_SIN
+			FROM DBO.SUBJECTSCORETBL
+			WHERE 0=0
+			AND SCORE_YEAR = #{score_year}
+			AND SCORE_SEMESTER = #{score_semester}
+			UNION 
+			SELECT
+			'1'AS SCORE_SORT,
+			'합계' AS SCORE_NAME, 
+			SUM(CASE WHEN SCORE_SUBJECT='국어' THEN SCORE_SCORE END)AS SCORE_KOR,
+			SUM(CASE WHEN SCORE_SUBJECT='영어' THEN SCORE_SCORE END)AS SCORE_ENG,
+			SUM(CASE WHEN SCORE_SUBJECT='수학' THEN SCORE_SCORE END)AS SCORE_MAT,
+			SUM(CASE WHEN SCORE_SUBJECT='사회' THEN SCORE_SCORE END)AS SCORE_SOC,
+			SUM(CASE WHEN SCORE_SUBJECT='과학' THEN SCORE_SCORE END)AS SCORE_SIN
+			FROM DBO.SUBJECTSCORETBL
+			WHERE 0=0
+			AND SCORE_YEAR = #{score_year}
+			AND SCORE_SEMESTER = #{score_semester}
+			
+		ORDER BY SCORE_SORT
+	
+	</select>
+
+</mapper>

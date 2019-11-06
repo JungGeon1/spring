@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.tb.dao.commentDao">
+
+	<insert id="commentInsert"
+		parameterType="com.test.tb.domain.CommentTblDto">
+		INSERT INTO db_owner.COMMENTTBL(C_BIDX,C_COMMENT,C_ID,C_GRPNO)VALUES(#{c_bIdx},#{c_comment},#{c_id},(
+		SELECT
+		COUNT(*)
+		FROM db_owner.COMMENTTBL
+		WHERE 
+		C_DEPTH=1)+1);
+	</insert>
+
+	<!-- 리스트 -->
+	<select id="selectList"
+		resultType="com.test.tb.domain.CommentTblDto">
+		SELECT 
+		C_IDX,
+		C_BIDX,
+		C_COMMENT,
+		C_ID,
+		CONVERT(CHAR(10),C_DATE,23)AS C_DATE,
+		C_GRPNO,
+		C_GRPORD,
+		C_DEPTH 
+		FROM db_owner.COMMENTTBL 
+		WHERE C_BIDX=#{PARAM}
+		ORDER BY C_GRPNO DESC, C_GRPORD ASC;
+		
+	</select>
+
+
+	<select id="commentInfo" resultType="com.test.tb.domain.CommentTblDto">
+		SELECT 
+		C_IDX,
+		C_BIDX,
+		C_COMMENT,
+		C_ID,
+		CONVERT(CHAR(10),C_DATE,23)AS C_DATE,
+		C_GRPNO,
+		C_GRPORD,
+		C_DEPTH 
+		FROM db_owner.COMMENTTBL 
+		WHERE
+		C_IDX=#{param};
+	</select>
+
+	<select id="selectGrpord" parameterType="com.test.tb.domain.CommentTblDto" resultType="int">
+		SELECT
+		COALESCE (MIN(C_GRPORD),0)
+		FROM db_owner.COMMENTTBL
+		WHERE
+		C_GRPNO=#{c_grpno} AND C_GRPORD> #{c_grpord} AND #{c_depth}>=C_DEPTH;
+	</select>
+
+	<select id="selectMaxOrd" resultType="int">
+		SELECT 
+		COALESCE(MAX(C_GRPORD),0)+1 
+		FROM db_owner.COMMENTTBL 
+		WHERE 
+		C_GRPNO =#{param};
+	</select>
+
+	<update id="upGrpOrd" parameterType="map">
+		UPDATE
+		FROM db_owner.COMMENTTBL
+		SET
+		C_GRPORD = C_GRPORD+1
+		WHERE 
+		C_GRPNO=#{c_grpno} AND C_GRPORD>=#{selectGrpOrd};
+	</update>
+	<insert id="reInsert"
+		parameterType="com.test.tb.domain.CommentTblDto">
+		INSERT INTO db_owner.COMMENTTBL
+		(C_COMMENT,C_ID,C_GRPNO,C_GRPORD,C_DEPTH,C_BIDX) 
+		VALUES
+		(#{c_comment},#{c_id},#{c_grpno},#{c_grpord},#{c_depth}+1,#{c_bIdx});
+	</insert>
+
+
+	<select id="allCommentdCnt" resultType="int">
+		SELECT 
+		COUNT(*) 
+		FROM db_owner.COMMENTTBL;
+	</select>
+
+
+	<update id="updateComment">
+		UPDATE 
+		db_owner.COMMENTTBL
+		SET 
+		C_COMMENT=#{c_comment}
+		WHERE C_IDX=#{c_idx};
+	</update>
+
+	<delete id="deleteComment">
+		DELETE 
+		FROM db_owner.COMMENTTBL
+		WHERE
+	    C_IDX=#{param};
+	</delete>
+
+</mapper>

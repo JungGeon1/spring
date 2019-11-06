@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.navBar{
+	width: 900px;
+	height: 50px;
+	margin: 0 auto;
+	border: 2px solid #ddd;
+	margin-top:50px;
+	
+}li{
+	list-style-type: none;
+	float: left;
+	padding-left: 80px;
+	line-height: 50px;
+	text-align: center;
+}
