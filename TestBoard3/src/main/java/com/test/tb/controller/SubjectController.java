@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.tb.domain.SubjectScoreTblDto;
+import com.test.tb.service.InsertScoreChkService;
 import com.test.tb.service.ScoreEditService;
 import com.test.tb.service.ScoreInsertService;
 import com.test.tb.service.ScoreListService;
@@ -21,6 +22,8 @@ public class SubjectController {
 	ScoreListService listService;
 	@Autowired
 	ScoreEditService editService;
+	@Autowired
+	InsertScoreChkService insertScoreChkService;
 	
 	@RequestMapping(value = "/subjectScore")
 	public String moveSubjcetScore() {
@@ -34,7 +37,7 @@ public class SubjectController {
 			) {
 		int rCnt = 0;
 		
-		System.out.println("score바인딩체크>>" + dto.toString());
+		//System.out.println("score바인딩체크>>" + dto.toString());
 		rCnt=insertService.insertScore(dto);
 		return rCnt > 0 ? "successs" : "fail";
 
@@ -43,17 +46,34 @@ public class SubjectController {
 	
 	
 	
-	@RequestMapping(value = "/editScore",method = RequestMethod.POST)
+	@RequestMapping(value = "/updateScore",method = RequestMethod.POST)
 	@ResponseBody
-	public int editScore(
+	public int updateScore(
 			SubjectScoreTblDto dto
 			) {
 		int rCnt = 0;
 		
 		//System.out.println("score바인딩체크>>" + dto.toString());
-		System.out.println(dto.getList().size());
+		/*
+		 * System.out.println(dto.getList().size()); for(SubjectScoreTblDto listDto :
+		 * dto.getList()) {
+		 * 
+		 * System.out.println(listDto.getEditChk()); }
+		 */
 		
-		rCnt=editService.scoreEdit(dto.getList());
+		rCnt=editService.updateScore(dto.getList());
+		return rCnt;
+
+	}
+	@RequestMapping(value = "/deleteScore",method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteScore(
+			SubjectScoreTblDto dto
+			) {
+		int rCnt = 0;
+		
+		rCnt=editService.deleteScore(dto.getList());
+
 		return rCnt;
 
 	}
@@ -105,4 +125,30 @@ public class SubjectController {
 		list=listService.subjectInfo(paramDto);
 		return list;
 	}
+	
+	
+	@ResponseBody			  	
+	@RequestMapping(value = "/insertScoreChk", method = RequestMethod.GET)
+	public int insertScoreChk(
+			SubjectScoreTblDto paramDto
+			) {
+		
+		int rCnt=0;
+		System.out.println(paramDto.getScore_subject());
+		rCnt=insertScoreChkService.insertScoreChk(paramDto);
+		
+		return rCnt;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/detailSbjInfo", method = RequestMethod.GET)
+	public List<SubjectScoreTblDto> detailSbjInfo(
+			SubjectScoreTblDto paramDto
+			){
+		List<SubjectScoreTblDto> list= null;
+		
+		list= listService.detailSbjInfo(paramDto);
+		
+		return list;
+	}
+	
 }

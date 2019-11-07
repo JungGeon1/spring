@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 SCORE_IDX DESC
 	</select>
 	<!-- 점수전체수정 -->
-	<update id="listEdit" parameterType="com.test.tb.domain.SubjectScoreTblDto">
+	<update id="updateScore" parameterType="com.test.tb.domain.SubjectScoreTblDto">
 		
 		UPDATE DBO.SUBJECTSCORETBL 
 		SET SCORE_YEAR =#{score_year},
@@ -47,6 +47,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE 0=0
 		AND SCORE_IDX=#{score_idx};
 	</update>
+	
+	
+	<delete id="deleteScore">
+		DELETE
+			FROM DBO.SUBJECTSCORETBL
+			WHERE 0=0
+			AND SCORE_IDX=#{param}
+	
+	</delete>
+
 	<!-- 조회쪽토탈정보 -->
 	<select id="totalInfo" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
 		SELECT 
@@ -103,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="subjectInfo" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
 		SELECT
 			'2' AS SCORE_SORT,
-			'평균' AS SCORE_NAME,
+			'평균' AS SCORE_TOTSORT,
 			AVG(CASE WHEN SCORE_SUBJECT='국어' THEN SCORE_SCORE END)AS SCORE_KOR,
 			AVG(CASE WHEN SCORE_SUBJECT='영어' THEN SCORE_SCORE END)AS SCORE_ENG,
 			AVG(CASE WHEN SCORE_SUBJECT='수학' THEN SCORE_SCORE END)AS SCORE_MAT,
@@ -116,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			UNION 
 			SELECT
 			'1'AS SCORE_SORT,
-			'합계' AS SCORE_NAME, 
+			'합계' AS SCORE_TOTSORT, 
 			SUM(CASE WHEN SCORE_SUBJECT='국어' THEN SCORE_SCORE END)AS SCORE_KOR,
 			SUM(CASE WHEN SCORE_SUBJECT='영어' THEN SCORE_SCORE END)AS SCORE_ENG,
 			SUM(CASE WHEN SCORE_SUBJECT='수학' THEN SCORE_SCORE END)AS SCORE_MAT,
@@ -130,5 +140,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY SCORE_SORT
 	
 	</select>
+	
+	
+	
+	
+	<select id="insertScoreChk" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="int">
+	SELECT COUNT(*)
+		FROM DBO.SUBJECTSCORETBL
+		WHERE 0=0
+		AND SCORE_YEAR = #{score_year}
+		AND SCORE_SEMESTER = #{score_semester}
+		AND SCORE_ID = #{score_id}
+		AND SCORE_SUBJECT = #{score_subject}
+	</select>
+	
+	
+	
+	
+	<select id="detailSbjInfo" parameterType="com.test.tb.domain.SubjectScoreTblDto" resultType="com.test.tb.domain.SubjectScoreTblDto">
+		SELECT
+		 SCORE_ID, 
+			SUM(CASE WHEN SCORE_SUBJECT = '국어' THEN SCORE_SCORE END)AS SCORE_KOR,
+			SUM(CASE WHEN SCORE_SUBJECT = '영어' THEN SCORE_SCORE END)AS SCORE_ENG,
+			SUM(CASE WHEN SCORE_SUBJECT = '수학' THEN SCORE_SCORE END)AS SCORE_MAT,
+			SUM(CASE WHEN SCORE_SUBJECT = '사회' THEN SCORE_SCORE END)AS SCORE_SOC,
+			SUM(CASE WHEN SCORE_SUBJECT = '과학' THEN SCORE_SCORE END)AS SCORE_SIN,
+			COALESCE(SUM(SCORE_SCORE),0)AS SCORE_TOTALSCORE,
+			COALESCE(AVG(SCORE_SCORE),0)AS SCORE_TOTALAVG
+		FROM DBO.SUBJECTSCORETBL
+		WHERE 0=0
+		AND SCORE_YEAR=#{score_year}
+		AND SCORE_SEMESTER=#{score_semester}
+		GROUP BY SCORE_ID	
+		ORDER BY COALESCE(AVG(SCORE_SCORE),0) DESC
+	</select>
+	
 
 </mapper>

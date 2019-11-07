@@ -41,11 +41,21 @@ public class ScoreListService {
 	
 		return list;
 	}
-	//평균 합계
+	//과목별평균 합계
 	public List<SubjectScoreTblDto> subjectInfo(SubjectScoreTblDto paramDto){
 		dao=template.getMapper(subjectScoreDao.class);
 		List<SubjectScoreTblDto> list= new ArrayList<SubjectScoreTblDto>();
 		list=dao.subjectInfo(paramDto);
 		return list;
 	} 
+	
+	//과목별 세부정보
+	
+	public List<SubjectScoreTblDto> detailSbjInfo(SubjectScoreTblDto paramDto){
+		dao=template.getMapper(subjectScoreDao.class);
+		List<SubjectScoreTblDto> list = new ArrayList<SubjectScoreTblDto>();
+		list=dao.detailSbjInfo(paramDto);
+		
+		return list;
+	}
 }

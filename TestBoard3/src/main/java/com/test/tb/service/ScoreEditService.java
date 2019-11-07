@@ -17,7 +17,7 @@ public class ScoreEditService {
 	SqlSessionTemplate template;
 	subjectScoreDao dao;
 	
-	public int scoreEdit(List<SubjectScoreTblDto> list) {
+	public int updateScore(List<SubjectScoreTblDto> list) {
 		
 		dao=template.getMapper(subjectScoreDao.class);
 		
@@ -27,18 +27,39 @@ public class ScoreEditService {
 			
 			for(int i=0;i<list.size();i++) {
 				
-				
-				dto.setScore_idx(list.get(i).getScore_idx());
-				dto.setScore_id(list.get(i).getScore_id());
-				dto.setScore_score(list.get(i).getScore_score());
-				dto.setScore_semester(list.get(i).getScore_semester());
-				dto.setScore_subject(list.get(i).getScore_subject());
-				dto.setScore_year(list.get(i).getScore_year());
-				rCnt+=dao.listEdit(dto);
-				
+				if(list.get(i).getEditChk()!=null) {
+					dto.setScore_idx(list.get(i).getScore_idx());
+					dto.setScore_id(list.get(i).getScore_id());
+					dto.setScore_score(list.get(i).getScore_score());
+					dto.setScore_semester(list.get(i).getScore_semester());
+					dto.setScore_subject(list.get(i).getScore_subject());
+					dto.setScore_year(list.get(i).getScore_year());
+					rCnt+=dao.updateScore(dto);
+				}
 			}
 			
 		
 		return rCnt;		
 	}
+	
+	 public int deleteScore(List<SubjectScoreTblDto> list) {
+	
+		dao=template.getMapper(subjectScoreDao.class);
+		
+		int rCnt=0;
+		for(int i=0;i<list.size();i++) {
+				
+				if(list.get(i).getEditChk()!=null) {
+					System.out.println(list.get(i).getEditChk());
+					System.out.println(list.get(i).getScore_idx());
+					rCnt += dao.deleteScore(list.get(i).getScore_idx());
+				}
+			}
+			
+		
+		return rCnt;
+		
+		
+	}
+	
 }

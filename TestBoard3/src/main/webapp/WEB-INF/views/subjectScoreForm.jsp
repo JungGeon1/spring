@@ -30,6 +30,11 @@
 	margin-top: 20px;
 }.tableMargin {
 	margin: 0 auto;
+}.insetChkBox{
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 50px;
+	text-align: center;
 }
 
 td {
@@ -69,12 +74,12 @@ th {
 				<tbody>
 					<tr>
 						<td><b>ID</b></td>
-						<td><input type="text" name="score_id"></td>
+						<td><input type="text" name="score_id" id="score_id"></td>
 						<td>
 							<select id="year" name="score_year"></select>
 						</td>
 						<td>
-							<select name="score_semester">
+							<select name="score_semester" id="score_semester">
 								<option selected value="1">1학기</option>
 								<option value="2">2학기</option>
 							</select>
@@ -86,12 +91,13 @@ th {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<select name="score_subject">
+							<select name="score_subject" id="score_subject">
 								<option selected value="국어">국어</option>
 								<option value="영어">영어</option>
 								<option value="수학">수학</option>
 								<option value="사회">사회</option>
 								<option value="과학">과학</option>
+								
 							</select>
 						</td>
 						<td colspan="2">
@@ -105,6 +111,10 @@ th {
 				<tfoot></tfoot>
 			</table>
 		</form>
+		<div class="insetChkBox">
+			<input type="checkbox" hidden="" id="insertScoreChk">
+			<span id="insertScoreCmt">점수 입력 확인</span>
+		</div>
 	</div>
 	<div class="editBtnBox">
 		<button id="editFromBtn" onclick="editForm()">수정하기</button>
@@ -150,58 +160,148 @@ th {
 			getScoreList();
 			//editForm();
 			//$('input[name=score_score]').css('background-color','black');	
-			
-		});
-
-		//년도 셀렉트창 값
-		function yearOption(thisYear) {
-
-			for (var i = 1990; i <= thisYear; i++) {
-				if (i == thisYear) {
-					$("#year").append("<option selected value='"+i+"'>" + i+ "</option>");
-				}
-				//년도가 올해면 default값으로 설정
-				else {
-					$("#year").append("<option value='"+i+"'>" + i + "</option>");
-				}
-			}
-
-		}
 		
-		$('#insertScore').submit(function() {
-			var regexp = /^[0-9]*$/
-			v = $('#score_score').val();
-			if( !regexp.test(v) ) {
-					alert("숫자만 입력하세요");
-					$('#score_score').val(v.replace(regexp,''));
-					return;
-
-			}else if($('#score_score').val()>100){
-				
-				
 			
-			}else{
-			
-			var param = $('#insertScore').serialize();
-			$.ajax({
 
-				url : '${pageContext.request.contextPath}/insertScore',
-				type : 'POST',
-				data : param,
-				error : function(error) {
-					alert(error);
-				},
-				success : function(data) {
-					alert(data);
-					getScoreList() ;
+			$('#score_id').focusout(function insertScorechk(){
 
-				}
+				var param = $('#insertScore').serialize();
+				 $.ajax({
+					 
+					 url   : '${pageContext.request.contextPath}/insertScoreChk',
+					 type  : 'get',
+					 data  :  param,
+					 error : function (error) {
+						alert(error);	
+					},
+					 success : function (data) {
+						//alert(data);
+						if(data<1){
+							$('#insertScoreChk').prop('checked',true);
+							$('#insertScoreCmt').html('지원 가능한 과목입니다');
+							$('#insertScoreCmt').css('color','green');
+							
+						}else{
+							$('#insertScoreChk').prop('checked',false);
+							$('#insertScoreCmt').html('이미 지원한 과목입니다.');
+							$('#insertScoreCmt').css('color','red');
+						}
+					}
+				 });
 			});
 			
-			}
-			return false;
+			$('#score_semester').on('change',function insertScorechk() {
+
+				var param = $('#insertScore').serialize();
+				 $.ajax({
+					 
+					 url   : '${pageContext.request.contextPath}/insertScoreChk',
+					 type  : 'get',
+					 data  :  param,
+					 error : function (error) {
+						alert(error);	
+					},
+					 success : function (data) {
+						//alert(data);
+						if(data<1){
+							$('#insertScoreChk').prop('checked',true);
+							$('#insertScoreCmt').html('지원 가능한 과목입니다');
+							$('#insertScoreCmt').css('color','green');
+							
+						}else{
+							$('#insertScoreChk').prop('checked',false);
+							$('#insertScoreCmt').html('이미 지원한 과목입니다.');
+							$('#insertScoreCmt').css('color','red');
+						}
+					}
+				 });
+				 return false;
+			});
 			
-		});
+			
+			$('#score_subject').on('change',function insertScorechk() {
+
+				var param = $('#insertScore').serialize();
+				 $.ajax({
+					 
+					 url   : '${pageContext.request.contextPath}/insertScoreChk',
+					 type  : 'get',
+					 data  :  param,
+					 error : function (error) {
+						alert(error);	
+					},
+					 success : function (data) {
+						//alert(data);
+						if(data<1){
+							$('#insertScoreChk').prop('checked',true);
+							$('#insertScoreCmt').html('지원 가능한 과목입니다');
+							$('#insertScoreCmt').css('color','green');
+							
+						}else{
+							$('#insertScoreChk').prop('checked',false);
+							$('#insertScoreCmt').html('이미 지원한 과목입니다.');
+							$('#insertScoreCmt').css('color','red');
+						}
+					}
+				 });
+				 return false;
+			});
+			
+			//년도 셀렉트창 값
+			function yearOption(thisYear) {
+
+				for (var i = 1990; i <= thisYear; i++) {
+					if (i == thisYear) {
+						$("#year").append("<option selected value='"+i+"'>" + i+ "</option>");
+					}
+					//년도가 올해면 default값으로 설정
+					else {
+						$("#year").append("<option value='"+i+"'>" + i + "</option>");
+					}
+				}
+
+			}
+			
+			
+		
+			
+
+
+});
+
+	
+		
+		
+		$('#insertScore').submit(function() {
+					
+					if($('#insertScoreChk').prop('checked')){
+							
+							//alert('asdf');						
+							var param = $('#insertScore').serialize();
+							$.ajax({
+				
+								url : '${pageContext.request.contextPath}/insertScore',
+								type : 'POST',
+								data : param,
+								error : function(error) {
+									alert(error);
+								},
+								success : function(data) {
+									//alert(data);
+									getScoreList() ;
+									$('#insertScoreCmt').html('점수가 입력되었습니다.');
+									$('#insertScoreCmt').css('color','green');
+				
+								}
+							});
+						
+						}else{
+							
+							alert('이미 지원한 과목입니다');
+						}	
+			return false;
+		}); 
+		
 		
 		
 		
@@ -248,21 +348,42 @@ th {
 				for (var i=0; i<data.length;i++){
 					
 					html += '<tr>';
-					html += '<td><input name="list['+i+'].score_idx" type="text" hidden value="'+data[i].score_idx+'">'+data[i].score_rownum+'</td>';
+					html += '<td><input name="list['+i+'].score_idx" type="text" hidden value="'+data[i].score_idx+'">'+data[i].score_rownum+'';
+					html += '<input id="list['+i+'].editChk" name="list['+i+'].editChk" type="checkbox" value="chk"></td>';
 					html += '<td><input name="list['+i+'].score_id" style="width : 150px" type="text" value="'+data[i].score_id+'"></td>';
 					html += '<td><input name="list['+i+'].score_year" style="width : 150px" type="text" value="'+data[i].score_year+'"></td>';
 					html += '<td><input name="list['+i+'].score_semester" style="width : 50px" type="text" value="'+data[i].score_semester+'"></td>';
+				/* 		html+=	'<td>';
+						html+=	'<select name="list['+i+']score_semester" id="score_semester'+i+'">';
+						html+=	'<option value="1">1학기</option>';
+						html+=	'<option value="2">2학기</option>';
+						if(data[i].score_semester){
+							
+							
+						} */
+						html+=	'</select>';
+						html+=	'</td>';
 					html += '<td><input name="list['+i+'].score_subject" style="width : 150px" type="text" value="'+data[i].score_subject+'"></td>';
 					html += '<td><input name="list['+i+'].score_score" style="width : 50px" type="text" value="'+data[i].score_score+'"></td>';
 					html += '</tr>';
 					
 				}
 					html += '<tr>';
+					html += '<td>';						
+					html += '<input type="checkbox" id="allChk" onchange="allCheck()">';
+					html += '</td>';
+					html += '<td colspan="5">';
+					html += '</td>';
+					html += '</tr>';
+					html += '<tr>';
 					html += '<td colspan="6">';
-					html += '<button>수정</button>';
+					html += '<button onclick="updateScore()">수정</button>';
+					html += '<button onclick="deleteScore()">삭제</button>';
 					html += '</td>';
 					html += '</tr>';
 				$('#scoreList').html(html);
+			
+
 			}
 			
 			
@@ -270,39 +391,64 @@ th {
 		
 		return false;
 	}
+ 
+	 
 	
-/* 	html+='<select name="list['+i+'].score_semester">';
-	html+='<option selected value="1">1학기</option>';
-	html+='<option value="2">2학기</option>';
-	html+='</select>';
-	 */
+	function allCheck(){
+		
+		if($('#allChk').prop("checked")) { 
+			 $("#scoreList input[type=checkbox]").prop("checked",true); 
+		} else { 
+			 $("#scoreList input[type=checkbox]").prop("checked",false); 
+		}  
+	};
 	
 	
-	
-	$('#editScore').submit(function() {
+	function updateScore() {
 	
 		var param = $('#editScore').serialize();
 		$.ajax({
 
-			url : '${pageContext.request.contextPath}/editScore',
+			url : '${pageContext.request.contextPath}/updateScore',
 			type : 'POST',
 			data : param,
 			error : function(error) {
 				alert(error);
 			},
 			success : function(data) {
-				alert(data+'개수정');
+				alert(data+'개 수정');
+				getScoreList();
+
+			} 
+		});
+		return false;
+	};
+	
+	
+	function deleteScore() {
+		
+		var param = $('#editScore').serialize();
+		$.ajax({
+
+			url : '${pageContext.request.contextPath}/deleteScore',
+			type : 'POST',
+			data : param,
+			error : function(error) {
+				alert(error);
+			},
+			success : function(data) {
+				alert(data+'개 삭제');
 				getScoreList();
 
 			}
 		});
-		
-	
 		return false;
-		
-	});
+	};
+	 
 	
-		function find() {
+	
+		
+/* 		function find() {
 
 		//alert($("input[name=s_score]").length);
 		 
@@ -322,7 +468,7 @@ th {
 			}
 		});
 		
-	}
+	} */
 	
 	</script>
 </body>

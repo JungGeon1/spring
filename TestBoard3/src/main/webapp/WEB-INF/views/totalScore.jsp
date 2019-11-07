@@ -24,10 +24,19 @@
 	margin: 0 auto;
 	border: 2px solid #ddd;
 	margin-top: 30px;
-}.listContents{
+}.subjectInfoContents{
 	width: 900px;
-	margin: 50px auto;
-	
+	border: 2px solid #ddd;
+	margin: 30px auto;
+}.detailsbjInfoContents{
+	width: 900px;
+	border: 2px solid #ddd;
+	margin: 30px auto;
+}
+
+.listContents{
+	width: 900px;
+	margin: 30px auto;
 }.editBtnBox{
 	width: 900px;
 	margin: 0 auto;
@@ -112,6 +121,73 @@ th {
 				<tfoot></tfoot>
 			</table>		
 	</div>
+	<!-- 과목별 정보 -->
+	<div class="subjectInfoContents">
+		
+			<table>
+				<caption></caption>
+				<colgroup>
+				
+					<col style="width : 150px">
+					<col style="width : 150px">
+					<col style="width : 150px">
+					<col style="width : 150px">
+					<col style="width : 150px">
+					<col style="width : 150px">
+			
+				</colgroup>
+				<thead>
+					<tr>
+						<th>구분</th>
+						<th>국어</th>
+						<th>영어</th>
+						<th>수학</th>
+						<th>사회</th>
+						<th>과학</th>
+					
+					</tr>
+				</thead>
+				<tbody id="subjectInfoList">
+				</tbody>
+			</table>
+	
+	</div>
+	
+	<!-- 과목별 세부정보 -->
+	<div class="detailsbjInfoContents">
+		
+			<table>
+				<caption></caption>
+				<colgroup>
+				
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+					<col style="width : 112px">
+			
+				</colgroup>
+				<thead>
+					<tr>
+						<th>응시자</th>
+						<th>국어</th>
+						<th>영어</th>
+						<th>수학</th>
+						<th>사회</th>
+						<th>과학</th>
+						<th>총점</th>
+						<th>평균</th>
+					
+					</tr>
+				</thead>
+				<tbody id="detailSbjInfoList">
+				</tbody>
+			</table>
+	
+	</div>
 	
 	<!-- 리스트 -->
 	<div class="listContents">
@@ -152,6 +228,8 @@ th {
 			yearOption(thisYear);
 			totalInfo();
 			searchList();
+			subjectInfo();
+			detailSbjInfoList();
 			
 		});
 
@@ -170,6 +248,9 @@ th {
 
 		}
 		
+		
+		
+		//조회리스트
 		function getScoreList() {
 			
 			$.ajax({
@@ -205,7 +286,8 @@ th {
 	$('#search').submit(function () {
 			totalInfo();
 			searchList();
-			totalInfo();
+			subjectInfo();
+			detailSbjInfoList();
 			return false;
 	});	
 	//토탈정보	
@@ -237,8 +319,8 @@ th {
 		});
 	}
 	
-function totalInfo() {
-		
+function subjectInfo() {
+
 		var param=$('#search').serialize();
 		
 		$.ajax({
@@ -249,8 +331,20 @@ function totalInfo() {
 				alert(error);
 			},success : function (data) {
 				var html=  '';
+				for(var i=0;i<data.length;i++){
+					
+					html += '<tr>';
+					html += '<td>'+data[i].score_totsort+'</td>';
+					html += '<td>'+data[i].score_kor+'</td>';
+					html += '<td>'+data[i].score_eng+'</td>';
+					html += '<td>'+data[i].score_mat+'</td>';
+					html += '<td>'+data[i].score_soc+'</td>';
+					html += '<td>'+data[i].score_sin+'</td>';
+					html += '</tr>';
+					
+				}
+				$('#subjectInfoList').html(html);
 			
-				alert(data[0].score_kor);
 			}
 			
 			
@@ -258,7 +352,46 @@ function totalInfo() {
 			
 		});
 	}
+
+
+
+
+	function detailSbjInfoList() {
 	
+		var param=$('#search').serialize();
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/detailSbjInfo',
+			type : 'GET',
+			data : param,
+			error : function (error) {
+				alert(error);
+			},success : function (data) {
+				var html=  '';
+				for(var i=0;i<data.length;i++){
+					
+					html += '<tr>';
+					html += '<td>'+data[i].score_id+'</td>';
+					html += '<td>'+data[i].score_kor+'</td>';
+					html += '<td>'+data[i].score_eng+'</td>';
+					html += '<td>'+data[i].score_mat+'</td>';
+					html += '<td>'+data[i].score_soc+'</td>';
+					html += '<td>'+data[i].score_sin+'</td>';
+					html += '<td>'+data[i].score_totalscore+'</td>';
+					html += '<td>'+data[i].score_totalavg+'</td>';
+					html += '</tr>';
+					
+				}
+				$('#detailSbjInfoList').html(html);
+			
+			}
+			
+			
+			
+			
+		});
+	}
+
 	//리스트
 	function searchList() {
 		
